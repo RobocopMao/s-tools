@@ -1,2 +1,2 @@
 # s-tools
-a miniprogram for Taro (use react hook)
+a miniprogram for Taro (use react hooks)
