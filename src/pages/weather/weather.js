@@ -1,4 +1,4 @@
-import Taro, { useState, useEffect } from '@tarojs/taro'
+import Taro, { useState } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { getWeatherForecast, getWeatherCurrent } from '../../apis/weather'
 import './weather.scss'
@@ -6,7 +6,7 @@ import { useAsyncEffect } from '../../utils'
 const QQMapWX = require('../../utils/qqmap-wx-jssdk');
 
 function Weather() {
-  const qqmapsdk = new QQMapWX({key: 'WATBZ-IBNR4-4VHU2-D2LSO-PBQBQ-G3BKJ'});
+  const qqmapsdk = new QQMapWX({key: 'WATBZ-IBNR4-4VHU2-D2LSO-PBQBQ-*****'});
   const [city, setCity] = useState('');
   const [province, setProvince] = useState('');
   const [forecasts, setForecasts] = useState([]);
