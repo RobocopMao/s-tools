@@ -3,6 +3,7 @@ import { View, Text, Image, Navigator } from '@tarojs/components'
 import jokeImg from '../../assets/images/joke.png'
 import phoneCodeImg from '../../assets/images/phone_code.png'
 import phoneLocationImg from '../../assets/images/phone_location.png'
+import weatherImg from '../../assets/images/weather.png'
 import aboutImg from '../../assets/images/about.png'
 import './index.scss'
 
@@ -20,6 +21,10 @@ function Index() {
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/phone_code/phone_code'>
         <Image src={phoneCodeImg} className='w140 h140 mg-b-20' />
         <Text>世界电话区号</Text>
+      </Navigator>
+      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/weather/weather'>
+        <Image src={weatherImg} className='w140 h140 mg-b-20' />
+        <Text>天气预报</Text>
       </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/about/about'>
         <Image src={aboutImg} className='w140 h140 mg-b-20' />

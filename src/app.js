@@ -17,13 +17,19 @@ class App extends Component {
       'pages/jokes/jokes',
       'pages/phone_location/phone_location',
       'pages/phone_code/phone_code',
+      'pages/weather/weather',
       'pages/about/about'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#72A3F5',
+      navigationBarBackgroundColor: '#4481EB',
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
+    },
+    permission: {
+      'scope.userLocation': {
+        'desc': "你的位置信息将用于小程序查询天气"
+      }
     }
   }
 
