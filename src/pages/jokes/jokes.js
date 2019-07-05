@@ -48,7 +48,7 @@ function Jokes() {
       <View className='mg-l-20 mg-r-20'>
         {jokes.map((joke, index) => {
           return (
-            <View key={joke.updateTime} className='pd-t-20 pd-b-20 bd-b-1'>
+            <View key={joke.updateTime} className='pd-t-20 pd-b-20 bd-b-1 last-no-bd'>
               <View className='mg-b-20 font24'>
                 <Text className='mg-r-20 blue'>{index + 1}</Text>
                 <Text>更新于 {joke.updateTime}</Text>
