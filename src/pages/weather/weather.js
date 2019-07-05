@@ -1,4 +1,4 @@
-import Taro, { useState, useEffect } from '@tarojs/taro'
+import Taro, { useState } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { getWeatherForecast, getWeatherCurrent } from '../../apis/weather'
 import './weather.scss'
