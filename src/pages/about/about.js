@@ -5,8 +5,9 @@ import './about.scss'
 function About() {
   return (
     <View className='about flex-column'>
-      <View className='pd-20'>郑重申明：</View>
+      <Text className='pd-20'>郑重申明：</Text>
       <Text className='pd-20'>本小程序使用开放api（来源于github：RollToolsApi），不做任何商业用途，仅供交流学习，如有恶意使用者，承担一切后果。</Text>
+      <Text className='pd-20'>本小程序使用Taro编写（主要使用react hooks）， 源码已经上传github：https://github.com/RobocopMao/s-tools.git。再次郑重申明，请勿非法使用。</Text>
     </View>
   )
 }
