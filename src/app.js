@@ -18,6 +18,7 @@ class App extends Component {
       'pages/phone_location/phone_location',
       'pages/phone_code/phone_code',
       'pages/weather/weather',
+      'pages/calculator/calculator',
       'pages/about/about'
     ],
     window: {

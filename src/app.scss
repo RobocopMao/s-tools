@@ -87,6 +87,7 @@ button::after {
 .lh-100 {line-height: $px100;}
 
 //width
+.w100-per {width: 100%;}
 .w0 {width: $px0;}
 .w1 {width: $px1;}
 .w2 {width: $px2;}
@@ -151,6 +152,7 @@ button::after {
 .w200 {width: $px200;}
 
 //height
+.h100-per {height: 100%;}
 .h0 {height: $px0;}
 .h1 {height: $px1;}
 .h2 {height: $px2;}
@@ -341,6 +343,7 @@ button::after {
 //border-radius
 .bd-radius {border-radius: 10px;}
 .circle {border-radius: 50%;}
+.bd-radius-no {border-radius: 0;}
 
 // overflow:hidden
 .vl-hidden {overflow: hidden;}
@@ -349,7 +352,10 @@ button::after {
 .bd-1 {border: 1Px solid lighten($color-80, 30);}
 .bd-b-1 {border-bottom: 1Px solid lighten($color-80, 30);}
 .bd-t-1 {border-top: 1Px solid lighten($color-80, 30);}
-.last-no-bd:last-child {border-bottom: none}
+.bd-r-1 {border-right: 1Px solid lighten($color-80, 30);}
+.bd-l-1 {border-left: 1Px solid lighten($color-80, 30);}
+.bd-no {border: none;}
+.last-no-bd:last-child {border-bottom: none;}
 
 .relative {
   position: relative;
