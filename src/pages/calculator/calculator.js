@@ -66,10 +66,8 @@ function Calculator() {
     setFormula(_formula);
   };
 
-  const style = {height: '100%'};
-
   return (
-    <View className='calculator flex-column'>
+    <View className='calculator flex-column h100-per'>
       <View className='flex-column flex-grow-5'>
         <View className='flex-column pd-20 bd-box'>
           <Textarea className='h140 text-right font36 black' style={{width: '100%'}} value={result} disabled />
