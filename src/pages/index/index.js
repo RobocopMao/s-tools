@@ -7,6 +7,7 @@ import weatherImg from '../../assets/images/weather.png'
 import aboutImg from '../../assets/images/about.png'
 import calculatorImg from '../../assets/images/calculator.png'
 import ipImg from '../../assets/images/ip.png'
+import calendarImg from '../../assets/images/calendar.png'
 import './index.scss'
 
 function Index() {
@@ -35,6 +36,10 @@ function Index() {
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/ip_search/ip_search'>
         <Image src={ipImg} className='w140 h140 mg-b-20' />
         <Text>IP查询</Text>
+      </Navigator>
+      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/calendar/calendar'>
+        <Image src={calendarImg} className='w140 h140 mg-b-20' />
+        <Text>今日万年历</Text>
       </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/about/about'>
         <Image src={aboutImg} className='w140 h140 mg-b-20' />
