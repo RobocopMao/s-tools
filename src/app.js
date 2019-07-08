@@ -19,7 +19,8 @@ class App extends Component {
       'pages/phone_code/phone_code',
       'pages/weather/weather',
       'pages/calculator/calculator',
-      'pages/about/about'
+      'pages/about/about',
+      'pages/ip_search/ip_search',
     ],
     window: {
       backgroundTextStyle: 'light',
