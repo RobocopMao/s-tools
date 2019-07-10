@@ -5,7 +5,8 @@ import { useAsyncEffect } from '../../utils'
 import { getHolidaySingle } from '../../apis/calendar';
 import './calendar.scss'
 
-moment.locale('en', {
+// 自定义星期
+moment.updateLocale('en', {
   weekdays : [
     '周日', '周一', '周二', '周三', '周四', '周五', '周六'
   ]
