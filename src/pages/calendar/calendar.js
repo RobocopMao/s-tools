@@ -32,7 +32,8 @@ function Calendar() {
           </View>
         </View>
         <View className='mg-b-20'>这是今年第 <Text className='black'>{dateInfo.dayOfYear}</Text> 天，第 <Text className='black'>{dateInfo.weekOfYear}</Text> 周</View>
-        <View className='pd-t-20 bd-t-1 black font32'>农历{dateInfo.yearTips}{dateInfo.chineseZodiac}年 {dateInfo.lunarCalendar} {dateInfo.solarTerms}</View>
+        <View className='line' />
+        <View className='pd-t-20 black font32'>农历{dateInfo.yearTips}{dateInfo.chineseZodiac}年 {dateInfo.lunarCalendar} {dateInfo.solarTerms}</View>
         <View className='mg-t-10 mg-b-10'>
           <Text className='green'>宜：</Text>
           <Text>{dateInfo.suit}</Text>
@@ -41,7 +42,8 @@ function Calendar() {
           <Text className='orange'>忌：</Text>
           <Text>{dateInfo.avoid}</Text>
         </View>
-        <View className='pd-t-20 bd-t-1'>星座：{dateInfo.constellation}</View>
+        <View className='line' />
+        <View className='pd-t-20'>星座：{dateInfo.constellation}</View>
       </View>
     </View>
   )

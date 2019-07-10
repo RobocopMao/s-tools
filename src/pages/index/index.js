@@ -1,5 +1,6 @@
-import Taro, { useState } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
+import newsImg from '../../assets/images/news.png'
 import jokeImg from '../../assets/images/joke.png'
 import phoneCodeImg from '../../assets/images/phone_code.png'
 import phoneLocationImg from '../../assets/images/phone_location.png'
@@ -13,6 +14,10 @@ import './index.scss'
 function Index() {
   return (
     <View className='index flex-row flex-wrap font26'>
+      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/news/news'>
+        <Image src={newsImg} className='w140 h140 mg-b-20' />
+        <Text>新闻Lite</Text>
+      </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/jokes/jokes'>
         <Image src={jokeImg} className='w140 h140 mg-b-20' />
         <Text>笑话段子</Text>

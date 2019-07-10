@@ -62,13 +62,16 @@ function Weather() {
       <View className='bd-radius bg-blue white pd-l-30 pd-r-30 mg-20 bd-box'>
         {forecasts.map((forecast, index) => {
           return (
-              <View className='flex-row space-between bd-b-1 pd-t-24 pd-b-24 last-no-bd' key={forecast.date}>
+            <View>
+              <View className='flex-row space-between pd-t-24 pd-b-24' key={forecast.date}>
                 {index === 0 && <Text>今天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 {index === 1 && <Text>明天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 {index === 2 && <Text>后天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 {index > 2 && <Text>{forecast.date.slice(5)} · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 <Text>{forecast.dayTemp.replace(/℃/, '')}/{forecast.nightTemp}</Text>
               </View>
+              {forecasts.length - 1 !== index && <View className='line' />}
+            </View>
             )
         })}
       </View>

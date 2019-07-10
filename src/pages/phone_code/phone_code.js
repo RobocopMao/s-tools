@@ -83,11 +83,12 @@ function PhoneCode() {
         scrollTop={scrollTop}
       >
         <View className='pd-20 pd-t-0'>
-          {phoneCodeFilterList.map((code) => {
+          {phoneCodeFilterList.map((code, index) => {
             return (
-              <View className='flex-column pd-t-20 pd-b-20 bd-b-1' key={String(code.zhCn)}>
+              <View className='flex-column pd-t-20' key={String(code.zhCn)}>
                 <Text className='mg-b-10'>地区名称：<Text className='blue'>{code.zhCn}</Text> - {code.enUs}</Text>
                 <Text>区号：<Text className='yellow'>{code.phoneCode}</Text></Text>
+                {index !== phoneCodeFilterList.length - 1 && <View className='line mg-t-20' />}
               </View>
             )
           })}

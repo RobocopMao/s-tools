@@ -22,6 +22,8 @@ class App extends Component {
       'pages/about/about',
       'pages/ip_search/ip_search',
       'pages/calendar/calendar',
+      'pages/news/news',
+      'pages/news_details/news_details',
     ],
     window: {
       backgroundTextStyle: 'light',

@@ -45,7 +45,8 @@ function IpSearch() {
           <Text className='mg-b-10'>城市：{selfIpInfo.city}</Text>
           <Text>网络服务商：{selfIpInfo.isp}</Text>
         </View>
-        <View className='flex-row pd-t-20 pd-b-20 mg-t-20 bd-t-1'>
+        <View className='line mg-t-20' />
+        <View className='flex-row pd-t-20 pd-b-20'>
           <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
                  placeholder='请输入ip地址' value={aimIp}
                  onInput={(e) => onInput(e)} />
