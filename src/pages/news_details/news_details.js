@@ -1,4 +1,4 @@
-import Taro, {useState} from '@tarojs/taro'
+import Taro, {useState, useEffect} from '@tarojs/taro'
 import { View, RichText, Button, Image } from '@tarojs/components'
 import { useAsyncEffect } from '../../utils'
 import { getNewsDetails } from '../../apis/news'
@@ -21,12 +21,17 @@ function NewsDetails() {
       content = content.replace(reg, '<p><img src="' + v.imgSrc + '" style="width: 100%;margin-top: 10px;margin-bottom: 10px;"></p>');
     }
     setNewsContent(content);
-
   }, []);
+
+  useEffect(() => {
+    if (newsDetails.title) {
+      Taro.setNavigationBarTitle({title: newsDetails.title});
+    }
+  }, [newsDetails]);
 
   const onShareAppMessage = () => {
     return {
-      title: newsDetails.title,  // 不生效
+      title: newsDetails.title,  // 不生效,title还是undefined
       path: `pages/news_details/news_details?newsId=${newsId}`,
     }
   };
