@@ -1,16 +1,18 @@
 import Taro, {useState} from '@tarojs/taro'
-import { View, Text, RichText } from '@tarojs/components'
+import { View, RichText, Button, Image } from '@tarojs/components'
 import { useAsyncEffect } from '../../utils'
 import { getNewsDetails } from '../../apis/news'
+import shareImg from '../../assets/images/share.png'
 import './news_details.scss'
 
 function NewsDetails() {
-  // const [newsId, setNewsId] = useState('');
+  const [newsId, setNewsId] = useState('');
   const [newsDetails, setNewsDetails] = useState({});
   const [newsContent, setNewsContent] = useState('');
 
   useAsyncEffect(async () => {
     const {newsId} = this.$router.params;
+    setNewsId(newsId);
     const res = await getNewsDetails({newsId});
     setNewsDetails(res);
     let content = res.content;
@@ -18,10 +20,16 @@ function NewsDetails() {
       let reg = new RegExp(v.position);
       content = content.replace(reg, '<p><img src="' + v.imgSrc + '" style="width: 100%;margin-top: 10px;margin-bottom: 10px;"></p>');
     }
-    console.log(content);
     setNewsContent(content);
 
   }, []);
+
+  const onShareAppMessage = () => {
+    return {
+      title: newsDetails.title,  // 不生效
+      path: `pages/news_details/news_details?newsId=${newsId}`,
+    }
+  };
 
   return (
     <View className='news-details flex-column bg-white h100-per'>
@@ -30,6 +38,9 @@ function NewsDetails() {
       <View className='pd-l-20 pd-r-20 pd-b-20 bg-white'>
         <RichText nodes={newsContent} />
       </View>
+      <Button className='w68 h68 circle bd-no pd-0 flex-row flex-col-center flex-row-center share-btn' openType='share'>
+        <Image className='w60 h60' src={shareImg} />
+      </Button>
     </View>
   )
 }

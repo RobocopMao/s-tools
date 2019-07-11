@@ -1,3 +1,9 @@
 .news-details {
-
+  .share-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+    background-color: transparent;
+  }
 }

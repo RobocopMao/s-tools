@@ -65,7 +65,12 @@ class App extends Component {
     });
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    // 显示转发按钮
+    Taro.showShareMenu({
+      withShareTicket: true
+    });
+  }
 
   componentDidShow () {}
 
