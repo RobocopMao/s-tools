@@ -1,0 +1,44 @@
+@import "../../assets/styles/variable";
+.trash-sort {
+  .table {
+    view.th, view.tr {
+      position: relative;
+      &:before {
+        content: '';
+        width: 100%;
+        height: 1Px;
+        transform: scaleY(0.3);
+        background-color: lighten($color-80, 30);
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+      }
+      &>view {
+        position: relative;
+        &:not(:last-child):after {
+          content: '';
+          width: 1Px;
+          height: 100%;
+          transform: scaleX(0.3);
+          background-color: lighten($color-80, 30);
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 1;
+        }
+      }
+    }
+    view.th {
+      &:after {
+        content: '';
+        width: 100%;
+        height: 1Px;
+        transform: scaleY(0.3);
+        background-color: lighten($color-80, 30);
+        position: absolute;
+        top: 0;
+        z-index: 1;
+      }
+    }
+  }
+}
