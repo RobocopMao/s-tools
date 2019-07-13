@@ -51,7 +51,6 @@ function News() {
 
   const _getNewsList = async (typeId, page) => {
     const res = await getNewsList({typeId, page});
-    console.log(res);
     setNewsList([...newsList, ...res]);
     setPage(prevPage => prevPage + 1);
   };
@@ -75,10 +74,14 @@ function News() {
     _getNewsList(typeId, page);
   };
 
-  const goNewsDetails = (newsId) => {
+  const goNewsDetails = (newsId, videoList) => {
     if (newsId !== '此类型无详情id') {
-      Taro.navigateTo({url: `../../pages/news_details/news_details?newsId=${newsId}`});
-    }
+      const _newsId = newsId.split('_')[0];
+      Taro.navigateTo({url: `../../pages/news_details/news_details?newsId=${_newsId}`});
+    } else {
+      if (typeId === 522 && !videoList) {
+        Taro.showToast({title: '视频资源未找到', icon: 'none'});
+      }}
   };
 
   return (
@@ -110,7 +113,7 @@ function News() {
         {newsList.map((list, index) => {
           const {title, newsId, imgList, source, digest, postTime, videoList} = list;
           return (
-            <View className='flex-column mg-l-20 mg-r-20 pd-t-20' key={newsId + index} onClick={() => goNewsDetails(newsId)}>
+            <View className='flex-column mg-l-20 mg-r-20 pd-t-20' key={newsId + index} onClick={() => goNewsDetails(newsId, videoList)}>
               <View className={`${videoList ? 'flex-column' : 'flex-row'} space-between mg-b-10`}>
                 <View className={`black font36 lh-42 ${videoList ? '' : 'mg-r-20'}`}>{title}</View>
                 {imgList && !videoList && <View>

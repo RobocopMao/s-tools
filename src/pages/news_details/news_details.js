@@ -3,6 +3,7 @@ import { View, RichText, Button, Image } from '@tarojs/components'
 import { useAsyncEffect } from '../../utils'
 import { getNewsDetails } from '../../apis/news'
 import shareImg from '../../assets/images/share.png'
+import homeImg from '../../assets/images/home.png'
 import './news_details.scss'
 
 function NewsDetails() {
@@ -23,17 +24,29 @@ function NewsDetails() {
     setNewsContent(content);
   }, []);
 
+  // 设置导航栏title
   useEffect(() => {
     if (newsDetails.title) {
       Taro.setNavigationBarTitle({title: newsDetails.title});
     }
   }, [newsDetails]);
 
-  const onShareAppMessage = () => {
+  // 显示转发按钮
+  useEffect(() => {
+    Taro.showShareMenu({
+      withShareTicket: true
+    });
+  }, []);
+
+  const onShareAppMessage = (res) => {
     return {
       title: newsDetails.title,  // 不生效,title还是undefined
       path: `pages/news_details/news_details?newsId=${newsId}`,
     }
+  }
+
+  const goHome = () => {
+    Taro.reLaunch({url: '../../pages/index/index'});
   };
 
   return (
@@ -43,9 +56,14 @@ function NewsDetails() {
       <View className='pd-l-20 pd-r-20 pd-b-20 bg-white'>
         <RichText nodes={newsContent} />
       </View>
-      <Button className='w68 h68 circle bd-no pd-0 flex-row flex-col-center flex-row-center share-btn' openType='share'>
-        <Image className='w60 h60' src={shareImg} />
-      </Button>
+      <View className='flex-column bg-no fixed-btn'>
+        <Button className='w68 h68 circle bd-no pd-0 flex-row flex-col-center flex-row-center bg-no' openType='share'>
+          <Image className='w60 h60' src={shareImg} />
+        </Button>
+        <Button className='w68 h68 circle bd-no pd-0 mg-t-10 flex-row flex-col-center flex-row-center bg-no' onClick={() => goHome()}>
+          <Image className='w60 h60' src={homeImg} />
+        </Button>
+      </View>
     </View>
   )
 }
