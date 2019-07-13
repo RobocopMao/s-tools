@@ -10,6 +10,7 @@ import calculatorImg from '../../assets/images/calculator.png'
 import ipImg from '../../assets/images/ip.png'
 import calendarImg from '../../assets/images/calendar.png'
 import garbageImg from '../../assets/images/garbage.png'
+import girlsImg from '../../assets/images/girl.png'
 import './index.scss'
 
 function Index() {
@@ -50,6 +51,10 @@ function Index() {
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/trash_sort/trash_sort'>
         <Image src={garbageImg} className='w140 h140 mg-b-20' />
         <Text>垃圾分类</Text>
+      </Navigator>
+      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/girls/girls'>
+        <Image src={girlsImg} className='w140 h140 mg-b-20' />
+        <Text>养眼福利图</Text>
       </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/about/about'>
         <Image src={aboutImg} className='w140 h140 mg-b-20' />

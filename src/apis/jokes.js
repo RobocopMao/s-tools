@@ -6,5 +6,6 @@ export const getJokes = async (data) => {
   return await request.get({
     url: '/jokes/list',
     data,
+    loading: false
   });
 };

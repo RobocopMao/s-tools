@@ -15,6 +15,7 @@ export const getNewsList = async (data) => {
   return await request.get({
     url: '/news/list',
     data,
+    loading: false
   });
 };
 

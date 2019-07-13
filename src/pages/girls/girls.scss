@@ -1,0 +1,16 @@
+.girls {
+  .col1 {
+    & > view:first-child {
+      height: 250px;
+    }
+  }
+  .col1, .col2 {
+    width: 50%;
+  }
+  .dl-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 2;
+  }
+}

@@ -30,6 +30,7 @@ class Request {
     let method = options.method || 'GET';
     let dataType = 'json';
     let header = {};
+    let loading = typeof options.loading !== 'undefined' ? options.loading : true;
     // let header = {'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'};
     if (method === 'GET') {
       header = {
@@ -48,7 +49,10 @@ class Request {
       dataType,
     };
     // console.log(params)
-    Taro.showLoading({title: '加载中...', mask: true});
+    if (loading) {
+      Taro.showLoading({title: '加载中...', mask: true});
+    }
+
     return new Promise((resolve, reject) => {
       Taro.request(params)
         .then(res => {

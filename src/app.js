@@ -24,7 +24,8 @@ class App extends Component {
       'pages/calendar/calendar',
       'pages/news/news',
       'pages/news_details/news_details',
-      'pages/trash_sort/trash_sort'
+      'pages/trash_sort/trash_sort',
+      'pages/girls/girls'
     ],
     window: {
       backgroundTextStyle: 'light',
