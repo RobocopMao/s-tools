@@ -18,6 +18,8 @@ function PhoneLocation() {
     if (!/^1[3456789]\d{9}$/.test(mobile)) {
       Taro.showToast({title: '请输入正确的手机号', icon: 'none'});
       setMobile('');
+      setProvince('');
+      setCarrier('');
       return;
     }
     const res = await getPhoneLocation({mobile});
@@ -41,10 +43,10 @@ function PhoneLocation() {
         <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
         <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
       </View>
-      <View className='flex-column mg-t-20'>
+      { province && carrier && <View className='flex-column mg-t-20'>
         <Text>归属地：{province}</Text>
         <Text className='mg-t-10'>运营商：{carrier}</Text>
-      </View>
+      </View>}
     </View>
   )
 }
