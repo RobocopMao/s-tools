@@ -62,8 +62,8 @@ function Weather() {
       <View className='bd-radius bg-blue white pd-l-30 pd-r-30 mg-20 bd-box'>
         {forecasts.map((forecast, index) => {
           return (
-            <View>
-              <View className='flex-row space-between pd-t-24 pd-b-24' key={forecast.date}>
+            <View key={forecast.date}>
+              <View className='flex-row space-between pd-t-24 pd-b-24'>
                 {index === 0 && <Text>今天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 {index === 1 && <Text>明天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 {index === 2 && <Text>后天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
