@@ -13,8 +13,29 @@ function Weather() {
   const [weatherCurrent, setWeatherCurrent] = useState({});
 
   useAsyncEffect(() => {
+    Taro.getSetting({ // 获取设置
+      success(res) {
+        if (!res.authSetting['scope.userLocation']) {
+          Taro.authorize({ // 地理位置授权
+            scope: 'scope.userLocation',
+            success() {
+              getUserLocation();
+            },
+            fail() {
+              Taro.showToast({title: '地理位置授权失败，请在设置里面开启', icon: 'none'});
+            }
+          })
+        } else {
+          getUserLocation();
+        }
+      }
+    })
+  }, [city, province]);
+
+  const getUserLocation = () => {
     Taro.getLocation({
       success: res => {
+        console.log(res);
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
@@ -44,10 +65,14 @@ function Weather() {
             // console.log(res);
           }
         });
+      },
+      fail: res => {
+        console.log(res);
+        Taro.showToast({title: '获取位置信息失败', icon: 'none'});
       }
     })
       .then(res => {});
-  }, [city, province]);
+  };
 
   return (
     <View className='weather flex-column'>
