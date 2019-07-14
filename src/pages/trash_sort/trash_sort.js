@@ -28,6 +28,13 @@ function TrashSort() {
       .then(res => {})
   }, [scrollHeight]);
 
+  // 显示转发按钮
+  useEffect(() => {
+    Taro.showShareMenu({
+      withShareTicket: true
+    });
+  }, []);
+
   // 地区输入框事件
   const onInput = (e) => {
     setTrashName(e.detail.value);
