@@ -58,7 +58,7 @@ function Index() {
       </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/about/about'>
         <Image src={aboutImg} className='w140 h140 mg-b-20' />
-        <Text>关于</Text>
+        <Text>关于与问题</Text>
       </Navigator>
     </View>
   )
