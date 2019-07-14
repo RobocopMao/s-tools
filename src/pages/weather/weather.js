@@ -35,7 +35,7 @@ function Weather() {
   const getUserLocation = () => {
     Taro.getLocation({
       success: res => {
-        console.log(res);
+        // console.log(res);
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
@@ -87,7 +87,7 @@ function Weather() {
       <View className='bd-radius bg-blue white pd-l-30 pd-r-30 mg-20 bd-box'>
         {forecasts.map((forecast, index) => {
           return (
-            <View key={forecast.date}>
+            <View key={forecast.date + '_' + index}>
               <View className='flex-row space-between pd-t-24 pd-b-24'>
                 {index === 0 && <Text>今天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
                 {index === 1 && <Text>明天 · {forecast.dayWeather}{forecast.dayWeather !== forecast.nightWeather ? `转${forecast.nightWeather}` : ''}</Text>}
