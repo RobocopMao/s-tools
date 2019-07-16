@@ -46,16 +46,16 @@ function Index() {
       </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/calendar/calendar'>
         <Image src={calendarImg} className='w140 h140 mg-b-20' />
-        <Text>今日万年历</Text>
+        <Text>万年历</Text>
       </Navigator>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/trash_sort/trash_sort'>
         <Image src={garbageImg} className='w140 h140 mg-b-20' />
         <Text>垃圾分类</Text>
       </Navigator>
-      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/girls/girls'>
-        <Image src={girlsImg} className='w140 h140 mg-b-20' />
-        <Text>养眼福利图</Text>
-      </Navigator>
+      {/*<Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/girls/girls'>*/}
+        {/*<Image src={girlsImg} className='w140 h140 mg-b-20' />*/}
+        {/*<Text>养眼福利图</Text>*/}
+      {/*</Navigator>*/}
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/about/about'>
         <Image src={aboutImg} className='w140 h140 mg-b-20' />
         <Text>关于与问题</Text>

@@ -1,3 +1,8 @@
 .calendar {
-
+  .flex-1-7per {
+    flex: 0 0 14.28%;
+  }
+  .swiper-item {
+    align-content: space-around;
+  }
 }

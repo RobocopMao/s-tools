@@ -35,7 +35,7 @@ class App extends Component {
     },
     permission: {
       'scope.userLocation': {
-        'desc': "你的位置信息将用于小程序查询天气"
+        'desc': '你的位置信息将用于小程序查询天气'
       }
     }
   };

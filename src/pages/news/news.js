@@ -40,7 +40,8 @@ function News() {
         arr2.push(v);
       }
     }
-    let newArr = arr1.concat(arr2);
+    // let newArr = arr1.concat(arr2);  // 事实内容占时去掉
+    let newArr = arr2;
     for (let [i, v] of newArr.entries()) {
       v.active = i === 0;
     }
