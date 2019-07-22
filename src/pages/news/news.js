@@ -3,8 +3,21 @@ import { View, Text, ScrollView, Image, Video } from '@tarojs/components'
 import { useAsyncEffect } from '../../utils'
 import { getNewsTypes, getNewsList } from '../../apis/news'
 import './news.scss'
+import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function News() {
+  useAsyncEffect(async () => {
+    let res = await getProductList({user_id});
+    const {secret, productId} = res[0];
+    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
+    const productConfig = JSON.parse(res1.productConfig);
+    // console.log(productConfig);
+    // setProductConfig(productConfig);
+    if (!productConfig.news) {
+      Taro.reLaunch({url: '../../pages/index/index'});
+    }
+  }, []);
+
   const [scrollHeight, setScrollHeight] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
 
@@ -67,7 +80,7 @@ function News() {
     setNewsTypes(types);
     setTypeId(typeId);
     newsList.splice(0, newsList.length);
-    console.log(newsList);
+    // console.log(newsList);
     _getNewsList(typeId, 1);
   };
 

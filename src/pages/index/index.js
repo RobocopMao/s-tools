@@ -1,6 +1,7 @@
 import Taro, {useState} from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { getRemoteConfig, getProductList, user_id } from "../../apis/config";
+import { getRemoteConfig, getProductList, user_id } from '../../apis/config';
+import { useAsyncEffect } from '../../utils';
 import newsImg from '../../assets/images/news.png'
 import jokeImg from '../../assets/images/joke.png'
 import phoneCodeImg from '../../assets/images/phone_code.png'
@@ -13,7 +14,6 @@ import calendarImg from '../../assets/images/calendar.png'
 import garbageImg from '../../assets/images/garbage.png'
 import girlsImg from '../../assets/images/girl.png'
 import './index.scss'
-import {useAsyncEffect} from "../../utils";
 
 function Index() {
   const [productConfig, setProductConfig] = useState({});

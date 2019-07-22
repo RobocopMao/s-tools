@@ -1,12 +1,25 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
-import {View, Text, ScrollView, Image, Button} from '@tarojs/components'
+import {View, Text, ScrollView, Image} from '@tarojs/components'
 import moment from 'moment'
-import { getGirlsImgList, getGirlsImgListRandom } from '../../apis/girls'
+import { getGirlsImgListRandom } from '../../apis/girls'
 import { useAsyncEffect } from '../../utils';
-import downloadImg from '../../assets/images/download.png';
+// import downloadImg from '../../assets/images/download.png';
 import './girls.scss'
+import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function Girls() {
+  useAsyncEffect(async () => {
+    let res = await getProductList({user_id});
+    const {secret, productId} = res[0];
+    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
+    const productConfig = JSON.parse(res1.productConfig);
+    // console.log(productConfig);
+    // setProductConfig(productConfig);
+    if (!productConfig.girls) {
+      Taro.reLaunch({url: '../../pages/index/index'});
+    }
+  }, []);
+
   // const [page, setPage] = useState(1);
   // const [totalPage, setTotalPage] = useState(1); // 总页数
   const [isLoading, setIsLoading] = useState(false); // 加载提示
