@@ -6,6 +6,8 @@ import './news.scss'
 import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function News() {
+  const [productConfig, setProductConfig] = useState({});
+
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
     const {secret, productId} = res[0];
@@ -13,6 +15,7 @@ function News() {
     const productConfig = JSON.parse(res1.productConfig);
     // console.log(productConfig);
     // setProductConfig(productConfig);
+    setProductConfig(productConfig);
     if (!productConfig.news) {
       Taro.reLaunch({url: '../../pages/index/index'});
     }
@@ -100,7 +103,7 @@ function News() {
 
   return (
     <View className='news'>
-      <ScrollView
+      {productConfig.news && <ScrollView
         className='news-types flex-row flex-col-center bg-white font32'
         scrollX
         scrollWithAnimation
@@ -113,8 +116,8 @@ function News() {
             <View key={typeId} className={`inline-block pd-t-16 pd-b-16 pd-r-20 pd-l-20 ${active ? 'type-active' : ''}`} onClick={() => changeTypes(typeId)}>{typeName}</View>
           )
         })}
-      </ScrollView>
-      <ScrollView
+      </ScrollView>}
+      {productConfig.news && <ScrollView
         className='news-list bg-white'
         scrollY
         scrollWithAnimation
@@ -151,7 +154,7 @@ function News() {
             </View>
           )
         })}
-      </ScrollView>
+      </ScrollView>}
     </View>
   )
 }

@@ -8,13 +8,15 @@ import './girls.scss'
 import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function Girls() {
+  const [productConfig, setProductConfig] = useState({});
+
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
     const {secret, productId} = res[0];
     let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
     const productConfig = JSON.parse(res1.productConfig);
     // console.log(productConfig);
-    // setProductConfig(productConfig);
+    setProductConfig(productConfig);
     if (!productConfig.girls) {
       Taro.reLaunch({url: '../../pages/index/index'});
     }
@@ -127,53 +129,54 @@ function Girls() {
   };
 
   return (
-    <ScrollView
-      className='girls'
-      scrollY
-      scrollWithAnimation
-      style={{height: `${scrollHeight}px`}}
-      onScrollToLower={() => scrollToLower()}
-    >
-      <View className='flex-row'>
-        <View className='flex-column col1'>
-          {col1.map((img, index) => {
-            return (
-              <View className='bd-box of-hidden img-box relative' key={img.imageUrl + '_col1_' + index + '_' + moment().format('x')}>
-                <View className='mg-t-10 mg-l-10 of-hidden' onClick={() => previewImg(img.imageUrl)}>
-                  <Image className='img' src={img.imageUrl} />
+    <View className='girls'>
+      {productConfig.girls && <ScrollView
+        className=''
+        scrollY
+        scrollWithAnimation
+        style={{height: `${scrollHeight}px`}}
+        onScrollToLower={() => scrollToLower()}
+      >
+        <View className='flex-row'>
+          <View className='flex-column col1'>
+            {col1.map((img, index) => {
+              return (
+                <View className='bd-box of-hidden img-box relative' key={img.imageUrl + '_col1_' + index + '_' + moment().format('x')}>
+                  <View className='mg-t-10 mg-l-10 of-hidden' onClick={() => previewImg(img.imageUrl)}>
+                    <Image className='img' src={img.imageUrl} />
+                  </View>
+                  {/*<View className='w68 h68 dl-btn'>*/}
+                    {/*<Button className='w68 h68 circle bd-no pd-0  flex-row flex-col-center flex-row-center bg-no' onClick={() => saveImageToPhotosAlbum(img.imageUrl)}>*/}
+                      {/*<Image className='w60 h60' src={downloadImg} />*/}
+                    {/*</Button>*/}
+                  {/*</View>*/}
                 </View>
-                {/*<View className='w68 h68 dl-btn'>*/}
-                  {/*<Button className='w68 h68 circle bd-no pd-0  flex-row flex-col-center flex-row-center bg-no' onClick={() => saveImageToPhotosAlbum(img.imageUrl)}>*/}
-                    {/*<Image className='w60 h60' src={downloadImg} />*/}
-                  {/*</Button>*/}
-                {/*</View>*/}
-              </View>
-            )
-          })}
-        </View>
-        <View className='flex-column col2'>
-          {col2.map((img, index) => {
-            return (
-              <View className='bd-box of-hidden img-box relative' key={img.imageUrl + '_col2_' + index + '_' + moment().format('x')}>
-                <View className='mg-t-10 mg-l-10 mg-r-10 of-hidden' onClick={() => previewImg(img.imageUrl)}>
-                  <Image className='img' src={img.imageUrl} />
+              )
+            })}
+          </View>
+          <View className='flex-column col2'>
+            {col2.map((img, index) => {
+              return (
+                <View className='bd-box of-hidden img-box relative' key={img.imageUrl + '_col2_' + index + '_' + moment().format('x')}>
+                  <View className='mg-t-10 mg-l-10 mg-r-10 of-hidden' onClick={() => previewImg(img.imageUrl)}>
+                    <Image className='img' src={img.imageUrl} />
+                  </View>
+                  {/*<View className='w68 h68 dl-btn'>*/}
+                    {/*<Button className='w68 h68 circle bd-no pd-0  flex-row flex-col-center flex-row-center bg-no' onClick={() => saveImageToPhotosAlbum(img.imageUrl)}>*/}
+                      {/*<Image className='w60 h60' src={downloadImg} />*/}
+                    {/*</Button>*/}
+                  {/*</View>*/}
                 </View>
-                {/*<View className='w68 h68 dl-btn'>*/}
-                  {/*<Button className='w68 h68 circle bd-no pd-0  flex-row flex-col-center flex-row-center bg-no' onClick={() => saveImageToPhotosAlbum(img.imageUrl)}>*/}
-                    {/*<Image className='w60 h60' src={downloadImg} />*/}
-                  {/*</Button>*/}
-                {/*</View>*/}
-              </View>
-            )
-          })}
+              )
+            })}
+          </View>
         </View>
-      </View>
-      <View className='flex-row flex-row-center font26 pd-t-40 pd-b-40'>
-        {isLoading && <Text>一大波美女正向你扑来...</Text>}
-        {/*{page === totalPage && <Text>哇！美女被你看光了</Text>}*/}
-      </View>
-    </ScrollView>
-
+        <View className='flex-row flex-row-center font26 pd-t-40 pd-b-40'>
+          {isLoading && <Text>一大波美女正向你扑来...</Text>}
+          {/*{page === totalPage && <Text>哇！美女被你看光了</Text>}*/}
+        </View>
+      </ScrollView>}
+    </View>
   )
 }
 
