@@ -31,14 +31,16 @@ function News() {
         query
           .select('#newsTypes')
           .boundingClientRect(rect => {
-            const scrollHeight = res.windowHeight - rect.height;
+            // console.log(rect);
+            let height = rect ? rect.height : 36;
+            const scrollHeight = res.windowHeight - height;
             setScrollHeight(scrollHeight);
           })
           .exec()
       }
     })
       .then(res => {})
-  }, [scrollHeight]);
+  }, [scrollHeight, productConfig]);
 
   const [newsTypes, setNewsTypes] = useState([]);
   const [newsList, setNewsList] = useState([]);
