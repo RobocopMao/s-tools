@@ -1,5 +1,5 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
-import {View, Text, ScrollView, Navigator} from '@tarojs/components'
+import {View, Text, ScrollView, Navigator, Button} from '@tarojs/components'
 import _updateLog from '../../apis/update_log.json';
 import './about.scss'
 
@@ -21,6 +21,10 @@ function About() {
       .then(res => {})
   }, [scrollHeight]);
 
+  const getUserInfo = e => {
+    console.log(e);
+  };
+
   return (
     <ScrollView
       className='about'
@@ -38,8 +42,8 @@ function About() {
         <Text className='pd-20'>2.万能方法：升级小程序后导致权限获取失败，请在微信-发现-小程序里面删除小程序后再添加小程序。</Text>
         <Text className='pd-20 black bold'>使用方法与说明：</Text>
         {/*<View className='pd-20'><Text>1.</Text><Navigator className='blue inline-block' url='/pages/news/news'>新闻Lite</Navigator><Text>：已从主页下架。</Text></View>*/}
-        <View className='pd-20'><Text>1.</Text><Navigator className='blue inline-block' url='/pages/girls/girls'>养眼福利图</Navigator><Text>：可以在预览界面长按后转发、保存、收藏。</Text></View>
-        <Text className='pd-20'>2.万年历：可以查看从本月起一年的日历，日历可以竖向滚动，下一年的日历信息需要等待接口更新。</Text>
+        {/*<View className='pd-20'><Text>1.</Text><Navigator className='blue inline-block' url='/pages/girls/girls'>养眼福利图</Navigator><Text>：可以在预览界面长按后转发、保存、收藏。</Text></View>*/}
+        <Text className='pd-20'>1.万年历：可以查看从本月起一年的日历，日历可以竖向滚动，下一年的日历信息需要等待接口更新。</Text>
         <Text className='pd-20 black bold'>更新日志：</Text>
         <View className='pd-20 flex-column mg-b-20'>
           {updateLog.map((log, index) => {
@@ -63,6 +67,9 @@ function About() {
               </View>
             )
           })}
+        </View>
+        <View>
+          <Button openType='getUserInfo' onGetUserInfo={(e) => getUserInfo(e)}>我是管理员</Button>
         </View>
       </View>
     </ScrollView>

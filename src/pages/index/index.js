@@ -1,5 +1,6 @@
-import Taro from '@tarojs/taro'
+import Taro, {useState} from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
+import { getRemoteConfig, getProductList, user_id } from "../../apis/config";
 import newsImg from '../../assets/images/news.png'
 import jokeImg from '../../assets/images/joke.png'
 import phoneCodeImg from '../../assets/images/phone_code.png'
@@ -12,14 +13,26 @@ import calendarImg from '../../assets/images/calendar.png'
 import garbageImg from '../../assets/images/garbage.png'
 import girlsImg from '../../assets/images/girl.png'
 import './index.scss'
+import {useAsyncEffect} from "../../utils";
 
 function Index() {
+  const [productConfig, setProductConfig] = useState({});
+
+  useAsyncEffect(async () => {
+    let res = await getProductList({user_id});
+    const {secret, productId} = res[0];
+    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
+    const productConfig = JSON.parse(res1.productConfig);
+    console.log(productConfig);
+    setProductConfig(productConfig);
+  }, []);
+
   return (
     <View className='index flex-row flex-wrap font26'>
-      {/*<Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/news/news'>*/}
-        {/*<Image src={newsImg} className='w140 h140 mg-b-20' />*/}
-        {/*<Text>新闻Lite</Text>*/}
-      {/*</Navigator>*/}
+      {productConfig.news && <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/news/news'>
+        <Image src={newsImg} className='w140 h140 mg-b-20' />
+        <Text>新闻Lite</Text>
+      </Navigator>}
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/jokes/jokes'>
         <Image src={jokeImg} className='w140 h140 mg-b-20' />
         <Text>笑话段子</Text>
@@ -52,10 +65,10 @@ function Index() {
         <Image src={garbageImg} className='w140 h140 mg-b-20' />
         <Text>垃圾分类</Text>
       </Navigator>
-      {/*<Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/girls/girls'>*/}
-        {/*<Image src={girlsImg} className='w140 h140 mg-b-20' />*/}
-        {/*<Text>养眼福利图</Text>*/}
-      {/*</Navigator>*/}
+      {productConfig.girls && <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/girls/girls'>
+        <Image src={girlsImg} className='w140 h140 mg-b-20' />
+        <Text>养眼福利图</Text>
+      </Navigator>}
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/about/about'>
         <Image src={aboutImg} className='w140 h140 mg-b-20' />
         <Text>关于与问题</Text>
