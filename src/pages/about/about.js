@@ -21,9 +21,9 @@ function About() {
       .then(res => {})
   }, [scrollHeight]);
 
-  const getUserInfo = e => {
-    console.log(e);
-  };
+  // const getUserInfo = e => {
+  //   console.log(e);
+  // };
 
   return (
     <ScrollView
@@ -68,9 +68,9 @@ function About() {
             )
           })}
         </View>
-        <View>
-          <Button openType='getUserInfo' onGetUserInfo={(e) => getUserInfo(e)}>我是管理员</Button>
-        </View>
+        {/*<View>*/}
+          {/*<Button openType='getUserInfo' onGetUserInfo={(e) => getUserInfo(e)}>我是管理员</Button>*/}
+        {/*</View>*/}
       </View>
     </ScrollView>
   )
