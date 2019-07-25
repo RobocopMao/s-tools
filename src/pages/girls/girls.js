@@ -12,7 +12,9 @@ function Girls() {
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
-    const {secret, productId} = res[0];
+    const {secret, productId} = res.find((v, i, arr) => {
+      return Number(v.productId) === 50005;  // 50005是该小程序的productId
+    });
     let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
     const productConfig = JSON.parse(res1.productConfig);
     // console.log(productConfig);

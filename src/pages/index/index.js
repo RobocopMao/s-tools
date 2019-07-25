@@ -13,6 +13,7 @@ import ipImg from '../../assets/images/ip.png'
 import calendarImg from '../../assets/images/calendar.png'
 import garbageImg from '../../assets/images/garbage.png'
 import girlsImg from '../../assets/images/girl.png'
+import expressImg from '../../assets/images/express.png'
 import './index.scss'
 
 function Index() {
@@ -29,10 +30,6 @@ function Index() {
 
   return (
     <View className='index flex-row flex-wrap font26'>
-      {productConfig.news && <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/news/news'>
-        <Image src={newsImg} className='w140 h140 mg-b-20' />
-        <Text>新闻Lite</Text>
-      </Navigator>}
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/jokes/jokes'>
         <Image src={jokeImg} className='w140 h140 mg-b-20' />
         <Text>笑话段子</Text>
@@ -65,6 +62,14 @@ function Index() {
         <Image src={garbageImg} className='w140 h140 mg-b-20' />
         <Text>垃圾分类</Text>
       </Navigator>
+      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/express/express'>
+        <Image src={expressImg} className='w140 h140 mg-b-20' />
+        <Text>快递查询</Text>
+      </Navigator>
+      {productConfig.news && <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/news/news'>
+        <Image src={newsImg} className='w140 h140 mg-b-20' />
+        <Text>新闻Lite</Text>
+      </Navigator>}
       {productConfig.girls && <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/girls/girls'>
         <Image src={girlsImg} className='w140 h140 mg-b-20' />
         <Text>养眼福利图</Text>
