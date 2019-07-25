@@ -67,12 +67,15 @@ function PhoneCode() {
 
   return (
     <View className='phone-code'>
-      <View className='flex-row pd-20' id='phoneCodeSearch'>
-        <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
-               placeholder='请输入地区名称' value={area}
-               onInput={(e) => onInput(e)} />
-        <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
-        <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+      <View className='flex-column' id='phoneCodeSearch'>
+        <View className='flex-row pd-20'>
+          <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
+                 placeholder='请输入地区名称' value={area}
+                 onInput={(e) => onInput(e)} />
+          <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
+          <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+        </View>
+        <View className='line' />
       </View>
       <ScrollView
         className=''

@@ -35,15 +35,18 @@ function PhoneLocation() {
   };
 
   return (
-    <View className='phone-location pd-20 bd-box'>
-      <View className='flex-row'>
-        <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='number'
-               placeholder='请输入11位手机号码' maxLength={11} value={mobile}
-                onInput={(e) => onInput(e)} />
-        <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
-        <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+    <View className='phone-location bd-box'>
+      <View className='flex-column'>
+        <View className='flex-row pd-20'>
+          <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='number'
+                 placeholder='请输入11位手机号码' maxLength={11} value={mobile}
+                  onInput={(e) => onInput(e)} />
+          <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
+          <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+        </View>
+        <View className='line' />
       </View>
-      { province && carrier && <View className='flex-column mg-t-20'>
+      { province && carrier && <View className='flex-column pd-20'>
         <Text>归属地：{province}</Text>
         <Text className='mg-t-10'>运营商：{carrier}</Text>
       </View>}

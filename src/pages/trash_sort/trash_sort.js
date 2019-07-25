@@ -68,12 +68,15 @@ function TrashSort() {
 
   return (
     <View className='trash-sort'>
-      <View className='flex-row pd-20' id='trashSortSearch'>
-        <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
-               placeholder='请输入垃圾名称' value={trashName}
-               onInput={(e) => onInput(e)} />
-        <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
-        <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+      <View className='flex-column' id='trashSortSearch'>
+        <View className='flex-row pd-20'>
+          <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
+                 placeholder='请输入垃圾名称' value={trashName}
+                 onInput={(e) => onInput(e)} />
+          <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
+          <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+        </View>
+        <View className='line' />
       </View>
       <ScrollView
         className=''
@@ -83,7 +86,7 @@ function TrashSort() {
         enableBackToTop={true}
         scrollTop={scrollTop}
       >
-        <View className='pd-20 pd-t-0'>
+        <View className='pd-20'>
           {goodsType && <View className='flex-column'>
             <Text className='black mg-b-10'>查询结果：</Text>
             <View className='table flex-column'>
