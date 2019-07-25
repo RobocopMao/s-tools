@@ -12,7 +12,7 @@ function Express() {
   const [expressDetails, setExpressDetails] = useState([]);  // 物流信息详情
   const [expressStatus, setExpressStatus] = useState('未知');  // 物流状态
 
-  const [scrollTop, setScrollTop] = useState(0);
+  // const [scrollTop, setScrollTop] = useState(0);
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
 
   // 设置scrollView的高度
@@ -30,7 +30,7 @@ function Express() {
       }
     })
       .then(res => {})
-  }, [scrollHeight]);
+  }, [scrollHeight, expressDetails]);
 
   const onScanCode = () => {
     Taro.scanCode({
@@ -74,13 +74,14 @@ function Express() {
       getExpressDetails({logistics_id: logisticsTypeId, logistics_no});
     } else {
       Taro.showToast({title: '没有查到当前单号所对应的物流公司', icon: 'none'});
+      onReset();
     }
   };
 
   // 获取物流详情
   const getExpressDetails = async ({logistics_no, logistics_id}) => {
-    const res = getLogisticsDetails({logistics_no, logistics_id});
-    setExpressDetails(res.data);
+    const res = await getLogisticsDetails({logistics_no, logistics_id});
+    setExpressDetails(res.data.reverse());
     setExpressComName(res.logisticsType);
     setExpressStatus(res.status);
   };
@@ -91,7 +92,7 @@ function Express() {
         <View className='flex-row pd-20'>
           <View className='relative input-box'>
             <Image className='w40 h40 scan-code-img' src={scanCodeImg} onClick={() => onScanCode()} />
-            <Input className='bd-1 bd-radius pd-l-60 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box w360' type='number'
+            <Input className='bd-1 bd-radius pd-l-60 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box w360' type='text'
                  placeholder='请输入快递编号' value={expressNo}
                  onInput={(e) => onInput(e)} />
           </View>
@@ -103,7 +104,7 @@ function Express() {
           <View className='flex-column pd-20'>
             <View className='black font32'>{expressStatus}</View>
             <View>{expressComName}</View>
-            <View>{expressNo}：233028626054</View>
+            <View>快递单号：{expressNo}</View>
           </View>
           <View className='line' />
         </View>}
@@ -113,19 +114,19 @@ function Express() {
         scrollY
         scrollWithAnimation
         style={{height: `${scrollHeight}px`}}
-        enableBackToTop={true}
-        scrollTop={scrollTop}
+        // enableBackToTop={true}
+        // scrollTop={scrollTop}
       >
-        <View className='pd-20'>
+        <View className='pd-20 font26'>
           {expressDetails.map((detail, index) => {
             return (
-              <View className='flex-row' key={String(index)}>
-                <View className='flex-column w140'>
+              <View className={`flex-row ${index === 0 ? 'black' : ''}`} key={String(index)}>
+                <View className='flex-column express-time'>
                   <Text>{moment(detail.time).format('MM-DD')}</Text>
-                  <Text>{moment(detail.time).format('HH:mm')}</Text>
+                  <Text className='font24 mg-l-10'>{moment(detail.time).format('HH:mm')}</Text>
                 </View>
                 <View className='express-desc pd-l-40'>
-                  <View className='pd-b-30'>{detail.desc}</View>
+                  <View className='pd-b-40 font26'>{detail.desc}</View>
                 </View>
               </View>
             )

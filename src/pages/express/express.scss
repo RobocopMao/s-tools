@@ -9,12 +9,16 @@
   .pd-l-60 {
     padding-left: 60px;
   }
+  .express-time {
+    flex: 0 0 120px;
+  }
   view.express-desc {
     position: relative;
+    min-height: 108px;
     &:before {
       content: '';
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background-color: $blue;
       position: absolute;
