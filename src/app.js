@@ -26,7 +26,8 @@ class App extends Component {
       'pages/news_details/news_details',
       'pages/trash_sort/trash_sort',
       'pages/girls/girls',
-      'pages/express/express'
+      'pages/express/express',
+      'pages/express_note/express_note',
     ],
     window: {
       backgroundTextStyle: 'light',

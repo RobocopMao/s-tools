@@ -1,18 +1,17 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
-import {View, Text, ScrollView, Navigator, Button, Input} from '@tarojs/components'
+import {View, Text, ScrollView, Button, Input} from '@tarojs/components'
 import scanCodeImg from '../../assets/images/scancode.png'
 import './express.scss'
-import {getLogisticsDetails, getLogisticsTypeId} from "../../apis/express";
-import moment from "moment";
+import {getLogisticsDetails, getLogisticsTypeId} from '../../apis/express';
+import moment from 'moment';
 
 function Express() {
   const [expressNo, setExpressNo] = useState(''); // 快递编号
   const [expressComId, setExpressComId] = useState(''); // 物流公司编号
   const [expressComName, setExpressComName] = useState('');  // 物流公司名称
   const [expressDetails, setExpressDetails] = useState([]);  // 物流信息详情
-  const [expressStatus, setExpressStatus] = useState('未知');  // 物流状态
+  const [expressStatus, setExpressStatus] = useState('');  // 物流状态
 
-  // const [scrollTop, setScrollTop] = useState(0);
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
 
   // 设置scrollView的高度
@@ -32,10 +31,22 @@ function Express() {
       .then(res => {})
   }, [scrollHeight, expressDetails]);
 
+  // 从快递记录过来
+  useEffect(() => {
+    const {expressNo, expressComId, expressComName} = this.$router.params;
+    // console.log(expressComId, expressNo);
+    if (expressNo && expressComId) {
+      // console.log('not undefined');
+      setExpressNo(expressNo);
+      setExpressComId(Number(expressComId));
+      setExpressComName(expressComName);
+      getExpressDetails({logistics_id: Number(expressComId), logistics_no: expressNo, expressComName});
+    }
+  }, []);
+
   const onScanCode = () => {
     Taro.scanCode({
       success: res => {
-        console.log(res);
         setExpressNo(res.result);
       }
     });
@@ -55,7 +66,7 @@ function Express() {
     setExpressComId('');
     setExpressComName('');
     setExpressDetails([]);
-    setExpressStatus('未知');
+    setExpressStatus('');
   };
 
   // 获取物流公司id
@@ -66,24 +77,80 @@ function Express() {
     }
 
     const res = await getLogisticsTypeId({logistics_no});
-    const {searchList} = res;
-    if (searchList.length) {
+    let {searchList} = res;
+    if (searchList.length === 1) {
       const {logisticsTypeId, logisticsTypeName} = searchList[0];
       setExpressComId(logisticsTypeId);
       setExpressComName(logisticsTypeName);
-      getExpressDetails({logistics_id: logisticsTypeId, logistics_no});
-    } else {
+      getExpressDetails({logistics_id: logisticsTypeId, logistics_no, expressComName: logisticsTypeName});
+    } else if (searchList.length === 0) {
       Taro.showToast({title: '没有查到当前单号所对应的物流公司', icon: 'none'});
-      onReset();
+      // onReset();
+      setExpressDetails([]);
+      setExpressStatus('');
+      setExpressComId('');
+    } else {
+      let itemList = [];
+      for (let i = 0; i < searchList.length; i++) {
+        itemList.push(searchList[i].logisticsTypeName);
+      }
+      // console.log(itemList);
+
+      Taro.showActionSheet({
+        itemList: itemList,
+        success: res => {
+          const {logisticsTypeId, logisticsTypeName} = searchList[res.tapIndex];
+          setExpressComId(logisticsTypeId);
+          setExpressComName(logisticsTypeName);
+          getExpressDetails({logistics_id: logisticsTypeId, logistics_no, expressComName: logisticsTypeName});
+        }
+      });
     }
   };
 
   // 获取物流详情
-  const getExpressDetails = async ({logistics_no, logistics_id}) => {
+  const getExpressDetails = async ({logistics_no, logistics_id, expressComName}) => {
     const res = await getLogisticsDetails({logistics_no, logistics_id});
-    setExpressDetails(res.data.reverse());
-    setExpressComName(res.logisticsType);
-    setExpressStatus(res.status);
+    if (!res.code) {  // 返回code = 0
+      Taro.showToast({title: res.msg, icon: 'none'});
+      setExpressDetails([]);
+      setExpressStatus('');
+      saveExpressNotes({expressComName, expressComId: logistics_id, expressNo: logistics_no, status: ''});
+    } else {
+      const {data, logisticsType, status} = res.data;
+      setExpressDetails(data.reverse());
+      setExpressComName(logisticsType);
+      setExpressStatus(status);
+      saveExpressNotes({expressComName, expressComId: logistics_id, expressNo: logistics_no, status});
+    }
+  };
+
+  const saveExpressNotes = ({expressComName, expressComId, expressNo, status}) => {
+    // 存入本地
+    let localExpressNotes = Taro.getStorageSync('localExpressNotes') ? Taro.getStorageSync('localExpressNotes') : [];
+    // console.log(localExpressNotes);
+
+    let index = 0;
+    let isExist = localExpressNotes.find((v, i, arr) => {
+      index = i;
+      return v.expressComId === expressComId && v.expressNo === expressNo;
+    });
+    // console.log(index);
+    if (isExist) { // 已经查询过，存在
+      isExist.status = status;
+      localExpressNotes.splice(index, 1, isExist);
+    } else {  // 不存在，就创建一个
+      let obj = {};
+      obj.date = moment().format('YYYY-MM-DD');
+      obj.expressComName = expressComName;
+      obj.expressComId = expressComId;
+      obj.expressNo = expressNo;
+      obj.status = status;
+      localExpressNotes.unshift(obj);
+    }
+
+    Taro.setStorageSync('localExpressNotes', localExpressNotes);
+    Taro.setStorageSync('expressNoteUpdate', true);
   };
 
   return (
@@ -100,9 +167,9 @@ function Express() {
           <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
         </View>
         <View className='line' />
-        {expressStatus && expressComName && expressNo && <View className='flex-column'>
+        {expressComName && expressNo && <View className='flex-column'>
           <View className='flex-column pd-20'>
-            <View className='black font32'>{expressStatus}</View>
+            {expressStatus && <View className='black font32'>{expressStatus}</View>}
             <View>{expressComName}</View>
             <View>快递单号：{expressNo}</View>
           </View>

@@ -1,0 +1,16 @@
+@import "../../assets/styles/variable";
+.express-note {
+  .search-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    & > .btn {
+      height: 100px;
+      border-radius: 0;
+      font-size: 32px;
+      line-height: 100px;
+    }
+  }
+}

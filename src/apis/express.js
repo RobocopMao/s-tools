@@ -15,5 +15,6 @@ export const getLogisticsDetails = async (data) => {
   return await request.get({
     url: '/logistics/details/search',
     data: data,
+    needCode: true,
   });
 };

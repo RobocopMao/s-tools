@@ -31,6 +31,7 @@ class Request {
     let dataType = 'json';
     let header = {};
     let loading = typeof options.loading !== 'undefined' ? options.loading : true;
+    let needCode = typeof options.needCode !== 'undefined' ? options.needCode : false;
     // let header = {'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'};
     if (method === 'GET') {
       header = {
@@ -56,12 +57,16 @@ class Request {
     return new Promise((resolve, reject) => {
       Taro.request(params)
         .then(res => {
-          let data = res.data;
           Taro.hideLoading();
-          if (data.code === 1) {
-            resolve(data.data);
+          if (needCode) { // 需要返回code
+            resolve(res.data);
           } else {
-            Taro.showToast({title: data.msg, icon: 'none'});
+            let data = res.data;
+            if (data.code === 1) {
+              resolve(data.data);
+            } else {
+              Taro.showToast({title: data.msg, icon: 'none'});
+            }
           }
         })
         .catch(err => {
