@@ -2,8 +2,9 @@ import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text, ScrollView, Image, Video } from '@tarojs/components'
 import { useAsyncEffect } from '../../utils'
 import { getNewsTypes, getNewsList } from '../../apis/news'
-import './news.scss'
 import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
+import playBtnImg from '../../assets/images/play.png'
+import './news.scss'
 
 function News() {
   const [productConfig, setProductConfig] = useState({});
@@ -95,14 +96,17 @@ function News() {
     _getNewsList(typeId, page);
   };
 
-  const goNewsDetails = (newsId, videoList) => {
+  const goNewsDetails = ({newsId, videoList, imgList, title, source, postTime}) => {
     if (newsId !== '此类型无详情id') {
       const _newsId = newsId.split('_')[0];
       Taro.navigateTo({url: `../../pages/news_details/news_details?newsId=${_newsId}`});
     } else {
       if (typeId === 522 && !videoList) {
         Taro.showToast({title: '视频资源未找到', icon: 'none'});
-      }}
+      } else {
+        Taro.navigateTo({url: `../../pages/video/video?&video=${videoList[0]}&poster=${imgList[0]}&title=${title}&source=${source}&postTime=${postTime}`});
+      }
+    }
   };
 
   return (
@@ -134,7 +138,8 @@ function News() {
         {newsList.map((list, index) => {
           const {title, newsId, imgList, source, digest, postTime, videoList} = list;
           return (
-            <View className='flex-column mg-l-20 mg-r-20 pd-t-20' key={newsId + index} onClick={() => goNewsDetails(newsId, videoList)}>
+            <View className='flex-column mg-l-20 mg-r-20 pd-t-20' key={newsId + index}
+                  onClick={() => goNewsDetails({newsId, videoList, imgList, title, source, postTime})}>
               <View className={`${videoList ? 'flex-column' : 'flex-row'} space-between mg-b-10`}>
                 <View className={`black font36 lh-42 ${videoList ? '' : 'mg-r-20'}`}>{title}</View>
                 {imgList && !videoList && <View>
@@ -144,11 +149,18 @@ function News() {
                     )
                   })}
                 </View>}
-                {videoList && <Video
-                  className='mg-t-20 mg-b-10 w100-per'
-                  src={videoList[0]}
-                  poster={imgList[0]}
-                />}
+                {videoList && <View className='mg-t-20 mg-b-10 relative w100-per'>
+                  <View className='video-mask flex-row flex-row-center'>
+                    {typeId === 522 && <Image className='w100-per h100-per' src={imgList[0]} />}
+                    {typeId === 526 && <Image className='w30-per h100-per' src={imgList[0]} />}
+                    <Image className='play-btn w60 h60' src={playBtnImg} />
+                  </View>
+                  <Video
+                    className='w100-per'
+                    src=''
+                    poster=''
+                  />
+                </View>}
               </View>
               <View className='flex-row font24 pd-b-20 '>
                 <Text className='mg-r-20'>{source}</Text>

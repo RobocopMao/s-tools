@@ -28,6 +28,7 @@ class App extends Component {
       'pages/girls/girls',
       'pages/express/express',
       'pages/express_note/express_note',
+      'pages/video/video',
     ],
     window: {
       backgroundTextStyle: 'light',

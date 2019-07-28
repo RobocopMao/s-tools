@@ -32,4 +32,24 @@
       }
     }
   }
+  .video-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    z-index: 1;
+    background-color: transparent;
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -32px;
+      z-index: 2;
+    }
+    .w30-per {
+      width: 30%;
+    }
+  }
 }

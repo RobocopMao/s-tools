@@ -36,14 +36,19 @@ function NewsDetails() {
     Taro.showShareMenu({
       withShareTicket: true
     });
-  }, []);
 
-  const onShareAppMessage = (res) => {
-    return {
-      title: newsDetails.title,  // 不生效,title还是undefined
-      path: `pages/news_details/news_details?newsId=${newsId}`,
-    }
-  }
+    onShareAppMessage();
+  }, [newsDetails]);
+
+  const onShareAppMessage = () => {
+    this.$scope.onShareAppMessage = (res) => {
+      return {
+        title: newsDetails.title,  // 不生效,title还是undefined
+        path: `/pages/news_details/news_details?newsId=${newsId}`,
+      }
+    };
+
+  };
 
   const goHome = () => {
     Taro.reLaunch({url: '../../pages/index/index'});
