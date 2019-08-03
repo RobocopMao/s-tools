@@ -1,8 +1,26 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, ScrollView, Navigator, Button, Video} from '@tarojs/components'
 import './video.scss'
+import {useAsyncEffect} from '../../utils';
+import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function VideoBox() {
+  const [productConfig, setProductConfig] = useState({});
+
+  useAsyncEffect(async () => {
+    let res = await getProductList({user_id});
+    const {secret, productId} = res.find((v, i, arr) => {
+      return Number(v.productId) === 50005;  // 50005是该小程序的productId
+    });
+    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
+    const productConfig = JSON.parse(res1.productConfig);
+    // console.log(productConfig);
+    setProductConfig(productConfig);
+    if (!productConfig.video) {
+      Taro.reLaunch({url: '../../pages/index/index'});
+    }
+  }, []);
+
   const [video, setVideo] = useState('');
   const [poster, setPoster] = useState('');
   const [title, setTitle] = useState('');
@@ -56,7 +74,7 @@ function VideoBox() {
 
   return (
     <View className='video h100-per white'>
-      <View className='w100-per'>
+      {productConfig.video && <View className='w100-per'>
         <View className='font36 mg-20'>{title}</View>
         <View className='font24 mg-l-20 mg-r-20 mg-b-20'>
           <Text className='mg-r-20'>{source}</Text>
@@ -71,13 +89,13 @@ function VideoBox() {
           title={title}
           onError={() => playError()}
         />
-      </View>
+      </View>}
     </View>
   )
 }
 
 VideoBox.config = {
-  navigationBarTitleText: '视频',
+  navigationBarTitleText: '视频详情',
   backgroundColor: '#000',
   navigationBarBackgroundColor: '000',
   navigationBarTextStyle: 'white'
