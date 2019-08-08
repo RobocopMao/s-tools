@@ -17,7 +17,7 @@ class App extends Component {
       'pages/jokes/jokes',
       'pages/phone_location/phone_location',
       'pages/phone_code/phone_code',
-      'pages/weather/weather',
+      // 'pages/weather/weather',
       'pages/calculator/calculator',
       'pages/about/about',
       'pages/ip_search/ip_search',
@@ -36,6 +36,7 @@ class App extends Component {
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
     },
+    navigateToMiniProgramAppIdList: ['wx892bebdc63488ab2'],
     permission: {
       'scope.userLocation': {
         'desc': '你的位置信息将用于小程序查询天气'

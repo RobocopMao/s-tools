@@ -28,6 +28,11 @@ function Index() {
     setProductConfig(productConfig);
   }, []);
 
+  // 去天气情报小程序
+  const goSWeatherMiniProgram = () => {
+    Taro.navigateToMiniProgram({appId: 'wx892bebdc63488ab2'});
+  };
+
   return (
     <View className='index flex-row flex-wrap font26'>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/jokes/jokes'>
@@ -42,10 +47,10 @@ function Index() {
         <Image src={phoneCodeImg} className='w140 h140 mg-b-20' />
         <Text>世界电话区号</Text>
       </Navigator>
-      <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/weather/weather'>
+      <View className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' onClick={() => goSWeatherMiniProgram()}>
         <Image src={weatherImg} className='w140 h140 mg-b-20' />
         <Text>天气预报</Text>
-      </Navigator>
+      </View>
       <Navigator className='flex-column flex-col-center flex-33per pd-20 bg-white bd-box' url='/pages/calculator/calculator'>
         <Image src={calculatorImg} className='w140 h140 mg-b-20' />
         <Text>简易计算器</Text>
