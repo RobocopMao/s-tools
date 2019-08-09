@@ -4,15 +4,31 @@ import scanCodeImg from '../../assets/images/scancode.png'
 import './express.scss'
 import {getLogisticsDetails, getLogisticsTypeId} from '../../apis/express';
 import moment from 'moment';
+import {useAsyncEffect} from '../../utils';
+import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function Express() {
+  const [productConfig, setProductConfig] = useState({});
   const [expressNo, setExpressNo] = useState(''); // 快递编号
   const [expressComId, setExpressComId] = useState(''); // 物流公司编号
   const [expressComName, setExpressComName] = useState('');  // 物流公司名称
   const [expressDetails, setExpressDetails] = useState([]);  // 物流信息详情
   const [expressStatus, setExpressStatus] = useState('');  // 物流状态
-
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+
+  useAsyncEffect(async () => {
+    let res = await getProductList({user_id});
+    const {secret, productId} = res.find((v, i, arr) => {
+      return Number(v.productId) === 50005;  // 50005是该小程序的productId
+    });
+    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
+    const productConfig = JSON.parse(res1.productConfig);
+    // console.log(productConfig);
+    setProductConfig(productConfig);
+    if (!productConfig.express) {
+      Taro.reLaunch({url: '../../pages/index/index'});
+    }
+  }, []);
 
   // 设置scrollView的高度
   useEffect(() => {
@@ -22,7 +38,9 @@ function Express() {
         query
           .select('#expressSearch')
           .boundingClientRect(rect => {
-            const scrollHeight = res.windowHeight - rect.height;
+            console.log(rect)
+            let height = rect ? rect.height : 50;
+            const scrollHeight = res.windowHeight - height;
             setScrollHeight(scrollHeight);
           })
           .exec()
@@ -155,7 +173,7 @@ function Express() {
 
   return (
     <View className='express'>
-      <View className='flex-column' id='expressSearch'>
+      {productConfig.express && <View className='flex-column' id='expressSearch'>
         <View className='flex-row pd-20'>
           <View className='relative input-box'>
             <Image className='w40 h40 scan-code-img' src={scanCodeImg} onClick={() => onScanCode()} />
@@ -175,8 +193,8 @@ function Express() {
           </View>
           <View className='line' />
         </View>}
-      </View>
-      <ScrollView
+      </View>}
+      {productConfig.express && <ScrollView
         className=''
         scrollY
         scrollWithAnimation
@@ -200,7 +218,7 @@ function Express() {
           })}
           {!expressDetails.length && expressComId && <View className='text-center color9'>暂时没有物流信息</View>}
         </View>
-      </ScrollView>
+      </ScrollView>}
     </View>
   )
 }

@@ -6,6 +6,11 @@ import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function VideoBox() {
   const [productConfig, setProductConfig] = useState({});
+  const [video, setVideo] = useState('');
+  const [poster, setPoster] = useState('');
+  const [title, setTitle] = useState('');
+  const [source, setSource] = useState('');
+  const [postTime, setPostTime] = useState('');
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -20,12 +25,6 @@ function VideoBox() {
       Taro.reLaunch({url: '../../pages/index/index'});
     }
   }, []);
-
-  const [video, setVideo] = useState('');
-  const [poster, setPoster] = useState('');
-  const [title, setTitle] = useState('');
-  const [source, setSource] = useState('');
-  const [postTime, setPostTime] = useState('');
 
   useEffect(() => {
     const {video, poster, title, source, postTime} = this.$router.params;

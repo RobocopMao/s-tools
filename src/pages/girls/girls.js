@@ -9,6 +9,10 @@ import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 
 function Girls() {
   const [productConfig, setProductConfig] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // 加载提示
+  const [col1, setCol1] = useState([]);
+  const [col2, setCol2] = useState([]);
+  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -21,20 +25,10 @@ function Girls() {
     setProductConfig(productConfig);
     if (!productConfig.girls) {
       Taro.reLaunch({url: '../../pages/index/index'});
+    } else {
+      getImgList();
     }
   }, []);
-
-  // const [page, setPage] = useState(1);
-  // const [totalPage, setTotalPage] = useState(1); // 总页数
-  const [isLoading, setIsLoading] = useState(false); // 加载提示
-  const [col1, setCol1] = useState([]);
-  const [col2, setCol2] = useState([]);
-
-  useEffect(() => {
-    getImgList();
-  }, []);
-
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
 
   useEffect(() => {
     Taro.getSystemInfo({

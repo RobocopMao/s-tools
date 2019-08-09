@@ -8,6 +8,10 @@ import './news.scss'
 
 function News() {
   const [productConfig, setProductConfig] = useState({});
+  const [newsTypes, setNewsTypes] = useState([]);
+  const [newsList, setNewsList] = useState([]);
+  const [typeId, setTypeId] = useState(0);
+  const [page, setPage] = useState(1);
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -21,6 +25,8 @@ function News() {
     setProductConfig(productConfig);
     if (!productConfig.news) {
       Taro.reLaunch({url: '../../pages/index/index'});
+    } else {
+      initNews();
     }
   }, []);
 
@@ -45,12 +51,8 @@ function News() {
       .then(res => {})
   }, [scrollHeight, productConfig]);
 
-  const [newsTypes, setNewsTypes] = useState([]);
-  const [newsList, setNewsList] = useState([]);
-  const [typeId, setTypeId] = useState(0);
-  const [page, setPage] = useState(1);
-
-  useAsyncEffect(async () => {
+  // 初始化数据
+  const initNews = async () => {
     let res = await getNewsTypes();
     let arr1 = [];
     let arr2 = [];
@@ -69,7 +71,7 @@ function News() {
     setNewsTypes(newArr);
     setTypeId(newArr[0].typeId);
     _getNewsList(newArr[0].typeId, 1);
-  }, []);
+  };
 
   const _getNewsList = async (typeId, page) => {
     const res = await getNewsList({typeId, page});
