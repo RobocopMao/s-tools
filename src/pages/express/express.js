@@ -38,7 +38,6 @@ function Express() {
         query
           .select('#expressSearch')
           .boundingClientRect(rect => {
-            console.log(rect)
             let height = rect ? rect.height : 50;
             const scrollHeight = res.windowHeight - height;
             setScrollHeight(scrollHeight);
