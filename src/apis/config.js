@@ -3,6 +3,10 @@ const request = new Request();
 
 const HOST = 'https://www.mxnzp.com';
 
+export const user_id = '';
+
+export const S_WEATHER_APPID = '';
+
 // 查询远程配置
 export const getRemoteConfig = async (data) => {
   return await request.get({
@@ -19,7 +23,5 @@ export const getProductList = async (data) => {
     loading: false
   });
 };
-
-export const user_id = 'nfkjv6hpvkliuuso';
 
 export default HOST;

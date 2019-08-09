@@ -1,6 +1,6 @@
 import Taro, {useState} from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { getRemoteConfig, getProductList, user_id } from '../../apis/config';
+import { getRemoteConfig, getProductList, user_id, S_WEATHER_APPID} from '../../apis/config';
 import { useAsyncEffect } from '../../utils';
 import newsImg from '../../assets/images/news.png'
 import jokeImg from '../../assets/images/joke.png'
@@ -30,7 +30,7 @@ function Index() {
 
   // 去天气情报小程序
   const goSWeatherMiniProgram = () => {
-    Taro.navigateToMiniProgram({appId: 'wx892bebdc63488ab2'});
+    Taro.navigateToMiniProgram({appId: S_WEATHER_APPID});
   };
 
   return (
