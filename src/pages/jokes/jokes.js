@@ -1,23 +1,18 @@
 import Taro, { useState, useEffect } from '@tarojs/taro'
-import { View, Text, ScrollView } from '@tarojs/components'
-import { getJokes } from '../../apis/jokes'
+import { View, Text, ScrollView, RichText } from '@tarojs/components'
+import { getJokesRandom } from '../../apis/jokes'
 import { useAsyncEffect } from '../../utils'
 import './jokes.scss'
 
 function Jokes() {
-  const [page, setPage] = useState(1);  // 分页
-  const [totalPage, setTotalPage] = useState(1); // 总页数
+  // const [page, setPage] = useState(1);  // 分页
+  // const [totalPage, setTotalPage] = useState(1); // 总页数
   const [jokes, setJokes] = useState([]);  // 笑话数组
   const [isLoading, setIsLoading] = useState(false); // 加载提示
 
-  useAsyncEffect(async () => {
-    setIsLoading(true);
-    const res = await getJokes({page});
-    const newJokes = jokes.concat(res.list);
-    setJokes(newJokes);
-    setTotalPage(res.totalPage);
-    setIsLoading(false);
-  }, [page]);
+  useAsyncEffect(() => {
+    getJokes();
+  }, []);
 
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
 
@@ -33,7 +28,18 @@ function Jokes() {
   // 滑动到底部的事件处理函数
   const scrollToLower = () => {
     // 设置page
-    setPage(prevPage => (prevPage === totalPage ? totalPage : prevPage + 1));
+    // setPage(prevPage => (prevPage === totalPage ? totalPage : prevPage + 1));
+    getJokes();
+  };
+
+  // 随机获取笑话
+  const getJokes = async () => {
+    setIsLoading(true);
+    const res = await getJokesRandom();
+    const newJokes = jokes.concat(res);
+    setJokes(newJokes);
+    // setTotalPage(res.totalPage);
+    setIsLoading(false);
   };
 
   return (
@@ -48,20 +54,19 @@ function Jokes() {
       <View className='mg-l-20 mg-r-20'>
         {jokes.map((joke, index) => {
           return (
-            <View key={joke.updateTime} className='pd-t-20'>
-              <View className='mg-b-20 font24'>
-                <Text className='mg-r-20 blue'>{index + 1}</Text>
-                <Text>更新于 {joke.updateTime}</Text>
-              </View>
-              <Text>{joke.content}</Text>
-              {page !== totalPage && <View className='line mg-t-20' />}
+            <View key={String(index)} className={`${joke.content.length > 20 ? 'pd-t-20' : ''}`}>
+              {joke.content.length > 20 && <RichText nodes={joke.content.replace(/\s{2,}/g, '<p></p>')} className='font32 lh-50 black' />}
+              {joke.content.length > 20 && <View className='mg-t-30 font24'>
+                {/*<Text className='mg-r-20 blue'>{index + 1}</Text>*/}
+                <Text>于 {joke.updateTime} 加入</Text>
+              </View>}
+              {jokes.length !== index + 1 && joke.content.length > 20 && <View className='line mg-t-40 mg-b-20' />}
             </View>
           )
         })}
       </View>
       <View className='flex-row flex-row-center font26 pd-t-20 pd-b-20'>
-        {isLoading && page !== totalPage && <Text>努力加载中...</Text>}
-        {page === totalPage && <Text>您已经看完所有笑话</Text>}
+        {isLoading && <Text>努力加载中...</Text>}
       </View>
     </ScrollView>
   )

@@ -35,6 +35,13 @@ function IpSearch() {
     setAimIpInfo({});
   };
 
+  const onChange = () => {
+    if (!/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/g.test(aimIp)) {
+      Taro.showToast({title: 'ip地址格式不正确', icon: 'none'});
+      onReset();
+    }
+  };
+
   return (
     <View className='ip-search flex-column'>
       <View className='flex-column'>
@@ -48,20 +55,20 @@ function IpSearch() {
         {/*<View className='line mg-t-20' />*/}
         <View className='flex-row pd-20'>
           <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
-                 placeholder='请输入ip地址' value={aimIp}
+                 placeholder='请输入ip地址' value={aimIp} onChange={() => onChange()}
                  onInput={(e) => onInput(e)} />
           <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
           <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
         </View>
         <View className='line' />
       </View>
-        <View className='flex-column pd-20'>
+      {JSON.stringify(aimIpInfo) !== '{}' && <View className='flex-column pd-20'>
           <Text className='mg-b-10 bold'>当前查询的IP信息：</Text>
           <Text className='mg-b-10'>IP地址：<Text className='blue'>{aimIpInfo.ip}</Text></Text>
           <Text className='mg-b-10'>省份：{aimIpInfo.province}</Text>
           <Text className='mg-b-10'>城市：{aimIpInfo.city}</Text>
           <Text className='mg-b-10'>网络服务商：{aimIpInfo.isp}</Text>
-        </View>
+        </View>}
       {/*</View>*/}
 
     </View>

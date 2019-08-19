@@ -9,3 +9,12 @@ export const getJokes = async (data) => {
     loading: false
   });
 };
+
+// 随机获取
+export const getJokesRandom = async (data) => {
+  return await request.get({
+    url: '/jokes/list/random ',
+    data,
+    loading: false
+  });
+};
