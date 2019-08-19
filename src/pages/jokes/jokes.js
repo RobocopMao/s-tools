@@ -1,5 +1,6 @@
 import Taro, { useState, useEffect } from '@tarojs/taro'
 import { View, Text, ScrollView, RichText } from '@tarojs/components'
+import moment from 'moment'
 import { getJokesRandom } from '../../apis/jokes'
 import { useAsyncEffect } from '../../utils'
 import './jokes.scss'
@@ -58,7 +59,7 @@ function Jokes() {
               {joke.content.length > 20 && <RichText nodes={joke.content.replace(/\s{2,}/g, '<p></p>')} className='font32 lh-50 black' />}
               {joke.content.length > 20 && <View className='mg-t-30 font24'>
                 {/*<Text className='mg-r-20 blue'>{index + 1}</Text>*/}
-                <Text>于 {joke.updateTime} 加入</Text>
+                <Text>于 {moment(joke.updateTime).format('YYYY-MM-DD HH:mm')} 加入</Text>
               </View>}
               {jokes.length !== index + 1 && joke.content.length > 20 && <View className='line mg-t-40 mg-b-20' />}
             </View>
