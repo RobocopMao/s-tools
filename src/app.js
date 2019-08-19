@@ -36,7 +36,7 @@ class App extends Component {
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
     },
-    navigateToMiniProgramAppIdList: ['wx892bebdc63488ab2'],
+    navigateToMiniProgramAppIdList: [''],
     permission: {
       'scope.userLocation': {
         'desc': '你的位置信息将用于小程序查询天气'
@@ -71,12 +71,7 @@ class App extends Component {
     });
   }
 
-  componentDidMount () {
-    // 显示转发按钮
-    Taro.showShareMenu({
-      withShareTicket: true
-    });
-  }
+  componentDidMount () {}
 
   componentDidShow () {}
 

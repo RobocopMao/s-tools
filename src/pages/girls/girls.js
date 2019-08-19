@@ -44,7 +44,19 @@ function Girls() {
     Taro.showShareMenu({
       withShareTicket: true
     });
+
+    onShareAppMessage();
   }, []);
+
+  const onShareAppMessage = () => {
+    this.$scope.onShareAppMessage = (res) => {
+      return {
+        title: '对面的男孩看过来',
+        path: `/pages/girls/girls`,
+      }
+    };
+
+  };
 
   // 随机获取图片
   const getImgList = async () => {

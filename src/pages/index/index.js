@@ -1,4 +1,4 @@
-import Taro, {useState} from '@tarojs/taro'
+import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import { getRemoteConfig, getProductList, user_id, S_WEATHER_APPID} from '../../apis/config';
 import { useAsyncEffect } from '../../utils';
@@ -27,6 +27,24 @@ function Index() {
     // console.log(productConfig);
     setProductConfig(productConfig);
   }, []);
+
+  useEffect(() => {
+    // 显示转发按钮
+    Taro.showShareMenu({
+      withShareTicket: true
+    });
+
+    onShareAppMessage();
+  }, []);
+
+  const onShareAppMessage = () => {
+    this.$scope.onShareAppMessage = (res) => {
+      return {
+        title: '非常实用的小工具集合',
+        path: `/pages/index/index`,
+      }
+    };
+  };
 
   // 去天气情报小程序
   const goSWeatherMiniProgram = () => {
