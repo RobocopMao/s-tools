@@ -85,6 +85,7 @@ function VideoBox() {
           src={video}
           poster={poster}
           showMuteBtn={true}
+          enablePlayGesture
           title={title}
           onError={() => playError()}
         />
