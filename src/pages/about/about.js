@@ -84,9 +84,8 @@ function About() {
             )
           })}
         </View>
-        {/*<View>*/}
-          {/*<Button openType='getUserInfo' onGetUserInfo={(e) => getUserInfo(e)}>我是管理员</Button>*/}
-        {/*</View>*/}
+        <Text className='pd-20 black bold'>作者联系方式：</Text>
+        <Text className='pd-20'>邮箱：410503915@qq.com</Text>
       </View>
     </ScrollView>
   )

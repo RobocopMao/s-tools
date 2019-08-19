@@ -1,5 +1,6 @@
 import Taro, {useState, useEffect} from '@tarojs/taro'
 import { View, RichText, Button, Image } from '@tarojs/components'
+import moment from 'moment'
 import { useAsyncEffect } from '../../utils'
 import { getNewsDetails } from '../../apis/news'
 import shareImg from '../../assets/images/share.png'
@@ -57,9 +58,9 @@ function NewsDetails() {
   return (
     <View className='news-details flex-column bg-white h100-per'>
       <View className='pd-20 font36 black bold'>{newsDetails.title}</View>
-      <View className='pd-l-20 pd-r-20 pd-b-20 font24'>{newsDetails.source} {newsDetails.ptime}</View>
+      <View className='pd-l-20 pd-r-20 pd-b-20 font24'>{newsDetails.source} {moment(newsDetails.ptime).format('YYYY-MM-DD HH:mm')}</View>
       <View className='pd-l-20 pd-r-20 pd-b-20 bg-white'>
-        <RichText nodes={newsContent} />
+        <RichText className='font32 lh-50' nodes={newsContent.replace(/原标题：(\S|\s)*/, '')} />
       </View>
       <View className='flex-column bg-no fixed-btn'>
         <Button className='w68 h68 circle bd-no pd-0 flex-row flex-col-center flex-row-center bg-no' openType='share'>

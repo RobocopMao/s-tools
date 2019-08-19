@@ -1,5 +1,6 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text, ScrollView, Image, Video } from '@tarojs/components'
+import moment from 'moment'
 import { useAsyncEffect } from '../../utils'
 import { getNewsTypes, getNewsList } from '../../apis/news'
 import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
@@ -164,9 +165,9 @@ function News() {
                   />
                 </View>}
               </View>
-              <View className='flex-row font24 pd-b-20 '>
+              <View className='flex-row font24 pd-b-20'>
                 <Text className='mg-r-20'>{source}</Text>
-                {postTime && <Text>{postTime}</Text>}
+                {postTime && <Text>{moment(postTime).format('YYYY-MM-DD HH:mm')}</Text>}
               </View>
               <View className='line' />
             </View>
