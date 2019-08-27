@@ -13,6 +13,14 @@ function Girls() {
   const [col1, setCol1] = useState([]);
   const [col2, setCol2] = useState([]);
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -46,13 +54,13 @@ function Girls() {
     });
 
     onShareAppMessage();
-  }, []);
+  }, [color]);
 
   const onShareAppMessage = () => {
     this.$scope.onShareAppMessage = (res) => {
       return {
         title: '对面的男孩看过来',
-        path: `/pages/girls/girls`,
+        path: `/pages/girls/girls?color=${color}&from=SHARE`,
       }
     };
 
@@ -142,7 +150,7 @@ function Girls() {
         className=''
         scrollY
         scrollWithAnimation
-        style={{height: `${scrollHeight}px`}}
+        style={{height: `${scrollHeight}px`, backgroundColor: color}}
         onScrollToLower={() => scrollToLower()}
       >
         <View className='flex-row'>
@@ -180,8 +188,7 @@ function Girls() {
           </View>
         </View>
         <View className='flex-row flex-row-center font26 pd-t-40 pd-b-40'>
-          {isLoading && <Text>一大波美女正向你扑来...</Text>}
-          {/*{page === totalPage && <Text>哇！美女被你看光了</Text>}*/}
+          {isLoading && <Text className='white'>一大波美女正向你扑来...</Text>}
         </View>
       </ScrollView>}
     </View>

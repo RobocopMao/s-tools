@@ -7,6 +7,14 @@ import {getProductList, getRemoteConfig, user_id} from "../../apis/config";
 
 function About() {
   const [productConfig, setProductConfig] = useState({});
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -66,7 +74,7 @@ function About() {
             const {date, event, logs} = log;
             return (
               <View className='flex-column pd-b-20 pd-l-20 update-log' key={date}>
-                <Text className='blue mg-b-10'>{date}</Text>
+                <Text className='mg-b-10' style={{color}}>{date}</Text>
                 {event && <Text className='mg-b-10 yellow'>事件：{event}</Text>}
                 <View className='flex-row'>
                   <View className='flex-25per'>

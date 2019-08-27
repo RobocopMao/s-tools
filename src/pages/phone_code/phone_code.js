@@ -8,6 +8,14 @@ function PhoneCode() {
   const [area, setArea] = useState('');
   const [phoneCodeList, setPhoneCodeList] = useState([]);
   const [phoneCodeFilterList, setPhoneCodeFilterList] = useState([]);
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   // 查询所有区号数据
   useAsyncEffect(async () => {
@@ -16,25 +24,25 @@ function PhoneCode() {
     setPhoneCodeFilterList(res);
   }, []);
 
-  const [scrollTop, setScrollTop] = useState(0);
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  // const [scrollTop, setScrollTop] = useState(0);
+  // const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
 
-  // 设置scrollView的高度
-  useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        const query = Taro.createSelectorQuery();
-        query
-          .select('#phoneCodeSearch')
-          .boundingClientRect(rect => {
-            const scrollHeight = res.windowHeight - rect.height;
-            setScrollHeight(scrollHeight);
-          })
-          .exec()
-      }
-    })
-    .then(res => {})
-  }, [scrollHeight]);
+  // // 设置scrollView的高度
+  // useEffect(() => {
+  //   Taro.getSystemInfo({
+  //     success: res => {
+  //       const query = Taro.createSelectorQuery();
+  //       query
+  //         .select('#phoneCodeSearch')
+  //         .boundingClientRect(rect => {
+  //           const scrollHeight = res.windowHeight - rect.height;
+  //           setScrollHeight(scrollHeight);
+  //         })
+  //         .exec()
+  //     }
+  //   })
+  //   .then(res => {})
+  // }, [scrollHeight]);
 
   // 地区输入框事件
   const onInput = (e) => {
@@ -55,48 +63,63 @@ function PhoneCode() {
       return reg.test(value.zhCn);
     });
     setPhoneCodeFilterList(filterList);
-    setScrollTop(scrollTop ? 0 : 0.1);
+    // setScrollTop(scrollTop ? 0 : 0.1);
+    let tId = setTimeout(() => {
+      Taro.pageScrollTo({
+        scrollTop: 0,
+        duration: 500
+      });
+      clearTimeout(tId);
+    }, 500)
   };
 
   // 重置事件
   const onReset = () => {
     setArea('');
     setPhoneCodeFilterList(phoneCodeList);
-    setScrollTop(scrollTop ? 0 : 0.1);
+    // setScrollTop(scrollTop ? 0 : 0.1);
+    let tId = setTimeout(() => {
+      Taro.pageScrollTo({
+        scrollTop: 0,
+        duration: 500
+      });
+      clearTimeout(tId);
+    }, 500)
+
   };
 
   return (
     <View className='phone-code'>
-      <View className='flex-column' id='phoneCodeSearch'>
-        <View className='flex-row pd-20'>
-          <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
+      <View className='flex-column pos-sticky pd-t-10 pd-b-20' style={{backgroundColor: color}}>
+        <View className='flex-row bd-radius-50 mg-l-20 mg-r-20 of-hidden'>
+          <Input className='flex-grow-1 pd-l-30 pd-r-20 pd-t-2 pd-b-2 h80 lh-80 bd-box bg-white' type='text'
                  placeholder='请输入地区名称' value={area}
                  onInput={(e) => onInput(e)} />
-          <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
-          <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+          {area && <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onReset()}>&#xe87b;</Button>}
+          <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onSubmit()}>&#xe87c;</Button>
         </View>
-        <View className='line' />
+        {/*<View className='line' />*/}
       </View>
-      <ScrollView
-        className=''
-        scrollY
-        scrollWithAnimation
-        style={{height: `${scrollHeight}px`}}
-        enableBackToTop={true}
-        scrollTop={scrollTop}
-      >
+      {/*<ScrollView*/}
+        {/*className=''*/}
+        {/*scrollY*/}
+        {/*scrollWithAnimation*/}
+        {/*style={{height: `${scrollHeight}px`}}*/}
+        {/*enableBackToTop={true}*/}
+        {/*scrollTop={scrollTop}*/}
+      {/*>*/}
         <View className='pd-20 pd-t-0'>
           {phoneCodeFilterList.map((code, index) => {
             return (
               <View className='flex-column pd-t-20' key={String(code.zhCn)}>
-                <Text className='mg-b-10'>地区名称：<Text className='blue'>{code.zhCn}</Text> - {code.enUs}</Text>
-                <Text>区号：<Text className='yellow'>{code.phoneCode}</Text></Text>
+                <Text className='mg-b-10'>地区名称：<Text style={{color}}>{code.zhCn}</Text> - {code.enUs}</Text>
+                <Text>区号：<Text style={{color}}>{code.phoneCode}</Text></Text>
                 {index !== phoneCodeFilterList.length - 1 && <View className='line mg-t-20' />}
               </View>
             )
           })}
         </View>
-      </ScrollView>
+      {/*</ScrollView>*/}
     </View>
   )
 }

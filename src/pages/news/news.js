@@ -13,6 +13,14 @@ function News() {
   const [newsList, setNewsList] = useState([]);
   const [typeId, setTypeId] = useState(0);
   const [page, setPage] = useState(1);
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -102,12 +110,12 @@ function News() {
   const goNewsDetails = ({newsId, videoList, imgList, title, source, postTime}) => {
     if (newsId !== '此类型无详情id') {
       const _newsId = newsId.split('_')[0];
-      Taro.navigateTo({url: `../../pages/news_details/news_details?newsId=${_newsId}`});
+      Taro.navigateTo({url: `../../pages/news_details/news_details?newsId=${_newsId}&color=${color}`});
     } else {
       if (typeId === 522 && !videoList) {
         Taro.showToast({title: '视频资源未找到', icon: 'none'});
       } else {
-        Taro.navigateTo({url: `../../pages/video/video?&video=${videoList[0]}&poster=${imgList[0]}&title=${title}&source=${source}&postTime=${postTime}`});
+        Taro.navigateTo({url: `../../pages/video/video?&video=${videoList[0]}&poster=${imgList[0]}&title=${title}&source=${source}&postTime=${postTime}&color=${color}`});
       }
     }
   };
@@ -124,7 +132,10 @@ function News() {
         {newsTypes.map((type) => {
           const {typeId, typeName, active} = type;
           return (
-            <View key={typeId} className={`inline-block pd-t-16 pd-b-16 pd-r-20 pd-l-20 ${active ? 'type-active' : ''}`} onClick={() => changeTypes(typeId)}>{typeName}</View>
+            <View key={typeId} className={`inline-block pd-t-16 pd-b-16 pd-r-20 pd-l-20 relative ${active ? 'type-active' : ''}`} style={{}} onClick={() => changeTypes(typeId)}>
+              <Text>{typeName}</Text>
+              {active && <View className='w30 h6 type-btn-line' style={{backgroundColor: color}} />}
+            </View>
           )
         })}
       </ScrollView>}
@@ -156,7 +167,7 @@ function News() {
                   <View className='video-mask flex-row flex-row-center'>
                     {typeId === 522 && <Image className='w100-per h100-per' src={imgList[0]} />}
                     {typeId === 526 && <Image className='w30-per h100-per' src={imgList[0]} />}
-                    <Image className='play-btn w60 h60' src={playBtnImg} />
+                    <Button className='iconfont play-btn w60 h60 lh-60 bg-no white font60 pd-0'>&#xe60d;</Button>
                   </View>
                   <Video
                     className='w100-per'

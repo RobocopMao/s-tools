@@ -10,6 +10,14 @@ function Jokes() {
   // const [totalPage, setTotalPage] = useState(1); // 总页数
   const [jokes, setJokes] = useState([]);  // 笑话数组
   const [isLoading, setIsLoading] = useState(false); // 加载提示
+  // const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    // setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(() => {
     getJokes();

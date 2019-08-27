@@ -62,13 +62,17 @@ function VideoBox() {
     this.$scope.onShareAppMessage = (res) => {
       return {
         title,
-        path: `/pages/video/video?video=${video}&poster=${poster}&title=${title}&source=${source}&postTime=${postTime}`,
+        path: `/pages/video/video?video=${video}&poster=${poster}&title=${title}&source=${source}&postTime=${postTime}&from=SHARE`,
       }
     };
   };
 
   const playError = () => {
     Taro.showToast({title: '很抱歉！视频播放错误', icon: 'none'});
+  };
+
+  const goHome = () => {
+    Taro.reLaunch({url: '../../pages/index/index'});
   };
 
   return (
@@ -90,6 +94,10 @@ function VideoBox() {
           onError={() => playError()}
         />
       </View>}
+      <View className='flex-column bg-no fixed-btn'>
+        <Button className='iconfont w64 h64 lh-64 circle bd-white pd-0 font44 black' openType='share'>&#xe874;</Button>
+        {this.$router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-white pd-0 font44 black mg-t-20' onClick={() => goHome()}>&#xe87e;</Button>}
+      </View>
     </View>
   )
 }

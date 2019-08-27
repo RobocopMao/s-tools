@@ -22,6 +22,14 @@ function Calendar() {
   const [calendarData, setCalendarData] = useState([]);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollType, setScrollType] = useState('TOUCH');
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(async () => {
     // const date = moment().format('YYYYMMDD');
@@ -189,13 +197,13 @@ function Calendar() {
       <View className='flex-column mg-20'>
         <View className='flex-row flex-col-center space-between mg-b-10'>
           <View className='flex-row flex-col-center'>
-            <View className='font80 mg-r-20 blue'>{month}月</View>
+            <View className='font80 mg-r-20' style={{color}}>{month}月</View>
             <View className='flex-column'>
-              <Text>{week}{year <= Number(moment().format('YYYY')) && <Text><Text> · </Text><Text className='yellow'>{dateInfo.typeDes}</Text></Text>}</Text>
+              <Text>{week}{year <= Number(moment().format('YYYY')) && <Text><Text> · </Text><Text style={{color}}>{dateInfo.typeDes}</Text></Text>}</Text>
               <Text>{year}年</Text>
             </View>
           </View>
-          {moment(date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD') && <View className='circle white bg-blue text-center w80 h80' onClick={() => goToday()}>
+          {moment(date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD') && <View className='circle white text-center w80 h80' style={{backgroundColor: color}} onClick={() => goToday()}>
             <Text className='lh-80'>今</Text>
           </View>}
         </View>
@@ -227,8 +235,8 @@ function Calendar() {
                   {months.map((days, index1) => {
                     return (
                       <View className='flex-row space-around flex-col-center pd-t-10 pd-b-10 flex-1-7per' key={String(index1)}>
-                        <View className={`w60 h60 text-center circle ${days.bgColor} ${days._day === day && days._month === month && days._year === year
-                        && days.type === 'CURRENT' && days.bgColor !== 'bg-blue' ? 'bd-1' : ''}`} onClick={() => onClickDay(days, index)}>
+                        <View className={`w60 h60 text-center circle ${days._day === day && days._month === month && days._year === year
+                        && days.type === 'CURRENT' && days.bgColor !== 'bg-blue' ? 'bd-1' : ''}`} style={{backgroundColor: days.bgColor === 'bg-blue' ? color : 'transparent'}} onClick={() => onClickDay(days, index)}>
                           <Text className={`lh-60 ${days.color}`}>{days._day}</Text>
                         </View>
                       </View>

@@ -15,6 +15,14 @@ function Express() {
   const [expressDetails, setExpressDetails] = useState([]);  // 物流信息详情
   const [expressStatus, setExpressStatus] = useState('');  // 物流状态
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(async () => {
     let res = await getProductList({user_id});
@@ -31,22 +39,22 @@ function Express() {
   }, []);
 
   // 设置scrollView的高度
-  useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        const query = Taro.createSelectorQuery();
-        query
-          .select('#expressSearch')
-          .boundingClientRect(rect => {
-            let height = rect ? rect.height : 50;
-            const scrollHeight = res.windowHeight - height;
-            setScrollHeight(scrollHeight);
-          })
-          .exec()
-      }
-    })
-      .then(res => {})
-  }, [scrollHeight, expressDetails]);
+  // useEffect(() => {
+  //   Taro.getSystemInfo({
+  //     success: res => {
+  //       const query = Taro.createSelectorQuery();
+  //       query
+  //         .select('#expressSearch')
+  //         .boundingClientRect(rect => {
+  //           let height = rect ? rect.height : 50;
+  //           const scrollHeight = res.windowHeight - height;
+  //           setScrollHeight(scrollHeight);
+  //         })
+  //         .exec()
+  //     }
+  //   })
+  //     .then(res => {})
+  // }, [scrollHeight, expressDetails]);
 
   // 从快递记录过来
   useEffect(() => {
@@ -172,19 +180,18 @@ function Express() {
 
   return (
     <View className='express'>
-      {productConfig.express && <View className='flex-column' id='expressSearch'>
-        <View className='flex-row pd-20'>
-          <View className='relative input-box'>
-            <Image className='w40 h40 scan-code-img' src={scanCodeImg} onClick={() => onScanCode()} />
-            <Input className='bd-1 bd-radius pd-l-60 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box w360' type='text'
-                 placeholder='请输入快递编号' value={expressNo}
-                 onInput={(e) => onInput(e)} />
+      {productConfig.express && <View className='flex-column pos-sticky'>
+        <View className='pd-t-10 pd-b-20 pd-l-20 pd-r-20' style={{backgroundColor: color}}>
+          <View className='flex-row bd-radius-50 of-hidden'>
+            <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onScanCode()}>&#xe879;</Button>
+            <Input className='flex-grow-1 pd-r-20 pd-t-2 pd-b-2 h80 lh-80 bd-box bg-white' type='text'
+                   placeholder='请输入快递编号' value={expressNo}
+                   onInput={(e) => onInput(e)} />
+            {expressNo && <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onReset()}>&#xe87b;</Button>}
+            <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onSubmit()}>&#xe87c;</Button>
           </View>
-          <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
-          <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
         </View>
-        <View className='line' />
-        {expressComName && expressNo && <View className='flex-column'>
+        {expressComName && expressNo && <View className='flex-column bg-white'>
           <View className='flex-column pd-20'>
             {expressStatus && <View className='black font32'>{expressStatus}</View>}
             <View>{expressComName}</View>
@@ -193,14 +200,14 @@ function Express() {
           <View className='line' />
         </View>}
       </View>}
-      {productConfig.express && <ScrollView
-        className=''
-        scrollY
-        scrollWithAnimation
-        style={{height: `${scrollHeight}px`}}
-        // enableBackToTop={true}
-        // scrollTop={scrollTop}
-      >
+      {/*{productConfig.express && <ScrollView*/}
+        {/*className=''*/}
+        {/*scrollY*/}
+        {/*scrollWithAnimation*/}
+        {/*style={{height: `${scrollHeight}px`}}*/}
+        {/*// enableBackToTop={true}*/}
+        {/*// scrollTop={scrollTop}*/}
+      {/*>*/}
         <View className='pd-20 font26'>
           {expressDetails.map((detail, index) => {
             return (
@@ -217,7 +224,7 @@ function Express() {
           })}
           {!expressDetails.length && expressComId && <View className='text-center color9'>暂时没有物流信息</View>}
         </View>
-      </ScrollView>}
+      {/*</ScrollView>}*/}
     </View>
   )
 }

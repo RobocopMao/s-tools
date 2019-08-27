@@ -6,7 +6,7 @@ import { useAsyncEffect } from '../../utils'
 const QQMapWX = require('../../utils/qqmap-wx-jssdk');
 
 function Weather() {
-  const qqmapsdk = new QQMapWX({key: 'WATBZ-IBNR4-4VHU2-D2LSO-PBQBQ-*****'});
+  const qqmapsdk = new QQMapWX({key: 'WATBZ-IBNR4-4VHU2-D2LSO-PBQBQ-G3BKJ'});
   const [city, setCity] = useState('');
   const [province, setProvince] = useState('');
   const [forecasts, setForecasts] = useState([]);

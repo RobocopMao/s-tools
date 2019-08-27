@@ -1,4 +1,5 @@
 @import "./assets/styles/variable";
+@import "./assets/styles/iconfont";
 page {
   display: flex;
   flex-direction: column;
@@ -347,6 +348,7 @@ button::after {
 
 //border-radius
 .bd-radius {border-radius: 10px;}
+.bd-radius-50 {border-radius: 50px;}
 .circle {border-radius: 50%;}
 .bd-radius-no {border-radius: 0;}
 
@@ -587,6 +589,12 @@ button::after {
 .mg-l-36 {margin-left: 36px;}
 .mg-l-38 {margin-left: 38px;}
 .mg-l-40 {margin-left: 40px;}
+
+.pos-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
 ::-webkit-scrollbar{
   width: 0;

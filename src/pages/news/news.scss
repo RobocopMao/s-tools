@@ -18,18 +18,26 @@
     view.type-active {
       position: relative;
       color: $black;
-      &:after {
-        content: '';
-        width: 30px;
-        height: 6px;
+      .type-btn-line {
         border-radius: 25%;
         position: absolute;
         bottom: 0;
         left: 50%;
         z-index: 1;
         margin-left: -15px;
-        background-color: $blue;
       }
+      //&:after {
+      //  content: '';
+      //  width: 30px;
+      //  height: 6px;
+      //  border-radius: 25%;
+      //  position: absolute;
+      //  bottom: 0;
+      //  left: 50%;
+      //  z-index: 1;
+      //  margin-left: -15px;
+      //  background-color: $blue;
+      //}
     }
   }
   .video-mask {

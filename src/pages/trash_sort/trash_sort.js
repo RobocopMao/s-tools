@@ -8,25 +8,33 @@ function TrashSort() {
   const [goodsName, setGoodsName] = useState('');
   const [goodsType, setGoodsType] = useState('');
   const [recommend, setRecommend] = useState([]);
-  const [scrollTop, setScrollTop] = useState(0);
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  // const [scrollTop, setScrollTop] = useState(0);
+  // const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   // 设置scrollView的高度
-  useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        const query = Taro.createSelectorQuery();
-        query
-          .select('#trashSortSearch')
-          .boundingClientRect(rect => {
-            const scrollHeight = res.windowHeight - rect.height;
-            setScrollHeight(scrollHeight);
-          })
-          .exec()
-      }
-    })
-      .then(res => {})
-  }, [scrollHeight]);
+  // useEffect(() => {
+  //   Taro.getSystemInfo({
+  //     success: res => {
+  //       const query = Taro.createSelectorQuery();
+  //       query
+  //         .select('#trashSortSearch')
+  //         .boundingClientRect(rect => {
+  //           const scrollHeight = res.windowHeight - rect.height;
+  //           setScrollHeight(scrollHeight);
+  //         })
+  //         .exec()
+  //     }
+  //   })
+  //     .then(res => {})
+  // }, [scrollHeight]);
 
   // 显示转发按钮
   useEffect(() => {
@@ -54,7 +62,13 @@ function TrashSort() {
     setGoodsName(goodsName);
     setGoodsType(goodsType);
     setRecommend(recommend);
-    setScrollTop(scrollTop ? 0 : 0.1);
+    let tId = setTimeout(() => {
+      Taro.pageScrollTo({
+        scrollTop: 0,
+        duration: 500
+      });
+      clearTimeout(tId);
+    }, 500)
   };
 
   // 重置事件
@@ -63,29 +77,34 @@ function TrashSort() {
     setGoodsName('');
     setGoodsType('');
     setRecommend([]);
-    setScrollTop(scrollTop ? 0 : 0.1);
+    let tId = setTimeout(() => {
+      Taro.pageScrollTo({
+        scrollTop: 0,
+        duration: 500
+      });
+      clearTimeout(tId);
+    }, 500)
   };
 
   return (
     <View className='trash-sort'>
-      <View className='flex-column' id='trashSortSearch'>
-        <View className='flex-row pd-20'>
-          <Input className='bd-1 bd-radius pd-l-20 pd-r-20 pd-t-2 pd-b-2 mg-r-20 h60 lh-60 bd-box' type='text'
+      <View className='flex-column pos-sticky pd-t-10 pd-b-20' style={{backgroundColor: color}}>
+        <View className='flex-row bd-radius-50 mg-l-20 mg-r-20 of-hidden'>
+          <Input className='flex-grow-1 pd-l-30 pd-r-20 pd-t-2 pd-b-2 h80 lh-80 bd-box bg-white' type='text'
                  placeholder='请输入垃圾名称' value={trashName}
                  onInput={(e) => onInput(e)} />
-          <Button className='btn pd-l-40 pd-r-40 mg-r-20' hoverClass='btn-hover' onClick={() => onSubmit()}>查询</Button>
-          <Button className='btn plain pd-l-40 pd-r-40' hoverClass='plain-btn-hover' onClick={() => onReset()}>重置</Button>
+          {trashName && <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onReset()}>&#xe87b;</Button>}
+          <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onSubmit()}>&#xe87c;</Button>
         </View>
-        <View className='line' />
       </View>
-      <ScrollView
-        className=''
-        scrollY
-        scrollWithAnimation
-        style={{height: `${scrollHeight}px`}}
-        enableBackToTop={true}
-        scrollTop={scrollTop}
-      >
+      {/*<ScrollView*/}
+        {/*className=''*/}
+        {/*scrollY*/}
+        {/*scrollWithAnimation*/}
+        {/*style={{height: `${scrollHeight}px`}}*/}
+        {/*enableBackToTop={true}*/}
+        {/*scrollTop={scrollTop}*/}
+      {/*>*/}
         <View className='pd-20'>
           {goodsType && <View className='flex-column'>
             <Text className='black mg-b-10'>查询结果：</Text>
@@ -122,7 +141,7 @@ function TrashSort() {
             </View>
           </View>}
         </View>
-      </ScrollView>
+      {/*</ScrollView>*/}
     </View>
   )
 }

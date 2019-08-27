@@ -10,8 +10,15 @@ function ExpressNote() {
   const [noteList, setNoteList] = useState([]);
   const [showCheckbox, setShowCheckbox] = useState(false);
   const [checkboxValue, setCheckboxValue] = useState([]);
-
   const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   // 设置scrollView的高度
   useEffect(() => {
@@ -65,7 +72,7 @@ function ExpressNote() {
   // 去详细页
   const goDetails = (expressNo = '', expressComId = '', expressComName = '') => {
     if (showCheckbox) {return;}
-    Taro.navigateTo({url: `../../pages/express/express?&expressNo=${expressNo}&expressComId=${expressComId}&expressComName=${expressComName}`});
+    Taro.navigateTo({url: `../../pages/express/express?&expressNo=${expressNo}&expressComId=${expressComId}&expressComName=${expressComName}&color=${color}`});
   };
 
   // 选中/未选中checkbox事件
@@ -124,7 +131,7 @@ function ExpressNote() {
           {noteList.map((list, index) => {
             return (
               <View className='pd-b-30' key={String(index)}>
-                <View className='blue'>{moment(Object.keys(list)[0]).format('M月D日')}</View>
+                <View style={{color}}>{moment(Object.keys(list)[0]).format('M月D日')}</View>
                 <View className='line mg-t-16 mg-b-16' />
                 {list[Object.keys(list)[0]].map((detail, index1) => {
                   return (
@@ -156,10 +163,10 @@ function ExpressNote() {
         </CheckboxGroup>
       </ScrollView>
       <View className='btm-btn' id='btmBtn'>
-        {!showCheckbox && <Button className='btn search-btn' hoverClass='btn-hover' onClick={() => goDetails()}>手动查询</Button>}
+        {!showCheckbox && <Button className='btn search-btn' style={{backgroundColor: color}} hoverClass='btn-hover' onClick={() => goDetails()}>手动查询</Button>}
         {showCheckbox && <View className='flex-row edit-btn'>
           <Button className='btn flex-grow-1 cancel-btn relative' hoverClass='cancel-btn-hover' onClick={() => cancelEdit()}>取消</Button>
-          <Button className='btn flex-grow-1' hoverClass='btn-hover' onClick={() => delNotes()}>删除</Button>
+          <Button className='btn flex-grow-1' style={{backgroundColor: color}} hoverClass='btn-hover' onClick={() => delNotes()}>删除</Button>
         </View>}
       </View>
     </View>

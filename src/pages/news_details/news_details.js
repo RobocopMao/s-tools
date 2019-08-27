@@ -11,6 +11,14 @@ function NewsDetails() {
   const [newsId, setNewsId] = useState('');
   const [newsDetails, setNewsDetails] = useState({});
   const [newsContent, setNewsContent] = useState('');
+  const [color, setColor] = useState('');
+
+  // 设置color
+  useEffect(() => {
+    const {color} = this.$router.params;
+    setColor(color);
+    Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
+  }, []);
 
   useAsyncEffect(async () => {
     const {newsId} = this.$router.params;
@@ -39,13 +47,13 @@ function NewsDetails() {
     });
 
     onShareAppMessage();
-  }, [newsDetails]);
+  }, [newsDetails, color]);
 
   const onShareAppMessage = () => {
     this.$scope.onShareAppMessage = (res) => {
       return {
-        title: newsDetails.title,  // 不生效,title还是undefined
-        path: `/pages/news_details/news_details?newsId=${newsId}`,
+        title: newsDetails.title,
+        path: `/pages/news_details/news_details?newsId=${newsId}&color=${color}&from=SHARE`,
       }
     };
 
@@ -63,12 +71,8 @@ function NewsDetails() {
         <RichText className='font32 lh-50' nodes={newsContent.replace(/原标题：(\S|\s)*/, '')} />
       </View>
       <View className='flex-column bg-no fixed-btn'>
-        <Button className='w68 h68 circle bd-no pd-0 flex-row flex-col-center flex-row-center bg-no' openType='share'>
-          <Image className='w60 h60' src={shareImg} />
-        </Button>
-        <Button className='w68 h68 circle bd-no pd-0 mg-t-10 flex-row flex-col-center flex-row-center bg-no' onClick={() => goHome()}>
-          <Image className='w60 h60' src={homeImg} />
-        </Button>
+        <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font44' style={{color}} openType='share'>&#xe874;</Button>
+        {this.$router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font44 mg-t-20' style={{color}} onClick={() => goHome()}>&#xe87e;</Button>}
       </View>
     </View>
   )
