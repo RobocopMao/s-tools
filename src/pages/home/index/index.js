@@ -22,7 +22,8 @@ function Index() {
     express_note: '#6200EA',
     news: '#FF5252',
     girls: '#FFB837',
-    about: '#000000'
+    about: '#000000',
+    color_setting: '#000000'
   };
 
   useAsyncEffect(async () => {
@@ -295,10 +296,15 @@ function Index() {
           </Navigator>
         </View>}
       </View>
-      <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0' openType='share'>&#xe874;</Button>
-      <Navigator className='bd-box circle w64 h64 about' url={`/pages/other/pages/about/index?color=${colors.about}`}>
-        <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe654;</View>
-      </Navigator>
+      <View className='flex-column w64 fixed-btn'>
+        <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-t-20' openType='share'>&#xe874;</Button>
+        {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
+          {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
+        {/*</Navigator>*/}
+        <Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
+          <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe654;</View>
+        </Navigator>
+      </View>
       {!shareImgPath && <Canvas className='share-img-canvas' canvasId='shareImg' id='shareImg' />}
     </View>
   )
