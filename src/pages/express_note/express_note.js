@@ -1,6 +1,5 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, ScrollView, Button, Checkbox} from '@tarojs/components'
-import arrowRightImg from '../../assets/images/arrow_right.png'
 import './express_note.scss'
 import moment from 'moment'
 import groupBy from 'lodash/groupBy'
@@ -149,7 +148,7 @@ function ExpressNote() {
                         </View>
                         <View className='flex-row flex-col-center'>
                           <Text>{detail.status ? detail.status : '暂无信息'}</Text>
-                          <Image className='w34 h34' src={arrowRightImg} />
+                          <View className='iconfont w34 h34 lh-34 black'>&#xe65b;</View>
                         </View>
                       </View>
                     </View>

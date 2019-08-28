@@ -3,7 +3,6 @@ import {View, Text, ScrollView, Image} from '@tarojs/components'
 import moment from 'moment'
 import { getGirlsImgListRandom } from '../../apis/girls'
 import { useAsyncEffect } from '../../utils';
-// import downloadImg from '../../assets/images/download.png';
 import './girls.scss'
 import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
 

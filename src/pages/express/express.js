@@ -1,6 +1,5 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, ScrollView, Button, Input} from '@tarojs/components'
-import scanCodeImg from '../../assets/images/scancode.png'
 import './express.scss'
 import {getLogisticsDetails, getLogisticsTypeId} from '../../apis/express';
 import moment from 'moment';

@@ -3,8 +3,6 @@ import { View, RichText, Button, Image } from '@tarojs/components'
 import moment from 'moment'
 import { useAsyncEffect } from '../../utils'
 import { getNewsDetails } from '../../apis/news'
-import shareImg from '../../assets/images/share.png'
-import homeImg from '../../assets/images/home.png'
 import './news_details.scss'
 
 function NewsDetails() {

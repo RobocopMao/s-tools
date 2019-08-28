@@ -4,7 +4,6 @@ import moment from 'moment'
 import { useAsyncEffect } from '../../utils'
 import { getNewsTypes, getNewsList } from '../../apis/news'
 import {getProductList, getRemoteConfig, user_id} from '../../apis/config';
-import playBtnImg from '../../assets/images/play.png'
 import './news.scss'
 
 function News() {

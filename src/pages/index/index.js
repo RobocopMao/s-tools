@@ -1,19 +1,7 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import { getRemoteConfig, getProductList, user_id, S_WEATHER_APPID} from '../../apis/config';
-import {getNodeRect, getSystemInfo, useAsyncEffect} from '../../utils';
-import newsImg from '../../assets/images/news.png'
-import jokeImg from '../../assets/images/joke.png'
-import phoneCodeImg from '../../assets/images/phone_code.png'
-import phoneLocationImg from '../../assets/images/phone_location.png'
-import weatherImg from '../../assets/images/weather.png'
-import aboutImg from '../../assets/images/about.png'
-import calculatorImg from '../../assets/images/calculator.png'
-import ipImg from '../../assets/images/ip.png'
-import calendarImg from '../../assets/images/calendar.png'
-import garbageImg from '../../assets/images/garbage.png'
-import girlsImg from '../../assets/images/girl.png'
-import expressImg from '../../assets/images/express.png'
+import {getNodeRect, useAsyncEffect} from '../../utils';
 import bannerImg from '../../assets/images/banner.jpg'
 import './index.scss'
 
@@ -211,7 +199,7 @@ function Index() {
           <Navigator className='flex-column bg-cyan-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/phone_code/phone_code?color=${colors.phone_code}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>世</Text>界电话区号</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe60c;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe64f;</View>
             </View>
             <View className='font24'>世界各地电话区号</View>
             <View className='btm-shadow bg-cyan-A700' />
@@ -309,7 +297,7 @@ function Index() {
       </View>
       <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0' openType='share'>&#xe874;</Button>
       <Navigator className='bd-box circle w64 h64 about' url={`/pages/about/about?color=${colors.about}`}>
-        <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe872;</View>
+        <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe654;</View>
       </Navigator>
       {!shareImgPath && <Canvas className='share-img-canvas' canvasId='shareImg' id='shareImg' />}
     </View>
