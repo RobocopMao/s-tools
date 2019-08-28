@@ -1,0 +1,43 @@
+@import "../../../../assets/styles/variable";
+.express {
+  .scan-code-img {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+  }
+  .pd-l-60 {
+    padding-left: 60px;
+  }
+  .express-time {
+    flex: 0 0 120px;
+  }
+  view.express-desc {
+    position: relative;
+    min-height: 108px;
+    &:before {
+      content: '';
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background-color: $black;
+      position: absolute;
+      top: 15px;
+      left: 0;
+      z-index: 1;
+    }
+    &:after {
+      content: '';
+      width: 1Px;
+      height: 100%;
+      background-color: $black;
+      position: absolute;
+      top: 15px;
+      left: 5px;
+      z-index: 1;
+    }
+  }
+  .w360 {
+    width: 360px;
+  }
+}
