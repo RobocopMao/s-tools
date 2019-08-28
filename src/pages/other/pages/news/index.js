@@ -1,13 +1,16 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text, ScrollView, Image, Video } from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
-import { useAsyncEffect } from '../../../../utils'
 import { getNewsTypes, getNewsList } from '../../../../apis/news'
-import {getProductList, getRemoteConfig, user_id} from '../../../../apis/config'
+import {useAsyncEffect} from '../../../../utils';
 import './index.scss'
 
 function Index() {
-  const [productConfig, setProductConfig] = useState({});
+  const pConfig = useSelector(state => state.pConfig);
+  const user = useSelector(state => state.user);
+  const {news} = pConfig.config;
+  const {windowHeight} = user.systemInfo;
   const [newsTypes, setNewsTypes] = useState([]);
   const [newsList, setNewsList] = useState([]);
   const [typeId, setTypeId] = useState(0);
@@ -21,43 +24,32 @@ function Index() {
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
 
-  useAsyncEffect(async () => {
-    let res = await getProductList({user_id});
-    const {secret, productId} = res.find((v, i, arr) => {
-      return Number(v.productId) === 50005;  // 50005是该小程序的productId
-    });
-    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
-    const productConfig = JSON.parse(res1.productConfig);
-    // console.log(productConfig);
-    // setProductConfig(productConfig);
-    setProductConfig(productConfig);
-    if (!productConfig.news) {
+  useAsyncEffect(() => {
+    if (typeof news === 'undefined') {  // 等待news更新
+      return;
+    }
+    if (!news) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     } else {
       initNews();
     }
-  }, []);
+  }, [news]);
 
   const [scrollHeight, setScrollHeight] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
 
   useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        const query = Taro.createSelectorQuery();
-        query
-          .select('#newsTypes')
-          .boundingClientRect(rect => {
-            // console.log(rect);
-            let height = rect ? rect.height : 36;
-            const scrollHeight = res.windowHeight - height;
-            setScrollHeight(scrollHeight);
-          })
-          .exec()
-      }
-    })
-      .then(res => {})
-  }, [scrollHeight, productConfig]);
+    const query = Taro.createSelectorQuery();
+    query
+      .select('#newsTypes')
+      .boundingClientRect(rect => {
+        // console.log(rect);
+        let height = rect ? rect.height : 36;
+        const scrollHeight = windowHeight - height;
+        setScrollHeight(scrollHeight);
+      })
+      .exec()
+  }, [scrollHeight, news]);
 
   // 初始化数据
   const initNews = async () => {
@@ -121,7 +113,7 @@ function Index() {
 
   return (
     <View className='news'>
-      {productConfig.news && <ScrollView
+      {news && <ScrollView
         className='news-types flex-row flex-col-center bg-white font32'
         scrollX
         scrollWithAnimation
@@ -138,7 +130,7 @@ function Index() {
           )
         })}
       </ScrollView>}
-      {productConfig.news && <ScrollView
+      {news && <ScrollView
         className='news-list bg-white'
         scrollY
         scrollWithAnimation

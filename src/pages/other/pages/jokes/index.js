@@ -1,11 +1,14 @@
 import Taro, { useState, useEffect } from '@tarojs/taro'
 import { View, Text, ScrollView, RichText } from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import { getJokesRandom } from '../../../../apis/jokes'
 import { useAsyncEffect } from '../../../../utils'
 import './index.scss'
 
 function Index() {
+  const user = useSelector(state => state.user);
+  const {windowHeight} = user.systemInfo;
   // const [page, setPage] = useState(1);  // 分页
   // const [totalPage, setTotalPage] = useState(1); // 总页数
   const [jokes, setJokes] = useState([]);  // 笑话数组
@@ -22,17 +25,6 @@ function Index() {
   useAsyncEffect(() => {
     getJokes();
   }, []);
-
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
-
-  useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        setScrollHeight(res.windowHeight);
-      }
-    })
-      .then(res => {})
-  }, [scrollHeight]);
 
   // 滑动到底部的事件处理函数
   const scrollToLower = () => {
@@ -56,7 +48,7 @@ function Index() {
       className='jokes'
       scrollY
       scrollWithAnimation
-      style={{height: `${scrollHeight}px`}}
+      style={{height: `${windowHeight}px`}}
       lowerThreshold={30}
       onScrollToLower={() => scrollToLower()}
     >

@@ -1,11 +1,14 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, ScrollView, Button, Checkbox} from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import groupBy from 'lodash/groupBy'
 import forEach from 'lodash/forEach'
 import './index.scss'
 
 function ExpressNote() {
+  const user = useSelector(state => state.user);
+  const {windowHeight} = user.systemInfo;
   const [noteList, setNoteList] = useState([]);
   const [showCheckbox, setShowCheckbox] = useState(false);
   const [checkboxValue, setCheckboxValue] = useState([]);
@@ -21,19 +24,14 @@ function ExpressNote() {
 
   // 设置scrollView的高度
   useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        const query = Taro.createSelectorQuery();
-        query
-          .select('#btmBtn')
-          .boundingClientRect(rect => {
-            const scrollHeight = res.windowHeight - rect.height;
-            setScrollHeight(scrollHeight);
-          })
-          .exec()
-      }
-    })
-      .then(res => {})
+    const query = Taro.createSelectorQuery();
+    query
+      .select('#btmBtn')
+      .boundingClientRect(rect => {
+        const scrollHeight = windowHeight - rect.height;
+        setScrollHeight(scrollHeight);
+      })
+      .exec()
   }, [scrollHeight]);
 
   useEffect(() => {

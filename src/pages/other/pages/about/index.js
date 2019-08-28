@@ -1,12 +1,12 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
-import {View, Text, ScrollView} from '@tarojs/components'
+import {View, Text} from '@tarojs/components'
+import { useSelector } from '@tarojs/redux'
 import _updateLog from '../../../../apis/update_log.json'
 import './index.scss'
-import {useAsyncEffect} from '../../../../utils'
-import {getProductList, getRemoteConfig, user_id} from '../../../../apis/config'
 
 function Index() {
-  const [productConfig, setProductConfig] = useState({});
+  const pConfig = useSelector(state => state.pConfig);
+  const {news, girls} = pConfig.config;
   const [color, setColor] = useState('');
 
   // 设置color
@@ -16,45 +16,14 @@ function Index() {
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
 
-  useAsyncEffect(async () => {
-    let res = await getProductList({user_id});
-    const {secret, productId} = res.find((v, i, arr) => {
-      return Number(v.productId) === 50005;  // 50005是该小程序的productId
-    });
-    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
-    const productConfig = JSON.parse(res1.productConfig);
-    // console.log(productConfig);
-    setProductConfig(productConfig);
-  }, []);
-
   const [updateLog, setUpdateLog] = useState([]);
 
   useEffect(() => {
     setUpdateLog(_updateLog);
   }, []);
 
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
-
-  useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        setScrollHeight(res.windowHeight);
-      }
-    })
-      .then(res => {})
-  }, [scrollHeight]);
-
-  // const getUserInfo = e => {
-  //   console.log(e);
-  // };
-
   return (
-    <ScrollView
-      className='about'
-      scrollY
-      scrollWithAnimation
-      style={{height: `${scrollHeight}px`}}
-    >
+    <View className='about h100-per'>
       <View className='flex-column'>
         <Text className='pd-20 black bold'>郑重申明：</Text>
         <Text className='pd-20'>1.本小程序使用开放api（来源于github：RollToolsApi），仅供交流学习，如有恶意使用者，承担一切后果；如有侵权请联系删除。</Text>
@@ -67,7 +36,7 @@ function Index() {
 
         <Text className='pd-20 black bold'>使用方法与说明：</Text>
         <Text className='pd-20'>1.万年历：可以查看从本月起一年的日历，日历可以竖向滚动，下一年的日历信息需要等待接口更新。</Text>
-        {productConfig.news && productConfig.girls && <Text className='pd-20'>2.其他：由于小程序限制，在小程序审核期间，新闻Lite和养眼福利图将隐藏，届时你将不能访问它们，待审核通过发布后方可正常访问。</Text>}
+        {news && girls && <Text className='pd-20'>2.其他：由于小程序限制，在小程序审核期间，新闻Lite和养眼福利图将隐藏，届时你将不能访问它们，待审核通过发布后方可正常访问。</Text>}
         <Text className='pd-20 black bold'>更新日志：</Text>
         <View className='pd-20 flex-column mg-b-20'>
           {updateLog.map((log, index) => {
@@ -95,7 +64,7 @@ function Index() {
         <Text className='pd-20 black bold'>作者联系方式：</Text>
         <Text className='pd-20'>邮箱：410503915@qq.com</Text>
       </View>
-    </ScrollView>
+    </View>
   )
 }
 

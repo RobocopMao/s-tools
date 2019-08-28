@@ -1,17 +1,20 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, ScrollView, Image} from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import { getGirlsImgListRandom } from '../../../../apis/girls'
-import { useAsyncEffect } from '../../../../utils'
-import {getProductList, getRemoteConfig, user_id} from '../../../../apis/config'
+import {useAsyncEffect} from '../../../../utils';
 import './index.scss'
 
 function Index() {
-  const [productConfig, setProductConfig] = useState({});
+  const pConfig = useSelector(state => state.pConfig);
+  const user = useSelector(state => state.user);
+  const {girls} = pConfig.config;
+  const {windowHeight} = user.systemInfo;
   const [isLoading, setIsLoading] = useState(false); // 加载提示
   const [col1, setCol1] = useState([]);
   const [col2, setCol2] = useState([]);
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
+  // const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
   const [color, setColor] = useState('');
 
   // 设置color
@@ -21,30 +24,16 @@ function Index() {
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
 
-  useAsyncEffect(async () => {
-    let res = await getProductList({user_id});
-    const {secret, productId} = res.find((v, i, arr) => {
-      return Number(v.productId) === 50005;  // 50005是该小程序的productId
-    });
-    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
-    const productConfig = JSON.parse(res1.productConfig);
-    // console.log(productConfig);
-    setProductConfig(productConfig);
-    if (!productConfig.girls) {
+  useAsyncEffect(() => {
+    if (typeof girls === 'undefined') {  // 等待girls更新
+      return;
+    }
+    if (!girls) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     } else {
       getImgList();
     }
-  }, []);
-
-  useEffect(() => {
-    Taro.getSystemInfo({
-      success: res => {
-        setScrollHeight(res.windowHeight);
-      }
-    })
-      .then(res => {})
-  }, [scrollHeight]);
+  }, [girls]);
 
   useEffect(() => {
     // 显示转发按钮
@@ -93,48 +82,6 @@ function Index() {
     getImgList();
   };
 
-  // const saveImageToPhotosAlbum = (url) => {
-  //   Taro.getSetting({ // 获取设置
-  //     success(res) {
-  //       if (!res.authSetting['scope.writePhotosAlbum']) {
-  //         Taro.authorize({ // 相册授权
-  //           scope: 'scope.writePhotosAlbum',
-  //           success() {
-  //             saveImage(url);
-  //           },
-  //           fail() {
-  //             Taro.showToast({title: '相册授权失败，请在设置里面开启', icon: 'none'});
-  //           }
-  //         })
-  //       } else {
-  //         saveImage(url);
-  //       }
-  //     }
-  //   })
-  // };
-
-  // 保存图片
-  // const saveImage = (url) => {
-  //   Taro.getImageInfo({  // 获取图片信息
-  //     src: url,
-  //     success (res1) {
-  //       console.log(res1);
-  //       Taro.saveImageToPhotosAlbum({  // 保存图片到相册
-  //         filePath: res1.path,
-  //         success(res2) {
-  //           Taro.showToast({title: '保存图片成功', icon: 'none'});
-  //         },
-  //         fail() {
-  //           Taro.showToast({title: '保存图片失败', icon: 'none'});
-  //         }
-  //       })
-  //     },
-  //     fail() {
-  //       Taro.showToast({title: '获取网络图片数据失败', icon: 'none'});
-  //     }
-  //   })
-  // };
-
   // 预览图片
   const previewImg = (url) => {
     Taro.previewImage({
@@ -145,11 +92,11 @@ function Index() {
 
   return (
     <View className='girls'>
-      {productConfig.girls && <ScrollView
+      {girls && <ScrollView
         className=''
         scrollY
         scrollWithAnimation
-        style={{height: `${scrollHeight}px`, backgroundColor: color}}
+        style={{height: `${windowHeight}px`, backgroundColor: color}}
         onScrollToLower={() => scrollToLower()}
       >
         <View className='flex-row'>
@@ -160,11 +107,6 @@ function Index() {
                   <View className='mg-t-10 mg-l-10 of-hidden' onClick={() => previewImg(img.imageUrl)}>
                     <Image className='img' src={img.imageUrl} />
                   </View>
-                  {/*<View className='w68 h68 dl-btn'>*/}
-                    {/*<Button className='w68 h68 circle bd-no pd-0  flex-row flex-col-center flex-row-center bg-no' onClick={() => saveImageToPhotosAlbum(img.imageUrl)}>*/}
-                      {/*<Image className='w60 h60' src={downloadImg} />*/}
-                    {/*</Button>*/}
-                  {/*</View>*/}
                 </View>
               )
             })}
@@ -176,11 +118,6 @@ function Index() {
                   <View className='mg-t-10 mg-l-10 mg-r-10 of-hidden' onClick={() => previewImg(img.imageUrl)}>
                     <Image className='img' src={img.imageUrl} />
                   </View>
-                  {/*<View className='w68 h68 dl-btn'>*/}
-                    {/*<Button className='w68 h68 circle bd-no pd-0  flex-row flex-col-center flex-row-center bg-no' onClick={() => saveImageToPhotosAlbum(img.imageUrl)}>*/}
-                      {/*<Image className='w60 h60' src={downloadImg} />*/}
-                    {/*</Button>*/}
-                  {/*</View>*/}
                 </View>
               )
             })}

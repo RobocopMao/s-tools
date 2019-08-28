@@ -8,8 +8,6 @@ function TrashSort() {
   const [goodsName, setGoodsName] = useState('');
   const [goodsType, setGoodsType] = useState('');
   const [recommend, setRecommend] = useState([]);
-  // const [scrollTop, setScrollTop] = useState(0);
-  // const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
   const [color, setColor] = useState('');
 
   // 设置color
@@ -18,23 +16,6 @@ function TrashSort() {
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
-
-  // 设置scrollView的高度
-  // useEffect(() => {
-  //   Taro.getSystemInfo({
-  //     success: res => {
-  //       const query = Taro.createSelectorQuery();
-  //       query
-  //         .select('#trashSortSearch')
-  //         .boundingClientRect(rect => {
-  //           const scrollHeight = res.windowHeight - rect.height;
-  //           setScrollHeight(scrollHeight);
-  //         })
-  //         .exec()
-  //     }
-  //   })
-  //     .then(res => {})
-  // }, [scrollHeight]);
 
   // 显示转发按钮
   useEffect(() => {
@@ -97,51 +78,42 @@ function TrashSort() {
           <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onSubmit()}>&#xe87c;</Button>
         </View>
       </View>
-      {/*<ScrollView*/}
-        {/*className=''*/}
-        {/*scrollY*/}
-        {/*scrollWithAnimation*/}
-        {/*style={{height: `${scrollHeight}px`}}*/}
-        {/*enableBackToTop={true}*/}
-        {/*scrollTop={scrollTop}*/}
-      {/*>*/}
-        <View className='pd-20'>
-          {goodsType && <View className='flex-column'>
-            <Text className='black mg-b-10'>查询结果：</Text>
-            <View className='table flex-column'>
-              <View className='th flex-row'>
-                <View className='flex-50per text-center pd-12 bold black'>垃圾名称</View>
-                <View className='flex-50per text-center pd-12 bold black'>垃圾类型</View>
-              </View>
-              <View className='tr flex-row'>
-                <View className='flex-50per text-center pd-12'>{goodsName}</View>
-                {goodsType === '有害垃圾' && <View className='flex-50per text-center pd-12 orange'>{goodsType}</View>}
-                {goodsType === '可回收物' && <View className='flex-50per text-center pd-12 green'>{goodsType}</View>}
-                {goodsType !== '可回收物' && goodsType !== '有害垃圾' && <View className='flex-50per text-center pd-12'>{goodsType}</View>}
-              </View>
+      <View className='pd-20'>
+        {goodsType && <View className='flex-column'>
+          <Text className='black mg-b-10'>查询结果：</Text>
+          <View className='table flex-column'>
+            <View className='th flex-row'>
+              <View className='flex-50per text-center pd-12 bold black'>垃圾名称</View>
+              <View className='flex-50per text-center pd-12 bold black'>垃圾类型</View>
             </View>
-          </View>}
-          {recommend.length && <View>
-            <View className='black mg-b-10 mg-t-20'>其他相关推荐：</View>
-            <View className='table flex-column'>
-              <View className='th flex-row'>
-                <View className='flex-50per text-center pd-12 bold black'>垃圾名称</View>
-                <View className='flex-50per text-center pd-12 bold black'>垃圾类型</View>
-              </View>
-              {recommend.map((list, index) => {
-                return (
-                  <View className='tr flex-row' key={String(index)}>
-                    <View className='flex-50per text-center pd-12'>{list.goodsName}</View>
-                    {list.goodsType === '有害垃圾' && <View className='flex-50per text-center pd-12 orange'>{list.goodsType}</View>}
-                    {list.goodsType === '可回收物' && <View className='flex-50per text-center pd-12 green'>{list.goodsType}</View>}
-                    {list.goodsType !== '可回收物' && list.goodsType !== '有害垃圾' && <View className='flex-50per text-center pd-12'>{list.goodsType}</View>}
-                  </View>
-                )
-              })}
+            <View className='tr flex-row'>
+              <View className='flex-50per text-center pd-12'>{goodsName}</View>
+              {goodsType === '有害垃圾' && <View className='flex-50per text-center pd-12 orange'>{goodsType}</View>}
+              {goodsType === '可回收物' && <View className='flex-50per text-center pd-12 green'>{goodsType}</View>}
+              {goodsType !== '可回收物' && goodsType !== '有害垃圾' && <View className='flex-50per text-center pd-12'>{goodsType}</View>}
             </View>
-          </View>}
-        </View>
-      {/*</ScrollView>*/}
+          </View>
+        </View>}
+        {recommend.length && <View>
+          <View className='black mg-b-10 mg-t-20'>其他相关推荐：</View>
+          <View className='table flex-column'>
+            <View className='th flex-row'>
+              <View className='flex-50per text-center pd-12 bold black'>垃圾名称</View>
+              <View className='flex-50per text-center pd-12 bold black'>垃圾类型</View>
+            </View>
+            {recommend.map((list, index) => {
+              return (
+                <View className='tr flex-row' key={String(index)}>
+                  <View className='flex-50per text-center pd-12'>{list.goodsName}</View>
+                  {list.goodsType === '有害垃圾' && <View className='flex-50per text-center pd-12 orange'>{list.goodsType}</View>}
+                  {list.goodsType === '可回收物' && <View className='flex-50per text-center pd-12 green'>{list.goodsType}</View>}
+                  {list.goodsType !== '可回收物' && list.goodsType !== '有害垃圾' && <View className='flex-50per text-center pd-12'>{list.goodsType}</View>}
+                </View>
+              )
+            })}
+          </View>
+        </View>}
+      </View>
     </View>
   )
 }

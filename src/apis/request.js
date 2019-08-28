@@ -70,7 +70,14 @@ class Request {
           }
         })
         .catch(err => {
+          // console.log(err);
           Taro.hideLoading();
+          const {errMsg} = err;
+          if (/timeout/.test(errMsg)) {
+            Taro.showToast({title: '请求超时，请稍后重试', icon: 'none',duration: 2000});
+          } else {
+            Taro.showToast({title: errMsg, icon: 'none'});
+          }
           reject(err);
         })
     })

@@ -5,13 +5,6 @@ import { useAsyncEffect } from '../../../../utils'
 import { getHolidaySingle } from '../../../../apis/calendar'
 import './index.scss'
 
-// 自定义星期
-moment.updateLocale('en', {
-  weekdays : [
-    '周日', '周一', '周二', '周三', '周四', '周五', '周六'
-  ]
-});
-
 function Index() {
   const [day, setDay] = useState(Number(moment().format('D')));  // 选中的日期
   const [week, setWeek] = useState(moment().format('dddd'));  // 选中的星期

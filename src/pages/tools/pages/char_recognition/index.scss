@@ -1,0 +1,10 @@
+@import "../../../../assets/styles/variable";
+.char-recognition {
+  .choose-img {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10;
+    box-shadow: 0 0 10px 4px $color-80;
+  }
+}

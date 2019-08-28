@@ -2,18 +2,14 @@ import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, Button, Input} from '@tarojs/components'
 import {getLogisticsDetails, getLogisticsTypeId} from '../../../../apis/express'
 import moment from 'moment';
-import {useAsyncEffect} from '../../../../utils'
-import {getProductList, getRemoteConfig, user_id} from '../../../../apis/config'
 import './index.scss'
 
 function Index() {
-  const [productConfig, setProductConfig] = useState({});
   const [expressNo, setExpressNo] = useState(''); // 快递编号
   const [expressComId, setExpressComId] = useState(''); // 物流公司编号
   const [expressComName, setExpressComName] = useState('');  // 物流公司名称
   const [expressDetails, setExpressDetails] = useState([]);  // 物流信息详情
   const [expressStatus, setExpressStatus] = useState('');  // 物流状态
-  const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
   const [color, setColor] = useState('');
 
   // 设置color
@@ -22,38 +18,6 @@ function Index() {
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
-
-  useAsyncEffect(async () => {
-    let res = await getProductList({user_id});
-    const {secret, productId} = res.find((v, i, arr) => {
-      return Number(v.productId) === 50005;  // 50005是该小程序的productId
-    });
-    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
-    const productConfig = JSON.parse(res1.productConfig);
-    // console.log(productConfig);
-    setProductConfig(productConfig);
-    if (!productConfig.express) {
-      Taro.reLaunch({url: '/pages/home/index/index'});
-    }
-  }, []);
-
-  // 设置scrollView的高度
-  // useEffect(() => {
-  //   Taro.getSystemInfo({
-  //     success: res => {
-  //       const query = Taro.createSelectorQuery();
-  //       query
-  //         .select('#expressSearch')
-  //         .boundingClientRect(rect => {
-  //           let height = rect ? rect.height : 50;
-  //           const scrollHeight = res.windowHeight - height;
-  //           setScrollHeight(scrollHeight);
-  //         })
-  //         .exec()
-  //     }
-  //   })
-  //     .then(res => {})
-  // }, [scrollHeight, expressDetails]);
 
   // 从快递记录过来
   useEffect(() => {
@@ -179,7 +143,7 @@ function Index() {
 
   return (
     <View className='express'>
-      {productConfig.express && <View className='flex-column pos-sticky'>
+      <View className='flex-column pos-sticky'>
         <View className='pd-t-10 pd-b-20 pd-l-20 pd-r-20' style={{backgroundColor: color}}>
           <View className='flex-row bd-radius-50 of-hidden'>
             <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onScanCode()}>&#xe879;</Button>
@@ -198,32 +162,23 @@ function Index() {
           </View>
           <View className='line' />
         </View>}
-      </View>}
-      {/*{productConfig.express && <ScrollView*/}
-        {/*className=''*/}
-        {/*scrollY*/}
-        {/*scrollWithAnimation*/}
-        {/*style={{height: `${scrollHeight}px`}}*/}
-        {/*// enableBackToTop={true}*/}
-        {/*// scrollTop={scrollTop}*/}
-      {/*>*/}
-        <View className='pd-20 font26'>
-          {expressDetails.map((detail, index) => {
-            return (
-              <View className={`flex-row ${index === 0 ? 'black' : ''}`} key={String(index)}>
-                <View className='flex-column express-time'>
-                  <Text>{moment(detail.time).format('MM-DD')}</Text>
-                  <Text className='font24 mg-l-10'>{moment(detail.time).format('HH:mm')}</Text>
-                </View>
-                <View className='express-desc pd-l-40'>
-                  <View className='pd-b-40 font26'>{detail.desc}</View>
-                </View>
+      </View>
+      <View className='pd-20 font26'>
+        {expressDetails.map((detail, index) => {
+          return (
+            <View className={`flex-row ${index === 0 ? 'black' : ''}`} key={String(index)}>
+              <View className='flex-column express-time'>
+                <Text>{moment(detail.time).format('MM-DD')}</Text>
+                <Text className='font24 mg-l-10'>{moment(detail.time).format('HH:mm')}</Text>
               </View>
-            )
-          })}
-          {!expressDetails.length && expressComId && <View className='text-center color9'>暂时没有物流信息</View>}
-        </View>
-      {/*</ScrollView>}*/}
+              <View className='express-desc pd-l-40'>
+                <View className='pd-b-40 font26'>{detail.desc}</View>
+              </View>
+            </View>
+          )
+        })}
+        {!expressDetails.length && expressComId && <View className='text-center color9'>暂时没有物流信息</View>}
+      </View>
     </View>
   )
 }

@@ -1,6 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import '@tarojs/async-await'
+import { Provider, connect } from '@tarojs/redux'
+import moment from 'moment'
 import Index from './pages/home/index'
+import configStore from './redux/store'
+import {setPConfigAsync} from './redux/p_config/action'
+import {setSystemInfoAsync} from './redux/user/action'
 import './app.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -9,12 +14,30 @@ import './app.scss'
 //   require('nerv-devtools')
 // }
 
+// 自定义星期
+moment.updateLocale('en', {
+  weekdays : [
+    '周日', '周一', '周二', '周三', '周四', '周五', '周六'
+  ]
+});
+
+const store = configStore();
+
+@connect(({ config, pId, secret }) => ({
+  config, pId, secret
+}), (dispatch) => ({
+  setPConfigAsync () {
+    dispatch(setPConfigAsync())
+  },
+  setSystemInfoAsync() {
+    dispatch(setSystemInfoAsync())
+  }
+}))
 class App extends Component {
 
   config = {
     pages: [
-      'pages/home/index/index',
-
+      'pages/home/index/index'
     ],
     subpackages: [  // 分包配置
       {
@@ -34,7 +57,8 @@ class App extends Component {
         name: 'tools',  // 工具
         pages: [
           'pages/calendar/index',
-          'pages/calculator/index'
+          'pages/calculator/index',
+          'pages/char_recognition/index'
         ],
       },
       {
@@ -68,7 +92,7 @@ class App extends Component {
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
     },
-    navigateToMiniProgramAppIdList: [''],
+    navigateToMiniProgramAppIdList: ['wx892bebdc63488ab2'],
     permission: {
       'scope.userLocation': {
         'desc': '你的位置信息将用于小程序查询天气'
@@ -76,7 +100,7 @@ class App extends Component {
     }
   };
 
-  componentWillMount() {
+  async componentWillMount() {
     const updateManager = Taro.getUpdateManager();
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
@@ -103,7 +127,10 @@ class App extends Component {
     });
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    this.props.setPConfigAsync();  // 获取项目配置
+    this.props.setSystemInfoAsync();  // 获取系统信息
+  }
 
   componentDidShow () {}
 
@@ -115,7 +142,9 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      <Index />
+      <Provider store={store}>
+        <Index />
+      </Provider>
     )
   }
 }

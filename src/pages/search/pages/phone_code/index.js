@@ -24,26 +24,6 @@ function PhoneCode() {
     setPhoneCodeFilterList(res);
   }, []);
 
-  // const [scrollTop, setScrollTop] = useState(0);
-  // const [scrollHeight, setScrollHeight] = useState(0); // 可使用窗口高度
-
-  // // 设置scrollView的高度
-  // useEffect(() => {
-  //   Taro.getSystemInfo({
-  //     success: res => {
-  //       const query = Taro.createSelectorQuery();
-  //       query
-  //         .select('#phoneCodeSearch')
-  //         .boundingClientRect(rect => {
-  //           const scrollHeight = res.windowHeight - rect.height;
-  //           setScrollHeight(scrollHeight);
-  //         })
-  //         .exec()
-  //     }
-  //   })
-  //   .then(res => {})
-  // }, [scrollHeight]);
-
   // 地区输入框事件
   const onInput = (e) => {
     setArea(e.detail.value);
@@ -100,26 +80,17 @@ function PhoneCode() {
         </View>
         {/*<View className='line' />*/}
       </View>
-      {/*<ScrollView*/}
-        {/*className=''*/}
-        {/*scrollY*/}
-        {/*scrollWithAnimation*/}
-        {/*style={{height: `${scrollHeight}px`}}*/}
-        {/*enableBackToTop={true}*/}
-        {/*scrollTop={scrollTop}*/}
-      {/*>*/}
-        <View className='pd-20 pd-t-0'>
-          {phoneCodeFilterList.map((code, index) => {
-            return (
-              <View className='flex-column pd-t-20' key={String(code.zhCn)}>
-                <Text className='mg-b-10'>地区名称：<Text style={{color}}>{code.zhCn}</Text> - {code.enUs}</Text>
-                <Text>区号：<Text style={{color}}>{code.phoneCode}</Text></Text>
-                {index !== phoneCodeFilterList.length - 1 && <View className='line mg-t-20' />}
-              </View>
-            )
-          })}
-        </View>
-      {/*</ScrollView>*/}
+      <View className='pd-20 pd-t-0'>
+        {phoneCodeFilterList.map((code, index) => {
+          return (
+            <View className='flex-column pd-t-20' key={String(code.zhCn)}>
+              <Text className='mg-b-10'>地区名称：<Text style={{color}}>{code.zhCn}</Text> - {code.enUs}</Text>
+              <Text>区号：<Text style={{color}}>{code.phoneCode}</Text></Text>
+              {index !== phoneCodeFilterList.length - 1 && <View className='line mg-t-20' />}
+            </View>
+          )
+        })}
+      </View>
     </View>
   )
 }

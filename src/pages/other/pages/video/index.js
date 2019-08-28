@@ -1,34 +1,29 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, Button, Video} from '@tarojs/components'
-import {useAsyncEffect} from '../../../../utils';
-import {getProductList, getRemoteConfig, user_id} from '../../../../apis/config'
+import {useSelector} from '@tarojs/redux'
 import './index.scss'
 
 function VideoBox() {
-  const [productConfig, setProductConfig] = useState({});
-  const [video, setVideo] = useState('');
+  const pConfig = useSelector(state => state.pConfig);
+  const {video} = pConfig.config;
+  const [videoUrl, setVideoUrl] = useState('');
   const [poster, setPoster] = useState('');
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
   const [postTime, setPostTime] = useState('');
 
-  useAsyncEffect(async () => {
-    let res = await getProductList({user_id});
-    const {secret, productId} = res.find((v, i, arr) => {
-      return Number(v.productId) === 50005;  // 50005是该小程序的productId
-    });
-    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
-    const productConfig = JSON.parse(res1.productConfig);
-    // console.log(productConfig);
-    setProductConfig(productConfig);
-    if (!productConfig.video) {
+  useEffect(() => {
+    if (typeof video === 'undefined') {  // 等待news更新
+      return;
+    }
+    if (!video) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     }
-  }, []);
+  }, [video]);
 
   useEffect(() => {
-    const {video, poster, title, source, postTime} = this.$router.params;
-    setVideo(video);
+    const {poster, title, source, postTime} = this.$router.params;
+    setVideoUrl(this.$router.params.video);
     setPoster(poster);
     setTitle(title);
     setSource(source);
@@ -56,13 +51,13 @@ function VideoBox() {
     });
 
     onShareAppMessage();
-  }, [video, poster, postTime, source, title]);
+  }, [videoUrl, poster, postTime, source, title]);
 
   const onShareAppMessage = () => {
     this.$scope.onShareAppMessage = (res) => {
       return {
         title,
-        path: `/pages/other/pages/video/index?video=${video}&poster=${poster}&title=${title}&source=${source}&postTime=${postTime}&from=SHARE`,
+        path: `/pages/other/pages/video/index?video=${videoUrl}&poster=${poster}&title=${title}&source=${source}&postTime=${postTime}&from=SHARE`,
       }
     };
   };
@@ -77,7 +72,7 @@ function VideoBox() {
 
   return (
     <View className='video h100-per white'>
-      {productConfig.video && <View className='w100-per'>
+      {video && <View className='w100-per'>
         <View className='font36 mg-20'>{title}</View>
         <View className='font24 mg-l-20 mg-r-20 mg-b-20'>
           <Text className='mg-r-20'>{source}</Text>
@@ -86,7 +81,7 @@ function VideoBox() {
         <Video
           className='w100-per'
           id='videoPlayer'
-          src={video}
+          src={videoUrl}
           poster={poster}
           showMuteBtn={true}
           enablePlayGesture

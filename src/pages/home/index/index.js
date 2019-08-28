@@ -1,12 +1,14 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { getRemoteConfig, getProductList, user_id, S_WEATHER_APPID} from '../../../apis/config';
-import {getNodeRect, useAsyncEffect} from '../../../utils';
+import { useSelector } from '@tarojs/redux'
+import { S_WEATHER_APPID} from '../../../apis/config'
+import {getNodeRect} from '../../../utils';
 import bannerImg from '../../../assets/images/banner.jpg'
 import './index.scss'
 
 function Index() {
-  const [productConfig, setProductConfig] = useState({});
+  const pConfig = useSelector(state => state.pConfig);
+  const {news, girls} = pConfig.config;
   const [shareNode, setShareNode] = useState({});
   const [shareImgPath, setShareImgPath] = useState('');
   const [itemNode, setItemNode] = useState({});
@@ -19,21 +21,13 @@ function Index() {
     ip_search: '#4E342E',
     calendar: '#9E9D24',
     trash_sort: '#00C853',
-    express_note: '#6200EA',
+    express_note: '#0091EA',
+    char_recognition: '#6200EA',
     news: '#FF5252',
     girls: '#FFB837',
     about: '#000000',
     color_setting: '#000000'
   };
-
-  useAsyncEffect(async () => {
-    let res = await getProductList({user_id});
-    const {secret, productId} = res[0];
-    let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
-    const productConfig = JSON.parse(res1.productConfig);
-    // console.log(productConfig);
-    setProductConfig(productConfig);
-  }, []);
 
   // 获取shareImg宽高
   useEffect(async () => {
@@ -263,17 +257,28 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bg-deep-purple-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/express_note/index?color=${colors.express_note}`}>
+          <Navigator className='flex-column bg-light-blue-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/express_note/index?color=${colors.express_note}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>快</Text>递查询</View>
               <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe600;</View>
             </View>
             <View className='font24'>快递查询/记录</View>
+            <View className='btm-shadow bg-light-blue-A700' />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bg-deep-purple-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/char_recognition/index?color=${colors.char_recognition}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>通</Text>用文字识别</View>
+              <View className='iconfont w64 h64 lh-64 text-center font32'>&#xe8b9;</View>
+            </View>
+            <View className='font24'>识别图片里的文字信息</View>
             <View className='btm-shadow bg-deep-purple-A700' />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
-        {productConfig.news && <View className='flex-50per bd-box'>
+        {news && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bg-red-A200 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/other/pages/news/index?color=${colors.news}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>新</Text>闻Lite</View>
@@ -284,7 +289,7 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>}
-        {productConfig.girls && <View className='flex-50per bd-box'>
+        {girls && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bg-yellow bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/other/pages/girls/index?color=${colors.girls}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>养</Text>眼福利图</View>
