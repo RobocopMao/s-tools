@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import '@tarojs/async-await'
-import Index from './pages/index'
+import Index from './pages/home/index'
 import './app.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -13,23 +13,55 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index',
-      'pages/jokes/jokes',
-      'pages/phone_location/phone_location',
-      'pages/phone_code/phone_code',
-      // 'pages/weather/weather',
-      'pages/calculator/calculator',
-      'pages/about/about',
-      'pages/ip_search/ip_search',
-      'pages/calendar/calendar',
-      'pages/news/news',
-      'pages/news_details/news_details',
-      'pages/trash_sort/trash_sort',
-      'pages/girls/girls',
-      'pages/express/express',
-      'pages/express_note/express_note',
-      'pages/video/video',
+      'pages/home/index/index',
+
     ],
+    subpackages: [  // 分包配置
+      {
+        root: 'pages/search/',
+        name: 'search',  // 查询
+        pages: [
+          'pages/phone_location/index',
+          'pages/phone_code/index',
+          'pages/ip_search/index',
+          'pages/trash_sort/index',
+          'pages/express/index',
+          'pages/express_note/index'
+        ],
+      },
+      {
+        root: 'pages/tools/',
+        name: 'tools',  // 工具
+        pages: [
+          'pages/calendar/index',
+          'pages/calculator/index'
+        ],
+      },
+      {
+        root: 'pages/other/',
+        name: 'other',  // 其他
+        pages: [
+          'pages/jokes/index',
+          'pages/about/index',
+          'pages/news/index',
+          'pages/news_details/index',
+          'pages/girls/index',
+          'pages/video/index',
+        ],
+      }
+    ],
+    preloadRule: {
+      'pages/home/index/index': {
+        network: 'wifi',
+        packages: ['search', 'tools']
+      }
+    },
+    networkTimeout: {
+      request: 10000,
+      connectSocket: 10000,
+      uploadFile: 10000,
+      downloadFile: 10000
+    },
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#4481EB',
