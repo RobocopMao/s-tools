@@ -1,6 +1,7 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, Button, Video} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
+import moment from 'moment'
 import './index.scss'
 
 function VideoBox() {
@@ -76,7 +77,7 @@ function VideoBox() {
         <View className='font36 mg-20'>{title}</View>
         <View className='font24 mg-l-20 mg-r-20 mg-b-20'>
           <Text className='mg-r-20'>{source}</Text>
-          <Text>{postTime}</Text>
+          <Text>{moment(postTime).format('YYYY-MM-DD HH:mm')}</Text>
         </View>
         <Video
           className='w100-per'
