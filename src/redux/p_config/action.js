@@ -31,6 +31,15 @@ export const setPConfigAsync = () => {
 
     let res1 = await getRemoteConfig({user_id, secret, product_id: productId});
     const productConfig = JSON.parse(res1.productConfig);
+
+    // 最初返回的1和0是number类型，后来为了方便，配置App改了输入结构，返回string类型，所以1和0的字符串需要转换成数字
+    for (let key in productConfig) {
+      let val = productConfig[key];
+      if (/(0|1){1}/.test(val) && val.length === 1) {
+        productConfig[key] = Number(val);
+      }
+    }
+
     dispatch(setConfig(productConfig));
   }
 };
