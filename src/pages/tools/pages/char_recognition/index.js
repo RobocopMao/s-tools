@@ -1,16 +1,16 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, ScrollView} from '@tarojs/components'
 import { useSelector, useDispatch } from '@tarojs/redux'
-import { aiAccessToken, aiGeneralBasic, aiAccurateBasic } from '../../../../apis/baidu_ai'
+import { aiAccessToken, aiGeneralBasic, aiAccurateBasic, aiCouplets } from '../../../../apis/baidu_ai'
 import {useAsyncEffect} from '../../../../utils';
-import {setToken} from '../../../../redux/user/action';
+import {setOcrToken} from '../../../../redux/user/action';
 import './index.scss'
 
 function CharRecognition() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {aiAK, aiSK} = pConfig.config;
-  const {access_token} = user.token;
+  const {aiOcrAK, aiOcrSK} = pConfig.config;
+  const {access_token} = user.ocrToken;
   const {windowHeight} = user.systemInfo;
   const dispatch = useDispatch();
   const [imageUrl, setImageUrl] = useState('');
@@ -28,8 +28,8 @@ function CharRecognition() {
   // 获取token
   useAsyncEffect(async () => {
     if (typeof access_token === 'undefined') {
-      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: aiAK, client_secret: aiSK});
-      dispatch(setToken(token));
+      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: aiOcrAK, client_secret: aiOcrSK});
+      dispatch(setOcrToken(token));
     }
   }, []);
 
@@ -100,7 +100,7 @@ function CharRecognition() {
   return (
     <View className='char-recognition'>
       <View className='flex-column flex-col-center flex-row-center w100-per' style={{height: `${windowHeight / 2}px`, backgroundColor: color}}>
-        {imageUrl && <Image className='h100-per w100-per pd-b-2 bd-box' mode='aspectFit' src={imageUrl} onClick={() => previewImage()} />}
+        {imageUrl && <Image className='h100-per w100-per pd-b-2 pd-r-2 pd-l-2 bd-box' mode='aspectFit' src={imageUrl} onClick={() => previewImage()} />}
         {!imageUrl && <View className='flex-column text-center white'>
           <View className='iconfont font70 mg-b-10'>&#xe87d;</View>
           <View>图片展示区</View>

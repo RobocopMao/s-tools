@@ -1,8 +1,8 @@
-import {SET_SYSTEM_INFO, SET_TOKEN} from './constant'
+import {SET_SYSTEM_INFO, SET_OCR_TOKEN} from './constant'
 
 const INITIAL_STATE = {
   systemInfo: {},
-  token: {}
+  ocrToken: {}
 };
 
 export default function reducer (state = INITIAL_STATE, action) {
@@ -12,10 +12,10 @@ export default function reducer (state = INITIAL_STATE, action) {
         ...state,
         systemInfo: Object.assign({}, state.systemInfo, action.systemInfo)
       };
-    case SET_TOKEN:
+    case SET_OCR_TOKEN:
       return {
         ...state,
-        token: Object.assign({}, state.token, action.token)
+        ocrToken: Object.assign({}, state.ocrToken, action.ocrToken)
       };
     default:
        return state

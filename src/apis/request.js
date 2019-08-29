@@ -64,7 +64,7 @@ class Request {
           } else {
             let data = res.data;
             if (from === 'BAIDU_AI') { // 来自百度AI，数据返回和基本错误码提示
-              if (data.error_code === 1) {
+              if (data.error_code === 1 || data.error_code === 500) {
                 Taro.showToast({title: '服务器内部错误，请再次请求', icon: 'none', duration: 2000});
               } else if (data.error_code === 2) {
                 Taro.showToast({title: '服务暂不可用，请再次请求', icon: 'none', duration: 2000});
@@ -87,6 +87,7 @@ class Request {
               } else if (data.error_code === 19) {
                 Taro.showToast({title: '应用不存在或者创建失败', icon: 'none', duration: 2000});
               } else if (data.error_code === 100) {
+                console.log(data.error_code)
                 Taro.showToast({title: '无效的access_token参数', icon: 'none', duration: 2000});
               } else if (data.error_code === 110) {
                 Taro.showToast({title: 'access_token无效', icon: 'none', duration: 2000});
