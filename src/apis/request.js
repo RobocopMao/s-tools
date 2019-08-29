@@ -32,6 +32,7 @@ class Request {
     let header = {};
     let loading = typeof options.loading !== 'undefined' ? options.loading : true;
     let needCode = typeof options.needCode !== 'undefined' ? options.needCode : false;
+    let from = options.from;
     // let header = {'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'};
     if (method === 'GET') {
       header = {
@@ -62,10 +63,44 @@ class Request {
             resolve(res.data);
           } else {
             let data = res.data;
-            if (data.code === 1) {
-              resolve(data.data);
-            } else {
-              Taro.showToast({title: data.msg, icon: 'none'});
+            if (from === 'BAIDU_AI') { // 来自百度AI，数据返回和基本错误码提示
+              if (data.error_code === 1) {
+                Taro.showToast({title: '服务器内部错误，请再次请求', icon: 'none', duration: 2000});
+              } else if (data.error_code === 2) {
+                Taro.showToast({title: '服务暂不可用，请再次请求', icon: 'none', duration: 2000});
+              } else if (data.error_code === 3) {
+                Taro.showToast({title: '调用的API不存在，请检查后重新尝试', icon: 'none', duration: 2000});
+              } else if (data.error_code === 4) {
+                Taro.showToast({title: '集群超限额', icon: 'none', duration: 2000});
+              } else if (data.error_code === 6) {
+                Taro.showToast({title: '无权限访问该用户数据', icon: 'none', duration: 2000});
+              } else if (data.error_code === 13) {
+                Taro.showToast({title: '获取token失败', icon: 'none', duration: 2000});
+              } else if (data.error_code === 14) {
+                Taro.showToast({title: 'IAM鉴权失败', icon: 'none', duration: 2000});
+              } else if (data.error_code === 15) {
+                Taro.showToast({title: '应用不存在或者创建失败', icon: 'none', duration: 2000});
+              } else if (data.error_code === 17) {
+                Taro.showToast({title: '今日API调用次数已达上限，请明日再来', icon: 'none', duration: 2000});
+              } else if (data.error_code === 18) {
+                Taro.showToast({title: 'QPS超限额,请再次请求', icon: 'none', duration: 2000});
+              } else if (data.error_code === 19) {
+                Taro.showToast({title: '应用不存在或者创建失败', icon: 'none', duration: 2000});
+              } else if (data.error_code === 100) {
+                Taro.showToast({title: '无效的access_token参数', icon: 'none', duration: 2000});
+              } else if (data.error_code === 110) {
+                Taro.showToast({title: 'access_token无效', icon: 'none', duration: 2000});
+              } else if (data.error_code === 111) {
+                Taro.showToast({title: 'access token过期', icon: 'none', duration: 2000});
+              } else {
+                resolve(res.data);
+              }
+            } else {  // RollToolsApi的数据返回和错误提示
+              if (data.code === 1) {
+                resolve(data.data);
+              } else {
+                Taro.showToast({title: data.msg, icon: 'none'});
+              }
             }
           }
         })

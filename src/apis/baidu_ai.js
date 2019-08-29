@@ -1,6 +1,7 @@
 import Request from './request';
 
 const request = new Request();
+const FROM = 'BAIDU_AI';
 
 // 获取access_token。
 export const aiAccessToken = async (data) => {
@@ -8,7 +9,8 @@ export const aiAccessToken = async (data) => {
     host: 'https://aip.baidubce.com',
     url: '/oauth/2.0/token',
     data: data,
-    needCode: true,
+    // needCode: true,
+    from: FROM,
   });
 };
 
@@ -18,7 +20,8 @@ export const aiGeneralBasic = async (data) => {
     host: 'https://aip.baidubce.com',
     url: '/rest/2.0/ocr/v1/general_basic',
     data: data,
-    needCode: true,
+    // needCode: true,
+    from: FROM,
   });
 };
 
@@ -28,6 +31,7 @@ export const aiAccurateBasic = async (data) => {
     host: 'https://aip.baidubce.com',
     url: '/rest/2.0/ocr/v1/accurate_basic',
     data: data,
-    needCode: true,
+    // needCode: true,
+    from: FROM,
   });
 };
