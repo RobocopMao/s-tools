@@ -1,4 +1,8 @@
 [{
+  "date": "2019-08-31",
+  "event": "",
+  "logs": ["改用Material Design Icons", "其他界面优化"]
+}, {
   "date": "2019-08-29",
   "event": "",
   "logs": ["新增百度OCR通用文字识别功能", "加入Redux状态管理，优化配置请求"]
