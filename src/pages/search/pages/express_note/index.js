@@ -146,7 +146,7 @@ function ExpressNote() {
                         </View>
                         <View className='flex-row flex-col-center'>
                           <Text>{detail.status ? detail.status : '暂无信息'}</Text>
-                          <View className='iconfont w34 h34 lh-34 black'>&#xe6aa;</View>
+                          <View className='iconfont w34 h34 lh-36 black'>&#xe6aa;</View>
                         </View>
                       </View>
                     </View>
