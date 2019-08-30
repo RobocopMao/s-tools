@@ -171,7 +171,7 @@ function Index() {
           <View className='flex-column bg-indigo-A700 bd-radius pd-20 pd-b-30 mg-20 relative'>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>天</Text>气预报</View>
-              <View className='iconfont w64 h64 lh-64 text-center'>&#xe632;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b3;</View>
             </View>
             <View className='font24'>查询天气早知道</View>
             <View className='btm-shadow bg-indigo-A700' />
@@ -182,7 +182,7 @@ function Index() {
           <Navigator className='flex-column bg-purple-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/other/pages/jokes/index?color=${colors.jokes}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>开</Text>心一刻</View>
-              <View className='iconfont w64 h64 lh-64 text-center font40'>&#xe63d;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font48'>&#xe6c5;</View>
             </View>
             <View className='font24'>笑话段子</View>
             <View className='btm-shadow bg-purple-A700' />
@@ -194,7 +194,7 @@ function Index() {
           <Navigator className='flex-column bg-cyan-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/phone_code/index?color=${colors.phone_code}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>世</Text>界电话区号</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe64f;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe668;</View>
             </View>
             <View className='font24'>世界各地电话区号</View>
             <View className='btm-shadow bg-cyan-A700' />
@@ -205,7 +205,7 @@ function Index() {
           <Navigator className='flex-column bg-teal-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/calculator/index?color=${colors.calculator}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>简</Text>易计算器</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe7b8;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b2;</View>
             </View>
             <View className='font24'>计算器</View>
             <View className='btm-shadow bg-teal-A700' />
@@ -216,7 +216,7 @@ function Index() {
           <Navigator className='flex-column bg-orange-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/phone_location/index?color=${colors.phone_location}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>手</Text>机号归属地</View>
-              <View className='iconfont w64 h64 lh-64 text-center font40'>&#xe784;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6b8;</View>
             </View>
             <View className='font24'>查询手机归属地</View>
             <View className='btm-shadow bg-orange-A700' />
@@ -227,7 +227,7 @@ function Index() {
           <Navigator className='flex-column bg-brown-800 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/ip_search/index?color=${colors.ip_search}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>IP</Text>查询</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe7c5;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe609;</View>
             </View>
             <View className='font24'>查询IP地址</View>
             <View className='btm-shadow bg-brown-800' />
@@ -238,7 +238,7 @@ function Index() {
           <Navigator className='flex-column bg-lime-800 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/calendar/index?color=${colors.calendar}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>万</Text>年历</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe878;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe62e;</View>
             </View>
             <View className='font24'>日期/节日/星座/宜忌</View>
             <View className='btm-shadow bg-lime-800' />
@@ -249,7 +249,7 @@ function Index() {
           <Navigator className='flex-column bg-green-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/trash_sort/index?color=${colors.trash_sort}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>垃</Text>圾分类</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe607;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6c4;</View>
             </View>
             <View className='font24'>垃圾分类查询</View>
             <View className='btm-shadow bg-green-A700' />
@@ -260,7 +260,7 @@ function Index() {
           <Navigator className='flex-column bg-light-blue-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/express_note/index?color=${colors.express_note}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>快</Text>递查询</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe600;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6b5;</View>
             </View>
             <View className='font24'>快递查询/记录</View>
             <View className='btm-shadow bg-light-blue-A700' />
@@ -271,7 +271,7 @@ function Index() {
           <Navigator className='flex-column bg-deep-purple-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/char_recognition/index?color=${colors.char_recognition}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>通</Text>用文字识别</View>
-              <View className='iconfont w64 h64 lh-64 text-center font32'>&#xe8b9;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font40'>&#xe6cb;</View>
             </View>
             <View className='font24'>识别图片里的文字信息</View>
             <View className='btm-shadow bg-deep-purple-A700' />
@@ -282,7 +282,7 @@ function Index() {
           <Navigator className='flex-column bg-red-A200 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/other/pages/news/index?color=${colors.news}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>新</Text>闻Lite</View>
-              <View className='iconfont w64 h64 lh-64 text-center font36'>&#xe603;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b6;</View>
             </View>
             <View className='font24'>新闻/视频</View>
             <View className='btm-shadow bg-red-A200' />
@@ -293,7 +293,7 @@ function Index() {
           <Navigator className='flex-column bg-yellow bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/other/pages/girls/index?color=${colors.girls}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>养</Text>眼福利图</View>
-              <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe87d;</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b4;</View>
             </View>
             <View className='font24'>美女图</View>
             <View className='btm-shadow bg-yellow' />
@@ -302,12 +302,12 @@ function Index() {
         </View>}
       </View>
       <View className='flex-column w64 fixed-btn'>
-        <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-t-20' openType='share'>&#xe874;</Button>
+        <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-t-20' openType='share'>&#xe649;</Button>
         {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
           {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
         {/*</Navigator>*/}
         <Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
-          <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe654;</View>
+          <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe626;</View>
         </Navigator>
       </View>
       {!shareImgPath && <Canvas className='share-img-canvas' canvasId='shareImg' id='shareImg' />}

@@ -158,7 +158,7 @@ function Index() {
                   <View className='video-mask flex-row flex-row-center'>
                     {typeId === 522 && <Image className='w100-per h100-per' src={imgList[0]} />}
                     {typeId === 526 && <Image className='w30-per h100-per' src={imgList[0]} />}
-                    <Button className='iconfont play-btn w60 h60 lh-60 bg-no white font60 pd-0'>&#xe60d;</Button>
+                    <Button className='iconfont play-btn w80 h80 lh-80 bg-no white font80 pd-0'>&#xe660;</Button>
                   </View>
                   <Video
                     className='w100-per'

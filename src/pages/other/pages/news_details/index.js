@@ -69,8 +69,8 @@ function NewsDetails() {
         <RichText className='font32 lh-50' nodes={newsContent.replace(/原标题：(\S|\s)*/, '')} />
       </View>
       <View className='flex-column bg-no fixed-btn'>
-        <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font44' style={{color}} openType='share'>&#xe874;</Button>
-        {this.$router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font44 mg-t-20' style={{color}} onClick={() => goHome()}>&#xe87e;</Button>}
+        <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font44' style={{color}} openType='share'>&#xe649;</Button>
+        {this.$router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font50 mg-t-20' style={{color}} onClick={() => goHome()}>&#xe6b7;</Button>}
       </View>
     </View>
   )

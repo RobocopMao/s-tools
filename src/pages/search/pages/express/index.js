@@ -146,12 +146,12 @@ function Index() {
       <View className='flex-column pos-sticky'>
         <View className='pd-t-10 pd-b-20 pd-l-20 pd-r-20' style={{backgroundColor: color}}>
           <View className='flex-row bd-radius-50 of-hidden'>
-            <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onScanCode()}>&#xe879;</Button>
+            <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font46 color-6e' hoverClass='' onClick={() => onScanCode()}>&#xe697;</Button>
             <Input className='flex-grow-1 pd-r-20 pd-t-2 pd-b-2 h80 lh-80 bd-box bg-white' type='text'
                    placeholder='请输入快递编号' value={expressNo}
                    onInput={(e) => onInput(e)} />
-            {expressNo && <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onReset()}>&#xe87b;</Button>}
-            <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font40' hoverClass='' onClick={() => onSubmit()}>&#xe87c;</Button>
+            {expressNo && <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font46 color-6e' hoverClass='' onClick={() => onReset()}>&#xe6b1;</Button>}
+            <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font50 color-6e' hoverClass='' onClick={() => onSubmit()}>&#xe683;</Button>
           </View>
         </View>
         {expressComName && expressNo && <View className='flex-column bg-white'>

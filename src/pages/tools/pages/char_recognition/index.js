@@ -102,7 +102,7 @@ function CharRecognition() {
       <View className='flex-column flex-col-center flex-row-center w100-per' style={{height: `${windowHeight / 2}px`, backgroundColor: color}}>
         {imageUrl && <Image className='h100-per w100-per pd-b-2 pd-r-2 pd-l-2 bd-box' mode='aspectFit' src={imageUrl} onClick={() => previewImage()} />}
         {!imageUrl && <View className='flex-column text-center white'>
-          <View className='iconfont font70 mg-b-10'>&#xe87d;</View>
+          <View className='iconfont font70 mg-b-10'>&#xe6b4;</View>
           <View>图片展示区</View>
         </View>}
       </View>
@@ -114,7 +114,7 @@ function CharRecognition() {
         scrollTop={scrollTop}
       >
         {!wordsResult.length && <View className='w100-per h100-per flex-column flex-row-center flex-col-center text-center'>
-          <View className='iconfont font70 mg-b-10'>&#xe604;</View>
+          <View className='iconfont font70 mg-b-10'>&#xe6b0;</View>
           <View>结果展示区</View>
         </View>}
         {wordsResult.map((words, index) => {
@@ -133,7 +133,7 @@ function CharRecognition() {
           </View>
         </View>}
       </ScrollView>
-      <View className='iconfont font50 text-center w100 h100 lh-100 white bd-radius-50 choose-img' style={{backgroundColor: color}} onClick={() => chooseImage()}>&#xe601;</View>
+      <View className='iconfont font50 text-center w100 h100 lh-100 white bd-radius-50 choose-img' style={{backgroundColor: color}} onClick={() => chooseImage()}>&#xe644;</View>
     </View>
   )
 }
