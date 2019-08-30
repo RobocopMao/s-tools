@@ -74,7 +74,7 @@ function ExpressNote() {
 
   // 选中/未选中checkbox事件
   const checkboxChange = (e) => {
-    // console.log(e);
+    console.log(e);
     const value = e.detail.value;
     setCheckboxValue(value);
   };
@@ -133,8 +133,11 @@ function ExpressNote() {
                 {list[Object.keys(list)[0]].map((detail, index1) => {
                   return (
                     <View className='flex-row mg-b-24' key={String(index1) + '_1'}>
-                      {showCheckbox && <View className='flex-grow-1 flex-row flex-col-center flex-row-center edit-checkbox' >
-                        <Checkbox name={`${detail.expressNo}_${detail.expressComId}`} value={`${detail.expressNo}_${detail.expressComId}`} />
+                      {showCheckbox && <View className='flex-grow-1 flex-row flex-col-center flex-row-center relative edit-checkbox' >
+                        <Checkbox className='checkbox' name={`${detail.expressNo}_${detail.expressComId}`} value={`${detail.expressNo}_${detail.expressComId}`} />
+                        {/*自定义checkbox*/}
+                        {checkboxValue.find((value) => value === `${detail.expressNo}_${detail.expressComId}`) && <View className='iconfont w64 h64 lh-64 font46' style={{color}}>&#xe6af;</View>}
+                        {!checkboxValue.find((value) => value === `${detail.expressNo}_${detail.expressComId}`) && <View className='iconfont w64 h64 lh-64 font46' style={{color}}>&#xe6b9;</View>}
                       </View>}
                       <View className='flex-row space-between flex-grow-5'
                             onClick={() => goDetails(detail.expressNo, detail.expressComId, detail.expressComName)}
