@@ -1,10 +1,14 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text, Input} from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import {getAimIp} from '../../../../apis/ip'
+import {useAsyncEffect} from '../../../../utils';
 import './index.scss'
 
 function IpSearch() {
   // const [selfIpInfo, setSelfIpInfo] = useState({});
+  const pConfig = useSelector(state => state.pConfig);
+  const {ip} = pConfig.config;
   const [aimIp, setAimIp] = useState('');
   const [aimIpInfo, setAimIpInfo] = useState({});
   const [color, setColor] = useState('');
@@ -15,6 +19,15 @@ function IpSearch() {
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
+
+  useAsyncEffect(() => {
+    if (typeof ip === 'undefined') {  // 等待ip更新
+      return;
+    }
+    if (!ip) {
+      Taro.reLaunch({url: '/pages/home/index/index'});
+    }
+  }, [ip]);
 
   // useAsyncEffect(async () => {
   //   //   const res = await getSelfIp();
@@ -51,7 +64,7 @@ function IpSearch() {
 
   return (
     <View className='ip-search'>
-      <View className='flex-column pos-sticky pd-t-10 pd-b-20' style={{backgroundColor: color}}>
+      {ip && <View className='flex-column pos-sticky pd-t-10 pd-b-20' style={{backgroundColor: color}}>
         {/*<View className='flex-column'>*/}
           {/*<Text className='mg-b-10 bold'>当前用户的IP信息：</Text>*/}
           {/*<Text className='mg-b-10'>IP地址：<Text className='blue'>{selfIpInfo.ip}</Text></Text>*/}
@@ -67,7 +80,7 @@ function IpSearch() {
           {aimIp && <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font46 color-6e' hoverClass='' onClick={() => onReset()}>&#xe6b1;</Button>}
           <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font50 color-6e' hoverClass='' onClick={() => onSubmit()}>&#xe683;</Button>
         </View>
-      </View>
+      </View>}
       {JSON.stringify(aimIpInfo) !== '{}' && <View className='flex-column pd-20'>
           <Text className='mg-b-10 bold'>当前查询的IP信息：</Text>
           <Text className='mg-b-10'>IP地址：<Text style={{color}}>{aimIpInfo.ip}</Text></Text>

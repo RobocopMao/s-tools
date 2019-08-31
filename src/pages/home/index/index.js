@@ -8,7 +8,7 @@ import './index.scss'
 
 function Index() {
   const pConfig = useSelector(state => state.pConfig);
-  const {news, girls} = pConfig.config;
+  const {news, girls, ip} = pConfig.config;
   const [shareNode, setShareNode] = useState({});
   const [shareImgPath, setShareImgPath] = useState('');
   const [itemNode, setItemNode] = useState({});
@@ -202,13 +202,13 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bg-teal-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/calculator/index?color=${colors.calculator}`}>
+          <Navigator className='flex-column bg-green-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/trash_sort/index?color=${colors.trash_sort}`}>
             <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>简</Text>易计算器</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b2;</View>
+              <View className='lh-64'><Text className='font40'>垃</Text>圾分类</View>
+              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6c4;</View>
             </View>
-            <View className='font24'>计算器</View>
-            <View className='btm-shadow bg-teal-A700' />
+            <View className='font24'>垃圾分类查询</View>
+            <View className='btm-shadow bg-green-A700' />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
@@ -224,17 +224,6 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bg-brown-800 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/ip_search/index?color=${colors.ip_search}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>IP</Text>查询</View>
-              <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe609;</View>
-            </View>
-            <View className='font24'>查询IP地址</View>
-            <View className='btm-shadow bg-brown-800' />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
           <Navigator className='flex-column bg-lime-800 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/calendar/index?color=${colors.calendar}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>万</Text>年历</View>
@@ -246,13 +235,13 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bg-green-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/trash_sort/index?color=${colors.trash_sort}`}>
+          <Navigator className='flex-column bg-teal-A700 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/tools/pages/calculator/index?color=${colors.calculator}`}>
             <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>垃</Text>圾分类</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6c4;</View>
+              <View className='lh-64'><Text className='font40'>简</Text>易计算器</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b2;</View>
             </View>
-            <View className='font24'>垃圾分类查询</View>
-            <View className='btm-shadow bg-green-A700' />
+            <View className='font24'>计算器</View>
+            <View className='btm-shadow bg-teal-A700' />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
@@ -278,6 +267,17 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
+        {ip && <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bg-brown-800 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/search/pages/ip_search/index?color=${colors.ip_search}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>IP</Text>查询</View>
+              <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe609;</View>
+            </View>
+            <View className='font24'>查询IP地址</View>
+            <View className='btm-shadow bg-brown-800' />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>}
         {news && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bg-red-A200 bd-radius pd-20 pd-b-30 mg-20 relative' url={`/pages/other/pages/news/index?color=${colors.news}`}>
             <View className='flex-row space-between'>

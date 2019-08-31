@@ -33,13 +33,3 @@ export const aiAccurateBasic = async (data) => {
     from: FROM,
   });
 };
-
-// 智能春联接口
-export const aiCouplets = async (data) => {
-  return await request.post({
-    host: HOST,
-    url: '/rpc/2.0/creation/v1/couplets',
-    data,
-    from: FROM,
-  });
-};
