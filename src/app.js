@@ -90,7 +90,7 @@ class App extends Component {
     },
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#4481EB',
+      navigationBarBackgroundColor: '#ffffff',
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
     },
