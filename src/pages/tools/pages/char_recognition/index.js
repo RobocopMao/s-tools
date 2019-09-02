@@ -1,7 +1,7 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, ScrollView} from '@tarojs/components'
 import { useSelector, useDispatch } from '@tarojs/redux'
-import { aiAccessToken, aiGeneralBasic, aiAccurateBasic, aiCouplets } from '../../../../apis/baidu_ai'
+import { aiAccessToken, aiOcrGeneralBasic, aiOcrAccurateBasic } from '../../../../apis/baidu_ai'
 import {useAsyncEffect} from '../../../../utils';
 import {setOcrToken} from '../../../../redux/user/action';
 import './index.scss'
@@ -61,7 +61,7 @@ function CharRecognition() {
       filePath: path,
       encoding: 'base64', // base64格式的图片
       async success(res) {
-        const res1 = await aiGeneralBasic({image: encodeURI(res.data), access_token});
+        const res1 = await aiOcrGeneralBasic({image: encodeURI(res.data), access_token});
         const {words_result} = res1;
         setWordsResult(words_result);
         setScrollTop(prev => prev === 0 ? 0.1 : 0);
@@ -78,7 +78,7 @@ function CharRecognition() {
       filePath: imageUrl,
       encoding: 'base64', // base64格式的图片
       async success(res) {
-        const res1 = await aiAccurateBasic({image: encodeURI(res.data), access_token});
+        const res1 = await aiOcrAccurateBasic({image: encodeURI(res.data), access_token});
         const {words_result} = res1;
         setWordsResult(words_result);
         setScrollTop(prev => prev === 0 ? 0.1 : 0);

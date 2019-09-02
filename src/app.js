@@ -58,7 +58,9 @@ class App extends Component {
         pages: [
           'pages/calendar/index',
           'pages/calculator/index',
-          'pages/char_recognition/index'
+          'pages/char_recognition/index',
+          'pages/obj_recognition/index',
+          'pages/bmi/index'
         ],
       },
       {
@@ -92,7 +94,7 @@ class App extends Component {
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
     },
-    navigateToMiniProgramAppIdList: [''],
+    navigateToMiniProgramAppIdList: ['wx892bebdc63488ab2'],
     permission: {
       'scope.userLocation': {
         'desc': '你的位置信息将用于小程序查询天气'

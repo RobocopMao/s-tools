@@ -2,7 +2,7 @@
   background-color: #1E154D;
   .share-img-canvas {
     position: absolute;
-    left: 99999px;
+    left: 0px;
     width: 487.5px;
     height: 390px;
   }
@@ -24,39 +24,6 @@
     top: 0;
     left: 0;
     z-index: 3;
-  }
-  .bg-purple-A700 {
-    background-color: #AA00FF;
-  }
-  .bg-indigo-A700 {
-    background-color: #304FFE;
-  }
-  .bg-teal-A700 {
-    background-color: #00BFA5;
-  }
-  .bg-brown-800 {
-    background-color: #4E342E;
-  }
-  .bg-lime-800 {
-    background-color: #9E9D24;
-  }
-  .bg-green-A700 {
-    background-color: #00C853;
-  }
-  .bg-deep-purple-A700 {
-    background-color: #6200EA;
-  }
-  .bg-red-A200 {
-    background-color: #FF5252;
-  }
-  .bg-cyan-A700 {
-    background-color: #00B8D4;
-  }
-  .bg-orange-A700 {
-    background-color: #FF6D00;
-  }
-  .bg-light-blue-A700 {
-    background-color: #0091EA;
   }
   .banner-img {
     position: sticky;

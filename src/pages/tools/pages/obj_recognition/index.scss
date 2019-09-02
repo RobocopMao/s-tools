@@ -1,0 +1,29 @@
+@import "../../../../assets/styles/variable";
+.obj-recognition {
+  .choose-type {
+    position: fixed;
+    bottom: 150px;
+    right: 30px;
+    z-index: 10;
+    & > view {
+      position: relative;
+      right: -100px;
+    }
+  }
+  .choose-img {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10;
+    box-shadow: 0 0 10px 4px $color-80;
+  }
+  .bd-radius-30 {
+    border-radius: 30px;
+  }
+  .bg-black {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .mg-b-120 {
+    margin-bottom: 120px;
+  }
+}
