@@ -162,60 +162,31 @@ function Index() {
   // 绘制分享图片
   const drawShareImg = (bannerNo) => {
     if (bannerNo === 0) {
-      drawShareCanvas1(bannerNo);
+      drawShareCanvas(bannerNo, '#1E154D');
     } else if (bannerNo === 1) {
-      drawShareCanvas2(bannerNo);
+      drawShareCanvas(bannerNo, '#FFC103');
     } else if (bannerNo === 2) {
-      drawShareCanvas3(bannerNo);
+      drawShareCanvas(bannerNo, '#504dbe');
     }
   };
 
-  /*************************banner1*************************/
   // 绘制分享canvas
-  const drawShareCanvas1 = async (bannerNo) => {
+  const drawShareCanvas = (bannerNo, color) => {
     if (JSON.stringify(itemNode) === '{}') { return; }
     const {width, height} = shareNode;
     const ctx = Taro.createCanvasContext('shareImg');
     ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(banners[bannerNo]['img'], 128, 0, 487.5, 390, 0, 0, width, height);
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, width, height);
+    ctx.restore();
+
+    ctx.save();
+    ctx.drawImage(banners[bannerNo]['img'], 0, 0, 750, 450, 0, 0, width, height);
     ctx.draw(true, () => {
       shareCanvasToImg();
     });
   };
-
-  /*************************banner2*************************/
-  // 绘制分享canvas
-  const drawShareCanvas2 = async (bannerNo) => {
-      if (JSON.stringify(itemNode) === '{}') { return; }
-      const {width, height} = shareNode;
-
-      const ctx = Taro.createCanvasContext('shareImg');
-      ctx.clearRect(0, 0, width, height);
-      ctx.save();
-      ctx.fillStyle = '#FFC103';
-      ctx.fillRect(0, 0, width, height);
-      ctx.restore();
-
-      ctx.save();
-      ctx.drawImage(banners[bannerNo]['img'], 0, 0, 750, 450, 0, 0, width, height);
-      ctx.draw(true, () => {
-        shareCanvasToImg();
-      });
-    };
-
-  /*************************banner3*************************/
-    // 绘制分享canvas
-  const drawShareCanvas3 = async (bannerNo) => {
-      if (JSON.stringify(itemNode) === '{}') { return; }
-      const {width, height} = shareNode;
-
-      const ctx = Taro.createCanvasContext('shareImg');
-      ctx.clearRect(0, 0, width, height);
-      ctx.drawImage(banners[bannerNo]['img'], 128, 0, 487.5, 390, 0, 0, width, height);
-      ctx.draw(true, () => {
-        shareCanvasToImg();
-      });
-    };
 
   // canvas 转图片
   const shareCanvasToImg = async () => {
