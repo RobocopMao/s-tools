@@ -8,6 +8,8 @@ import {getNodeRect} from '../../../utils';
 import bannerImg1 from '../../../assets/images/banner1.jpg'
 import bannerImg2 from '../../../assets/images/banner2.jpg'
 import bannerImg3 from '../../../assets/images/banner3.jpg'
+import bannerImg4 from '../../../assets/images/banner4.jpg'
+import bannerImg5 from '../../../assets/images/banner5.jpg'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
@@ -15,7 +17,7 @@ const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C8
 const shuffleColors = shuffle(colorsArr);
 
 // banner
-const banners = [{img: bannerImg1, color: '#1E154D'}, {img: bannerImg2, color: '#FFC103'}, {img: bannerImg3, color: '#504dbe'}];
+const banners = [{img: bannerImg1, color: '#1E154D'}, {img: bannerImg2, color: '#FFC103'}, {img: bannerImg3, color: '#504dbe'}, {img: bannerImg4, color: '#844DF6'}, {img: bannerImg5, color: '#fefdfe'}];
 const BANNER_NO = Taro.getStorageSync('BANNER_NO');
 
 function Index() {
@@ -24,8 +26,11 @@ function Index() {
   const [shareNode, setShareNode] = useState({});
   const [shareImgPath, setShareImgPath] = useState('');
   const [itemNode, setItemNode] = useState({});
+  const [funcBtnNode, setFuncBtnNode] = useState({});
   const [itemImgPath, setItemImgPath] = useState('');
   const [bannerNo, setBannerNo] = useState(BANNER_NO ? BANNER_NO : 0);
+  const [animationData, setAnimationData] = useState({});
+  const [showFixedBtn, setShowFixedBtn] = useState(false);
 
   const colors = {
     weather: shuffleColors[0],
@@ -64,6 +69,13 @@ function Index() {
   useEffect(() => {
     drawItemLine();
   }, [itemNode]);
+
+  // 获取底部功能按钮box Node宽高
+  useEffect(async () => {
+    const node = await getNodeRect('#funcBtn');
+    const {width, height} = node;
+    setFuncBtnNode({width, height});
+  }, []);
 
   // 获取shareImg宽高
   useEffect(async () => {
@@ -167,6 +179,10 @@ function Index() {
       drawShareCanvas(bannerNo, '#FFC103');
     } else if (bannerNo === 2) {
       drawShareCanvas(bannerNo, '#504dbe');
+    } else if (bannerNo === 3) {
+      drawShareCanvas(bannerNo, '#844DF6');
+    } else if (bannerNo === 4) {
+      drawShareCanvas(bannerNo, '#fefdfe');
     }
   };
 
@@ -223,8 +239,26 @@ function Index() {
     }
   };
 
+  // 显示/隐藏底部按钮
+  const animateFixedBtn = () => {
+    // 身高picker
+    let animation = Taro.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    });
+
+    if (!showFixedBtn) {
+      animation.right(0).step();
+    } else {
+      const {width} = funcBtnNode;
+      animation.right(-width).step();
+    }
+    setAnimationData(animation);
+    setShowFixedBtn(prev => !prev);
+  };
+
   return (
-    <View className='font26 white relative index'>
+    <View className='font26 white relative index' style={{backgroundColor: banners[bannerNo]['color']}}>
       <Image className='w100-per banner-img' style={{height: '200px'}} src={banners[bannerNo]['img']} />
       <View className='flex-row flex-wrap pd-40 bd-box pd-t-0' style={{backgroundColor: banners[bannerNo]['color']}}>
         <View className='flex-50per bd-box' onClick={() => goSWeatherMiniProgram()}>
@@ -383,15 +417,21 @@ function Index() {
           </Navigator>
         </View>}
       </View>
-      <View className='flex-column w64 fixed-btn'>
-        <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-t-20' openType='share'>&#xe649;</Button>
-        <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-t-20 font46' onClick={() => switchBanner()}>&#xe6ba;</Button>
-        {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
-          {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
-        {/*</Navigator>*/}
-        <Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
-          <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe626;</View>
-        </Navigator>
+      <View className='flex-row flex-col-center h80 bg-black fixed-btn' animation={animationData}>
+        <Button className='iconfont w80 h80 lh-80 text-center font40 circle white pd-0 bg-black' onClick={() => animateFixedBtn()}>
+          {showFixedBtn && <View className='iconfont w80 h80 lh-80 text-center font44 white'>&#xe6aa;</View>}
+          {!showFixedBtn && <View className='iconfont w80 h80 lh-80 text-center font44 white'>&#xe69b;</View>}
+        </Button>
+        <View className='flex-row flex-col-center func-btn' id='funcBtn'>
+          <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-r-20' openType='share'>&#xe649;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font40 circle white pd-0 bg-black font46 mg-r-20' onClick={() => switchBanner()}>&#xe6ba;</Button>
+          {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
+            {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
+          {/*</Navigator>*/}
+          <Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
+            <View className='iconfont w64 h64 lh-64 text-center font44 white'>&#xe626;</View>
+          </Navigator>
+        </View>
       </View>
       <View className='h0 of-hidden relative'>
         <Canvas className='share-img-canvas' canvasId='shareImg' id='shareImg' />

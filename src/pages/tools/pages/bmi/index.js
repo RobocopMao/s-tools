@@ -93,6 +93,11 @@ function BMI() {
     setShowWeightPicker(prev => !prev);
   };
 
+  // 点击mask隐藏picker
+  const hideMask = () => {
+    showHeightPicker ? heightPickerAnimate() : weightPickerAnimate();
+  };
+
   return (
     <View className='bmi of-hidden'>
       <View className='' id='triggerPickerBox'>
@@ -160,7 +165,7 @@ function BMI() {
         <View className='mg-b-20'>4. 有人认为最好看的体形BMI指数值为：女士BMI=19，男士BMI=22。</View>
       </ScrollView>
       {/*蒙层*/}
-      {showMask && <View className='mask' style={{backgroundColor: color, opacity: 0.6}}/>}
+      {showMask && <View className='mask' style={{backgroundColor: color, opacity: 0.6}} onClick={() => hideMask()} />}
       {/*身高picker*/}
       <View className='bg-white picker' style={{height: `${windowHeight / 2}px`, bottom: `${-windowHeight / 2}px`}} animation={animationData1}>
         <View className='line' />

@@ -2,7 +2,7 @@
   background-color: #1E154D;
   .share-img-canvas {
     position: absolute;
-    left: 0px;
+    left: 99999px;
     width: 487.5px;
     height: 390px;
   }
@@ -32,8 +32,22 @@
   }
   .fixed-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 10px;
+    right: -272px;
     z-index: 10;
+    width: 352px;
+    border-radius: 50px 0 0 50px;
+    &.bg-black {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    & > .bg-black {
+      background-color: transparent;
+    }
+    .func-btn {
+      width: 272px;
+      & > .bg-black {
+        background-color: transparent;
+      }
+    }
   }
 }
