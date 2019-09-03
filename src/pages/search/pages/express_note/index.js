@@ -74,7 +74,7 @@ function ExpressNote() {
 
   // 选中/未选中checkbox事件
   const checkboxChange = (e) => {
-    console.log(e);
+    // console.log(e);
     const value = e.detail.value;
     setCheckboxValue(value);
   };
@@ -124,7 +124,7 @@ function ExpressNote() {
         // enableBackToTop={true}
         // scrollTop={scrollTop}
       >
-        <CheckboxGroup className='pd-20 font26' onChange={(e) => checkboxChange(e)}>
+        {noteList.length && <CheckboxGroup className='pd-20 font26' onChange={(e) => checkboxChange(e)}>
           {noteList.map((list, index) => {
             return (
               <View className='pd-b-30' key={String(index)}>
@@ -158,9 +158,11 @@ function ExpressNote() {
               </View>
             )
           })}
-
-          {!noteList.length && <View className='text-center color9'>暂无查询记录</View>}
-        </CheckboxGroup>
+        </CheckboxGroup>}
+        {!noteList.length && <View className='text-center color9 h100-per flex-column flex-col-center flex-row-center'>
+          <View className='iconfont font100 mg-b-20'>&#xe657;</View>
+          <View>暂无查询记录</View>
+        </View>}
       </ScrollView>
       <View className='btm-btn' id='btmBtn'>
         {!showCheckbox && <Button className='btn search-btn' style={{backgroundColor: color}} hoverClass='btn-hover' onClick={() => goDetails()}>手动查询</Button>}
