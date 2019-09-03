@@ -118,7 +118,7 @@ function BMI() {
         <View className='pd-t-10 pd-b-20 pd-l-20 pd-r-20' style={{backgroundColor: color}}>
           <View className='flex-row bd-radius-50 of-hidden'>
             <View className='pd-l-20 h80 w140 lh-80 bd-radius-no bg-white color-6e'>BMI</View>
-            <View className='flex-grow-1 pd-r-20 pd-t-2 pd-b-2 h80 lh-80 bd-box bg-white text-center'>{Number.isFinite((weight / (height * height))) ? (weight / (height * height)).toFixed(1) : '你胖的我已经无法形容了'}</View>
+            <View className='flex-grow-1 pd-r-20 pd-t-2 pd-b-2 h80 lh-80 bd-box bg-white text-center'>{Number.isFinite((weight / (height * height))) ? (weight / (height * height)).toFixed(1) : '你胖得我已经无法形容了'}</View>
             <Button className='iconfont pd-0 h80 w80 lh-80 bd-radius-no bg-white font46 color-6e' hoverClass='' />
           </View>
         </View>
