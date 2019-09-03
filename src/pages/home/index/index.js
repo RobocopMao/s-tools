@@ -257,6 +257,10 @@ function Index() {
     setShowFixedBtn(prev => !prev);
   };
 
+  const onContact = (e) => {
+    console.log(e);
+  };
+
   return (
     <View className='font26 white relative index' style={{backgroundColor: banners[bannerNo]['color']}}>
       <Image className='w100-per banner-img' style={{height: '200px'}} src={banners[bannerNo]['img']} />
@@ -424,10 +428,11 @@ function Index() {
         </Button>
         <View className='flex-row flex-col-center func-btn' id='funcBtn'>
           <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-r-20' openType='share'>&#xe649;</Button>
-          <Button className='iconfont w64 h64 lh-64 text-center font40 circle white pd-0 bg-black font46 mg-r-20' onClick={() => switchBanner()}>&#xe6ba;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font40 circle white pd-0 bg-black font48 mg-r-20' onClick={() => switchBanner()}>&#xe6ba;</Button>
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
-            {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
+          {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
           {/*</Navigator>*/}
+          <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-r-20' openType='contact'>&#xe6bb;</Button>
           <Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
             <View className='iconfont w64 h64 lh-64 text-center font44 white'>&#xe626;</View>
           </Navigator>
