@@ -10,6 +10,9 @@ import bannerImg2 from '../../../assets/images/banner2.jpg'
 import bannerImg3 from '../../../assets/images/banner3.jpg'
 import bannerImg4 from '../../../assets/images/banner4.jpg'
 import bannerImg5 from '../../../assets/images/banner5.jpg'
+import bannerImg6 from '../../../assets/images/banner6.jpg'
+import bannerImg7 from '../../../assets/images/banner7.jpg'
+import bannerImg8 from '../../../assets/images/banner8.jpg'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
@@ -17,7 +20,15 @@ const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C8
 const shuffleColors = shuffle(colorsArr);
 
 // banner
-const banners = [{img: bannerImg1, color: '#1E154D'}, {img: bannerImg2, color: '#FFC103'}, {img: bannerImg3, color: '#504dbe'}, {img: bannerImg4, color: '#844DF6'}, {img: bannerImg5, color: '#fefdfe'}];
+const banners = [
+  {img: bannerImg1, color: '#1E154D'},
+  {img: bannerImg2, color: '#FFC103'},
+  {img: bannerImg3, color: '#504dbe'},
+  {img: bannerImg4, color: '#844DF6'},
+  {img: bannerImg5, color: '#fefdfe'},
+  {img: bannerImg6, color: '#8DB224'},
+  {img: bannerImg7, color: '#01479d'},
+  {img: bannerImg8, color: '#FFA6B6'}];
 const BANNER_NO = Taro.getStorageSync('BANNER_NO');
 
 function Index() {
@@ -173,17 +184,8 @@ function Index() {
 
   // 绘制分享图片
   const drawShareImg = (bannerNo) => {
-    if (bannerNo === 0) {
-      drawShareCanvas(bannerNo, '#1E154D');
-    } else if (bannerNo === 1) {
-      drawShareCanvas(bannerNo, '#FFC103');
-    } else if (bannerNo === 2) {
-      drawShareCanvas(bannerNo, '#504dbe');
-    } else if (bannerNo === 3) {
-      drawShareCanvas(bannerNo, '#844DF6');
-    } else if (bannerNo === 4) {
-      drawShareCanvas(bannerNo, '#fefdfe');
-    }
+    const color = banners[bannerNo]['color'];
+    drawShareCanvas(bannerNo, color);
   };
 
   // 绘制分享canvas
@@ -255,10 +257,6 @@ function Index() {
     }
     setAnimationData(animation);
     setShowFixedBtn(prev => !prev);
-  };
-
-  const onContact = (e) => {
-    console.log(e);
   };
 
   return (
