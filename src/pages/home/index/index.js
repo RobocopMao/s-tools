@@ -247,6 +247,7 @@ function Index() {
 
   // 去设置皮肤
   const goSettingSkin = () => {
+    animateFixedBtn();
     Taro.navigateTo({
       url: `/pages/home/skin_setting/index?color=${colors.skin_setting}`,
       events: {
