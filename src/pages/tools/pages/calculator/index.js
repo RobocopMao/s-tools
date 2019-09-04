@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import rpn from '../../../../utils/rpn'
 import './index.scss'
 
-function Index() {
+function Calculator() {
   const [result, setResult] = useState(0);
   const [formula, setFormula] = useState('');
   // const [color, setColor] = useState('');
@@ -150,8 +150,8 @@ function Index() {
   )
 }
 
-Index.config = {
+Calculator.config = {
   navigationBarTitleText: '简易计算器'
 };
 
-export default Index;
+export default Calculator;

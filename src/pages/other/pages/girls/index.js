@@ -6,7 +6,7 @@ import { getGirlsImgListRandom } from '../../../../apis/girls'
 import {useAsyncEffect} from '../../../../utils';
 import './index.scss'
 
-function Index() {
+function Girls() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {girls} = pConfig.config;
@@ -131,8 +131,8 @@ function Index() {
   )
 }
 
-Index.config = {
+Girls.config = {
   navigationBarTitleText: '福利养眼图',
 };
 
-export default Index;
+export default Girls;

@@ -5,7 +5,7 @@ import { useAsyncEffect } from '../../../../utils'
 import { getHolidaySingle } from '../../../../apis/calendar'
 import './index.scss'
 
-function Index() {
+function Calendar() {
   const [day, setDay] = useState(Number(moment().format('D')));  // 选中的日期
   const [week, setWeek] = useState(moment().format('dddd'));  // 选中的星期
   const [month, setMonth] = useState(Number(moment().format('M'))); // 选中日期月份
@@ -259,8 +259,8 @@ function Index() {
   )
 }
 
-Index.config = {
+Calendar.config = {
   navigationBarTitleText: '万年历'
 };
 
-export default Index;
+export default Calendar;

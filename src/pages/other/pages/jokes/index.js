@@ -6,7 +6,7 @@ import { getJokesRandom } from '../../../../apis/jokes'
 import { useAsyncEffect } from '../../../../utils'
 import './index.scss'
 
-function Index() {
+function Jokes() {
   const user = useSelector(state => state.user);
   const {windowHeight} = user.systemInfo;
   // const [page, setPage] = useState(1);  // 分页
@@ -73,8 +73,8 @@ function Index() {
   )
 }
 
-Index.config = {
+Jokes.config = {
   navigationBarTitleText: '笑话段子'
 };
 
-export default Index;
+export default Jokes;

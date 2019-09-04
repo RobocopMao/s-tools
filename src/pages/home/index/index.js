@@ -58,7 +58,8 @@ function Index() {
     ip_search: shuffleColors[11],
     news: shuffleColors[12],
     girls: shuffleColors[13],
-    about: '#000'
+    about: '#000',
+    skin_setting: shuffleColors[random(0, 13)]
   };
 
   useEffect(() => {
@@ -228,17 +229,35 @@ function Index() {
   };
 
   // 切换banner
-  const switchBanner = () => {
-    let len = banners.length;
-    if (bannerNo < len - 1) {
-      setBannerNo(prev => prev + 1);
-      Taro.setStorageSync('BANNER_NO', bannerNo + 1);
-      drawShareImg(bannerNo + 1);
-    } else {
-      setBannerNo(0);
-      Taro.setStorageSync('BANNER_NO', 0);
-      drawShareImg(0);
-    }
+  const switchBanner = (bannerNo) => {
+    // let len = banners.length;
+    // if (bannerNo < len - 1) {
+    //   setBannerNo(prev => prev + 1);
+    //   Taro.setStorageSync('BANNER_NO', bannerNo + 1);
+    //   drawShareImg(bannerNo + 1);
+    // } else {
+    //   setBannerNo(0);
+    //   Taro.setStorageSync('BANNER_NO', 0);
+    //   drawShareImg(0);
+    // }
+    setBannerNo(bannerNo);
+    Taro.setStorageSync('BANNER_NO', bannerNo);
+    drawShareImg(bannerNo);
+  };
+
+  // 去设置皮肤
+  const goSettingSkin = () => {
+    Taro.navigateTo({
+      url: `/pages/home/skin_setting/index?color=${colors.skin_setting}`,
+      events: {
+        acceptDataFromSkinSetting(data) {  // 监听事件
+          // console.log('acceptDataFromLocationSearch');
+          console.log(data);
+
+          switchBanner(data.bannerNo);
+        }
+      }
+    });
   };
 
   // 显示/隐藏底部按钮
@@ -426,7 +445,7 @@ function Index() {
         </Button>
         <View className='flex-row flex-col-center func-btn' id='funcBtn'>
           <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-r-20' openType='share'>&#xe649;</Button>
-          <Button className='iconfont w64 h64 lh-64 text-center font40 circle white pd-0 bg-black font48 mg-r-20' onClick={() => switchBanner()}>&#xe6ba;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font40 circle white pd-0 bg-black font48 mg-r-20' onClick={() => goSettingSkin()}>&#xe6ba;</Button>
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
           {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
           {/*</Navigator>*/}

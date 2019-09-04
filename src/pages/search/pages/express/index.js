@@ -4,7 +4,7 @@ import {getLogisticsDetails, getLogisticsTypeId} from '../../../../apis/express'
 import moment from 'moment';
 import './index.scss'
 
-function Index() {
+function Express() {
   const [expressNo, setExpressNo] = useState(''); // 快递编号
   const [expressComId, setExpressComId] = useState(''); // 物流公司编号
   const [expressComName, setExpressComName] = useState('');  // 物流公司名称
@@ -183,8 +183,8 @@ function Index() {
   )
 }
 
-Index.config = {
+Express.config = {
   navigationBarTitleText: '快递查询'
 };
 
-export default Index;
+export default Express;

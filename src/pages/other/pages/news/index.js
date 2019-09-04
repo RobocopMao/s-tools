@@ -6,7 +6,7 @@ import { getNewsTypes, getNewsList } from '../../../../apis/news'
 import {useAsyncEffect} from '../../../../utils';
 import './index.scss'
 
-function Index() {
+function News() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {news} = pConfig.config;
@@ -180,8 +180,8 @@ function Index() {
   )
 }
 
-Index.config = {
+News.config = {
   navigationBarTitleText: '新闻Lite'
 };
 
-export default Index;
+export default News;

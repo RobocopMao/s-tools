@@ -37,7 +37,8 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/home/index/index'
+      'pages/home/index/index',
+      'pages/home/skin_setting/index'
     ],
     subpackages: [  // 分包配置
       {

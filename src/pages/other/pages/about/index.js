@@ -4,7 +4,7 @@ import { useSelector } from '@tarojs/redux'
 import _updateLog from '../../../../assets/json/update_log.json'
 import './index.scss'
 
-function Index() {
+function About() {
   const pConfig = useSelector(state => state.pConfig);
   const {news, girls} = pConfig.config;
   const [color, setColor] = useState('');
@@ -67,8 +67,8 @@ function Index() {
   )
 }
 
-Index.config = {
+About.config = {
   navigationBarTitleText: '关于与问题'
 };
 
-export default Index;
+export default About;
