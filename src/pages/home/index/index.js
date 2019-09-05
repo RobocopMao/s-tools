@@ -182,7 +182,6 @@ function Index() {
     ctx.save();
     ctx.drawImage(banners[bannerNo]['img'], 0, 0, 750, 450, 0, 0, width, height);
     ctx.draw(true, () => {
-      console.log(ctx);
       shareCanvasToImg();
     });
   };
