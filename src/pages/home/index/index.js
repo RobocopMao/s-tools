@@ -82,7 +82,7 @@ function Index() {
 
   // draw 背景
   useEffect(() => {
-    drawShareImg(bannerNo);
+    drawShareCanvas(bannerNo);
   }, [shareNode]);
 
   // 转发
@@ -167,16 +167,11 @@ function Index() {
     })
   };
 
-  // 绘制分享图片
-  const drawShareImg = (bannerNo) => {
-    const color = banners[bannerNo]['color'];
-    drawShareCanvas(bannerNo, color);
-  };
-
   // 绘制分享canvas
-  const drawShareCanvas = (bannerNo, color) => {
+  const drawShareCanvas = (bannerNo) => {
     if (JSON.stringify(itemNode) === '{}') { return; }
     const {width, height} = shareNode;
+    const color = banners[bannerNo]['color'];
     const ctx = Taro.createCanvasContext('shareImg');
     ctx.clearRect(0, 0, width, height);
     ctx.save();
@@ -187,6 +182,7 @@ function Index() {
     ctx.save();
     ctx.drawImage(banners[bannerNo]['img'], 0, 0, 750, 450, 0, 0, width, height);
     ctx.draw(true, () => {
+      console.log(ctx);
       shareCanvasToImg();
     });
   };
@@ -212,23 +208,6 @@ function Index() {
     })
   };
 
-  // 切换banner
-  const switchBanner = (bannerNo) => {
-    // let len = banners.json.length;
-    // if (bannerNo < len - 1) {
-    //   setBannerNo(prev => prev + 1);
-    //   Taro.setStorageSync('BANNER_NO', bannerNo + 1);
-    //   drawShareImg(bannerNo + 1);
-    // } else {
-    //   setBannerNo(0);
-    //   Taro.setStorageSync('BANNER_NO', 0);
-    //   drawShareImg(0);
-    // }
-    setBannerNo(bannerNo);
-    Taro.setStorageSync('BANNER_NO', bannerNo);
-    drawShareImg(bannerNo);
-  };
-
   // 去设置皮肤
   const goSettingSkin = () => {
     animateFixedBtn();
@@ -237,9 +216,16 @@ function Index() {
       events: {
         acceptDataFromSkinSetting(data) {  // 监听事件
           // console.log('acceptDataFromLocationSearch');
-          console.log(data);
+          // console.log(data);
 
-          switchBanner(data.bannerNo);
+          // switchBanner(data.bannerNo);
+          const {bannerNo} = data;
+          setBannerNo(bannerNo);
+          Taro.setStorageSync('BANNER_NO', bannerNo);
+          let tId = setTimeout(() => {  // 需要延迟，不然banner图片画不出来
+            drawShareCanvas(bannerNo);
+            clearTimeout(tId);
+          }, 1000);
         }
       }
     });
