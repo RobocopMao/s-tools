@@ -5,30 +5,14 @@ import shuffle from 'lodash/shuffle'
 import random from 'lodash/random'
 import { S_WEATHER_APPID} from '../../../apis/config'
 import {getNodeRect} from '../../../utils';
-import bannerImg1 from '../../../assets/images/banner1.jpg'
-import bannerImg2 from '../../../assets/images/banner2.jpg'
-import bannerImg3 from '../../../assets/images/banner3.jpg'
-import bannerImg4 from '../../../assets/images/banner4.jpg'
-import bannerImg5 from '../../../assets/images/banner5.jpg'
-import bannerImg6 from '../../../assets/images/banner6.jpg'
-import bannerImg7 from '../../../assets/images/banner7.jpg'
-import bannerImg8 from '../../../assets/images/banner8.jpg'
+import banners from '../../../utils/banners'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
 const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#FFB837', '#FF6D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E'];
 const shuffleColors = shuffle(colorsArr);
 
-// banner
-const banners = [
-  {img: bannerImg1, color: '#1E154D'},
-  {img: bannerImg2, color: '#FFC103'},
-  {img: bannerImg3, color: '#504dbe'},
-  {img: bannerImg4, color: '#844DF6'},
-  {img: bannerImg5, color: '#fefdfe'},
-  {img: bannerImg6, color: '#8DB224'},
-  {img: bannerImg7, color: '#01479d'},
-  {img: bannerImg8, color: '#FFA6B6'}];
+// bannerNo
 const BANNER_NO = Taro.getStorageSync('BANNER_NO');
 
 function Index() {
@@ -230,7 +214,7 @@ function Index() {
 
   // 切换banner
   const switchBanner = (bannerNo) => {
-    // let len = banners.length;
+    // let len = banners.json.length;
     // if (bannerNo < len - 1) {
     //   setBannerNo(prev => prev + 1);
     //   Taro.setStorageSync('BANNER_NO', bannerNo + 1);
