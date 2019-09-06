@@ -9,7 +9,7 @@ import banners from '../../../utils/banners'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
-const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#FFB837', '#FF6D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E'];
+const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837', '#FF6D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E'];
 const shuffleColors = shuffle(colorsArr);
 
 // bannerNo
@@ -30,18 +30,19 @@ function Index() {
   const colors = {
     weather: shuffleColors[0],
     jokes: shuffleColors[1],
-    phone_code: shuffleColors[2],
-    calculator: shuffleColors[3],
-    phone_location: shuffleColors[4],
-    calendar: shuffleColors[5],
-    trash_sort: shuffleColors[6],
-    express_note: shuffleColors[7],
-    char_recognition: shuffleColors[8],
-    obj_recognition: shuffleColors[9],
-    bmi: shuffleColors[10],
-    ip_search: shuffleColors[11],
-    news: shuffleColors[12],
-    girls: shuffleColors[13],
+    char_recognition: shuffleColors[2],
+    obj_recognition: shuffleColors[3],
+    id_photo: shuffleColors[4],
+    phone_code: shuffleColors[5],
+    calculator: shuffleColors[6],
+    phone_location: shuffleColors[7],
+    calendar: shuffleColors[8],
+    trash_sort: shuffleColors[9],
+    express_note: shuffleColors[10],
+    bmi: shuffleColors[11],
+    ip_search: shuffleColors[12],
+    news: shuffleColors[13],
+    girls: shuffleColors[14],
     about: '#000',
     skin_setting: shuffleColors[random(0, 13)]
   };
@@ -276,13 +277,35 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_code}} url={`/pages/search/pages/phone_code/index?color=${colors.phone_code}`}>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.char_recognition}} url={`/pages/tools/pages/char_recognition/index?color=${colors.char_recognition}`}>
             <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>世</Text>界电话区号</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe668;</View>
+              <View className='lh-64'><Text className='font40'>通</Text>用文字识别</View>
+              <View className='iconfont w64 h64 lh-64 text-center font40'>&#xe6cb;</View>
             </View>
-            <View className='font24'>世界各地电话区号</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.phone_code}} />
+            <View className='font24'>识别图片里的文字信息</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.char_recognition}} />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.obj_recognition}} url={`/pages/tools/pages/obj_recognition/index?color=${colors.obj_recognition}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>图</Text>片识物</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe709;</View>
+            </View>
+            <View className='font24'>识别图片里的物体信息</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.obj_recognition}} />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.id_photo}} url={`/pages/tools/pages/id_photo/index?color=${colors.id_photo}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>证</Text>件照换背景</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe704;</View>
+            </View>
+            <View className='font24'>快速修改证件照背景色</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.id_photo}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
@@ -320,6 +343,17 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_code}} url={`/pages/search/pages/phone_code/index?color=${colors.phone_code}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>世</Text>界电话区号</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe668;</View>
+            </View>
+            <View className='font24'>世界各地电话区号</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.phone_code}} />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.calendar}} url={`/pages/tools/pages/calendar/index?color=${colors.calendar}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>万</Text>年历</View>
@@ -338,28 +372,6 @@ function Index() {
             </View>
             <View className='font24'>计算器</View>
             <View className='btm-shadow' style={{backgroundColor: colors.calculator}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.char_recognition}} url={`/pages/tools/pages/char_recognition/index?color=${colors.char_recognition}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>通</Text>用文字识别</View>
-              <View className='iconfont w64 h64 lh-64 text-center font40'>&#xe6cb;</View>
-            </View>
-            <View className='font24'>识别图片里的文字信息</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.char_recognition}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.obj_recognition}} url={`/pages/tools/pages/obj_recognition/index?color=${colors.obj_recognition}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>图</Text>片识物</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe709;</View>
-            </View>
-            <View className='font24'>识别图片里的物体信息</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.obj_recognition}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>

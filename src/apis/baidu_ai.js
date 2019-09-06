@@ -115,3 +115,13 @@ export const aiImageLogo = async (data) => {
     from: FROM,
   });
 };
+
+// 人像分割
+export const aiBodySeg = async (data) => {
+  return await request.post({
+    host: HOST,
+    url: '/rest/2.0/image-classify/v1/body_seg',
+    data,
+    from: FROM,
+  });
+};

@@ -2,8 +2,8 @@ import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, ScrollView} from '@tarojs/components'
 import { useSelector, useDispatch } from '@tarojs/redux'
 import { aiAccessToken, aiOcrGeneralBasic, aiOcrAccurateBasic } from '../../../../apis/baidu_ai'
-import {useAsyncEffect} from '../../../../utils';
-import {setOcrToken} from '../../../../redux/user/action';
+import {useAsyncEffect} from '../../../../utils'
+import {setOcrToken} from '../../../../redux/user/action'
 import './index.scss'
 
 function CharRecognition() {

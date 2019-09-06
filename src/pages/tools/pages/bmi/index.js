@@ -1,8 +1,8 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import { useSelector } from '@tarojs/redux'
-import {View, PickerView, PickerViewColumn, Button, Input, ScrollView} from '@tarojs/components'
+import {View, PickerView, PickerViewColumn, Button, ScrollView} from '@tarojs/components'
+import {getNodeRect} from '../../../../utils'
 import './index.scss'
-import {getNodeRect} from "../../../../utils";
 
 function BMI() {
   // 初始化kg整数
