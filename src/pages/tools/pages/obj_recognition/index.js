@@ -2,8 +2,8 @@ import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, ScrollView, Image} from '@tarojs/components'
 import { useSelector, useDispatch } from '@tarojs/redux'
 import { aiAccessToken, aiImageAdvancedGeneral, aiImageAnimal, aiImagePlant, aiImageIngredient, aiImageDish, aiImageLandmark, aiImageCurrency, aiImageLogo } from '../../../../apis/baidu_ai'
-import {useAsyncEffect} from '../../../../utils';
-import {setAiToken} from '../../../../redux/user/action';
+import {useAsyncEffect} from '../../../../utils'
+import {setAiToken} from '../../../../redux/user/action'
 import './index.scss'
 
 function ObjRecognition() {
