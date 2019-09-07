@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import {SET_SYSTEM_INFO, SET_OCR_TOKEN} from './constant'
+import {SET_SYSTEM_INFO, SET_AI_TOKEN} from './constant'
 import {getSystemInfo} from '../../utils';
 
 export const setSystemInfo = (systemInfo) => {
@@ -24,10 +24,10 @@ export const setSystemInfoAsync = () => {
   }
 };
 
-// 设置OCR token
-export const setOcrToken = (ocrToken) => {
+// 设置AI token
+export const setAiToken = (aiToken) => {
   return {
-    type: SET_OCR_TOKEN,
-    ocrToken
+    type: SET_AI_TOKEN,
+    aiToken
   }
 };

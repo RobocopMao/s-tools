@@ -1,18 +1,17 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import { useSelector, useDispatch } from '@tarojs/redux'
-import {View, Button, ScrollView} from '@tarojs/components'
+import {View} from '@tarojs/components'
 import {aiAccessToken, aiBodySeg} from '../../../../apis/baidu_ai'
 import {useAsyncEffect} from '../../../../utils'
-import {setOcrToken} from '../../../../redux/user/action'
+import {setAiToken} from '../../../../redux/user/action'
 import base64src from '../../../../utils/base64src'
 import './index.scss'
 
 function IDPhoto() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {aiOcrAK, aiOcrSK} = pConfig.config;
-  const {access_token} = user.ocrToken;
-  const {windowHeight} = user.systemInfo;
+  const {aiAK, aiSK} = pConfig.config;
+  const {access_token} = user.aiToken;
   const dispatch = useDispatch();
   const [imageUrl, setImageUrl] = useState('');
   const [foregroundUrl, setForegroundUrl] = useState('');
@@ -36,8 +35,8 @@ function IDPhoto() {
   // 获取token
   useAsyncEffect(async () => {
     if (typeof access_token === 'undefined') {
-      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: aiOcrAK, client_secret: aiOcrSK});
-      dispatch(setOcrToken(token));
+      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: aiAK, client_secret: aiSK});
+      dispatch(setAiToken(token));
     }
   }, []);
 
@@ -181,11 +180,11 @@ function IDPhoto() {
         <View className={`mg-l-30 h60 w120 bd-radius bg-white text-center lh-60 bg-select ${inch === 1 ? 'bg-selected' : ''}`} onClick={() => setImgInch(1)}>1寸</View>
         <View className={`mg-l-30 h60 w120 bd-radius bg-white text-center lh-60 bg-select ${inch === 2 ? 'bg-selected' : ''}`} onClick={() => setImgInch(2)}>2寸</View>
       </View>
-      <View className='flex-row mg-t-30 w295'>
+      <View className='flex-row mg-t-30 w295 color-a1 font24'>
         <View>Tips：</View>
         <View className='flex-grow-1'>
           <View>本功能只提供简单快速的更换背景</View>
-          <View>建议使用专业的作图工具</View>
+          <View>但还是建议使用专业的作图工具</View>
         </View>
       </View>
       <View className='iconfont font50 text-center w100 h100 lh-100 white bd-radius-50 choose-img' style={{backgroundColor: color}} onClick={() => chooseImage()}>&#xe644;</View>
