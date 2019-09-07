@@ -62,7 +62,8 @@ class App extends Component {
           'pages/char_recognition/index',
           'pages/obj_recognition/index',
           'pages/bmi/index',
-          'pages/id_photo/index'
+          'pages/id_photo/index',
+          'pages/translate/index',
         ],
       },
       {

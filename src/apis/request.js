@@ -64,7 +64,9 @@ class Request {
           } else {
             let data = res.data;
             if (from === 'BAIDU_AI') { // 来自百度AI，数据返回和基本错误码提示
-              judgeBaiduErrCode(data, resolve);
+              judgeBaiduAIErrCode(data, resolve);
+            } else if (from === 'BAIDU_FANYI') { // 来自百度翻译，数据返回和基本错误码提示
+              judgeBaiduFanyiErrCode(data, resolve);
             } else {  // RollToolsApi的数据返回和错误提示
               if (data.code === 1) {
                 resolve(data.data);
@@ -90,7 +92,7 @@ class Request {
 }
 
 // 判断百度Ai的错误码
-const judgeBaiduErrCode = (data, resolve) => {
+const judgeBaiduAIErrCode = (data, resolve) => {
   const {error_code} = data;
   switch (error_code) {
     case 1:
@@ -146,6 +148,51 @@ const judgeBaiduErrCode = (data, resolve) => {
       break;
     case 216203:
       Taro.showToast({title: '上传的图片base64编码有误，请重新上传', icon: 'none', duration: 2000});
+      break;
+    default:
+      resolve(data);
+  }
+};
+
+// 判断百度翻译的错误码
+const judgeBaiduFanyiErrCode = (data, resolve) => {
+  const {error_code} = data;
+  switch (error_code) {
+    case 52001:
+      Taro.showToast({title: '请求超时，请重试', icon: 'none', duration: 2000});
+      break;
+    case 52002:
+      Taro.showToast({title: '系统错误，请重试', icon: 'none', duration: 2000});
+      break;
+    case 52003:
+      Taro.showToast({title: '未授权用户', icon: 'none', duration: 2000});
+      break;
+    case 54000:
+      Taro.showToast({title: '必填参数为空', icon: 'none', duration: 2000});
+      break;
+    case 54001:
+      Taro.showToast({title: '签名错误', icon: 'none', duration: 2000});
+      break;
+    case 54003:
+      Taro.showToast({title: '访问频率受限', icon: 'none', duration: 2000});
+      break;
+    case 54004:
+      Taro.showToast({title: '账户余额不足', icon: 'none', duration: 2000});
+      break;
+    case 54005:
+      Taro.showToast({title: '长query请求频繁， 请3s后再试', icon: 'none', duration: 2000});
+      break;
+    case 58000:
+      Taro.showToast({title: '客户端IP非法', icon: 'none', duration: 2000});
+      break;
+    case 58001:
+      Taro.showToast({title: '译文语言方向不支持', icon: 'none', duration: 2000});
+      break;
+    case 58002:
+      Taro.showToast({title: '服务当前已关闭', icon: 'none', duration: 2000});
+      break;
+    case 90107:
+      Taro.showToast({title: '认证未通过或未生效', icon: 'none', duration: 2000});
       break;
     default:
       resolve(data);

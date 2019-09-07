@@ -9,7 +9,8 @@ import banners from '../../../utils/banners'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
-const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837', '#FF6D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E'];
+const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837',
+  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E'];
 const shuffleColors = shuffle(colorsArr);
 
 // bannerNo
@@ -43,6 +44,7 @@ function Index() {
     ip_search: shuffleColors[12],
     news: shuffleColors[13],
     girls: shuffleColors[14],
+    translate: shuffleColors[15],
     about: '#000',
     skin_setting: shuffleColors[random(0, 13)]
   };
@@ -321,17 +323,6 @@ function Index() {
           </Navigator>
         </View>
         <View className='flex-50per bd-box'>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_location}} url={`/pages/search/pages/phone_location/index?color=${colors.phone_location}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>手</Text>机号归属地</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6b8;</View>
-            </View>
-            <View className='font24'>查询手机归属地</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.phone_location}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.express_note}} url={`/pages/search/pages/express_note/index?color=${colors.express_note}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>快</Text>递查询</View>
@@ -339,6 +330,28 @@ function Index() {
             </View>
             <View className='font24'>快递查询/记录</View>
             <View className='btm-shadow' style={{backgroundColor: colors.express_note}} />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.translate}} url={`/pages/tools/pages/translate/index?color=${colors.translate}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>小</Text>翻译</View>
+              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe661;</View>
+            </View>
+            <View className='font24'>支持多种语言翻译</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.translate}} />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_location}} url={`/pages/search/pages/phone_location/index?color=${colors.phone_location}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>手</Text>机号归属地</View>
+              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6b8;</View>
+            </View>
+            <View className='font24'>查询手机归属地</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.phone_location}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
@@ -378,7 +391,7 @@ function Index() {
         <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.bmi}} url={`/pages/tools/pages/bmi/index?color=${colors.bmi}`}>
             <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>B</Text>MI指数</View>
+              <View className='lh-64'><Text className='font40'>BMI</Text>指数</View>
               <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe648;</View>
             </View>
             <View className='font24'>体质指数计算</View>

@@ -1,0 +1,32 @@
+@import "../../../../assets/styles/variable";
+.translate {
+  .box-shadow-light {
+    box-shadow: 0 1px 5px 5px $color-e6;
+  }
+  .box-shadow-dark {
+    box-shadow: 0 1px 5px 5px $color-cd;
+  }
+  .from-box {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .pd-r-60 {
+    padding-right: 60px;
+  }
+  .pd-b-80 {
+    padding-bottom: 80px;
+  }
+  .clear-btn {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    z-index: 3;
+  }
+  .copy-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    z-index: 2;
+  }
+}
