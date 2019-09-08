@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import {SET_SYSTEM_INFO, SET_AI_TOKEN} from './constant'
+import {SET_SYSTEM_INFO, SET_BD_AI_TOKEN} from './constant'
 import {getSystemInfo} from '../../utils';
 
 export const setSystemInfo = (systemInfo) => {
@@ -25,9 +25,9 @@ export const setSystemInfoAsync = () => {
 };
 
 // 设置AI token
-export const setAiToken = (aiToken) => {
+export const setBdAiToken = (bdAiToken) => {
   return {
-    type: SET_AI_TOKEN,
-    aiToken
+    type: SET_BD_AI_TOKEN,
+    bdAiToken
   }
 };

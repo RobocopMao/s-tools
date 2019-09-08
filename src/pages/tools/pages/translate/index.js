@@ -9,7 +9,7 @@ function Translate() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {windowHeight} = user.systemInfo;
-  const {fanyiAppID, fanyiAppKey} = pConfig.config;
+  const {bdFanyiAppID, bdFanyiAppKey} = pConfig.config;
   const [q, setQ] = useState('');
   const [from, setFrom] = useState(0);
   const [to, setTo] = useState(1);
@@ -59,7 +59,7 @@ function Translate() {
   // 翻译
   const translate = async () => {
     const salt = moment().unix();
-    const res = await fanyiTranslate({salt, q, from: langArr[from].en, to: langArr[to].en, key: fanyiAppKey, appid: fanyiAppID});
+    const res = await fanyiTranslate({salt, q, from: langArr[from].en, to: langArr[to].en, key: bdFanyiAppKey, appid: bdFanyiAppID});
     setTransResult(res.trans_result);
   };
 

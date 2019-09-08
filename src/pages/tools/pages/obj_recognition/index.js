@@ -3,14 +3,14 @@ import {View, ScrollView, Image} from '@tarojs/components'
 import { useSelector, useDispatch } from '@tarojs/redux'
 import { aiAccessToken, aiImageAdvancedGeneral, aiImageAnimal, aiImagePlant, aiImageIngredient, aiImageDish, aiImageLandmark, aiImageCurrency, aiImageLogo } from '../../../../apis/baidu_ai'
 import {useAsyncEffect} from '../../../../utils'
-import {setAiToken} from '../../../../redux/user/action'
+import {setBdAiToken} from '../../../../redux/user/action'
 import './index.scss'
 
 function ObjRecognition() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {aiAK, aiSK} = pConfig.config;
-  const {access_token} = user.aiToken;
+  const {bdAiAK, bdAiSK} = pConfig.config;
+  const {access_token} = user.bdAiToken;
   const {windowHeight} = user.systemInfo;
   const dispatch = useDispatch();
   const [imageUrl, setImageUrl] = useState('');
@@ -38,8 +38,8 @@ function ObjRecognition() {
   // 获取token
   useAsyncEffect(async () => {
     if (typeof access_token === 'undefined') {
-      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: aiAK, client_secret: aiSK});
-      dispatch(setAiToken(token));
+      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: bdAiAK, client_secret: bdAiSK});
+      dispatch(setBdAiToken(token));
     }
   }, []);
 

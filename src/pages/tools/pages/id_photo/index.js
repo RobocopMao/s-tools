@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from '@tarojs/redux'
 import {View} from '@tarojs/components'
 import {aiAccessToken, aiBodySeg} from '../../../../apis/baidu_ai'
 import {useAsyncEffect} from '../../../../utils'
-import {setAiToken} from '../../../../redux/user/action'
+import {setBdAiToken} from '../../../../redux/user/action'
 import base64src from '../../../../utils/base64src'
 import './index.scss'
 
 function IDPhoto() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {aiAK, aiSK} = pConfig.config;
-  const {access_token} = user.aiToken;
+  const {bdAiAK, bdAiSK} = pConfig.config;
+  const {access_token} = user.bdAiToken;
   const dispatch = useDispatch();
   const [imageUrl, setImageUrl] = useState('');
   const [foregroundUrl, setForegroundUrl] = useState('');
@@ -35,8 +35,8 @@ function IDPhoto() {
   // 获取token
   useAsyncEffect(async () => {
     if (typeof access_token === 'undefined') {
-      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: aiAK, client_secret: aiSK});
-      dispatch(setAiToken(token));
+      const token = await aiAccessToken({grant_type: 'client_credentials', client_id: bdAiAK, client_secret: bdAiSK});
+      dispatch(setBdAiToken(token));
     }
   }, []);
 
