@@ -1,0 +1,35 @@
+@import "../../../../assets/styles/variable";
+.history-today {
+  .ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  .item-container {
+    margin-left: 80px;
+    border-left: 4px solid $color-c;
+    .item {
+      margin-left: -78px;
+      .line-dot {
+        flex: 0 0 100px;
+      }
+      .img-box {
+        box-shadow: 0 0 1px 1px $color-c;
+        //width: 490px;
+        height: 360px
+      }
+      .text-box {
+        //width: 490px;
+      }
+      .item-img-title {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+}

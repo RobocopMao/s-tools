@@ -46,6 +46,11 @@ button::after {
 //font-weight
 .bold {font-weight: bold;}
 
+// text-underline
+.underline {
+  text-decoration: underline;
+}
+
 //line-height
 .lh-20 {line-height: $px24;}
 .lh-22 {line-height: $px24;}

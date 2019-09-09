@@ -2,7 +2,7 @@ import Taro, {useEffect, useState} from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import moment from 'moment'
 import { useAsyncEffect } from '../../../../utils'
-import { getHolidaySingle } from '../../../../apis/calendar'
+import {getHistoryToday, getHolidaySingle} from '../../../../apis/calendar'
 import './index.scss'
 
 function Calendar() {
@@ -14,7 +14,7 @@ function Calendar() {
   const [dateInfo, setDateInfo] = useState({}); // 请求回来的数据
   const [calendarData, setCalendarData] = useState([]);
   const [scrollTop, setScrollTop] = useState(0);
-  const [scrollType, setScrollType] = useState('TOUCH');
+  const [historyToday, setHistoryToday] = useState([]);
   const [color, setColor] = useState('');
 
   // 设置color
@@ -29,6 +29,20 @@ function Calendar() {
     const res = await getHolidaySingle({date});
     setDateInfo(res);
   }, [date]);
+
+  // 历史上的今天
+  useAsyncEffect(async () => {
+    const HISTORY_TODAY_DATE = Taro.getStorageSync('HISTORY_TODAY_DATE');  //缓存日期
+    if (moment().format('YYYY-MM-DD') === HISTORY_TODAY_DATE) {
+      const HISTORY_TODAY = Taro.getStorageSync('HISTORY_TODAY');
+      setHistoryToday(HISTORY_TODAY);
+    } else {
+      const res = await getHistoryToday({type: 1});
+      setHistoryToday(res);
+      Taro.setStorageSync('HISTORY_TODAY', res);
+      Taro.setStorageSync('HISTORY_TODAY_DATE', moment().format('YYYY-MM-DD'));
+    }
+  }, []);
 
   useEffect(() => {
     // 初始化一年数据
@@ -185,6 +199,20 @@ function Calendar() {
     setDate(_date);
   };
 
+  // 去历史上的今天
+  const goHistoryToday = () => {
+    Taro.navigateTo({
+      url: `/pages/other/pages/history_today/index?color=${color}`
+    })
+  };
+
+  // 去历史今天第一条详情
+  const  goDetails = () => {
+    Taro.navigateTo({
+      url: `/pages/other/pages/history_today_details/index?color=${color}&number=0`
+    });
+  };
+
   return (
     <View className='calendar'>
       <View className='flex-column mg-20'>
@@ -252,7 +280,23 @@ function Calendar() {
             <Text>{dateInfo.avoid}</Text>
           </View>
           <View className='line' />
-          <View className='pd-t-20'>星座：{dateInfo.constellation}</View>
+          <View className='pd-t-20 mg-b-20'>星座：{dateInfo.constellation}</View>
+          {date === moment().format('YYYYMMDD') && <View>
+            {historyToday.length && <View className='line' />}
+            {historyToday.length && <View>
+              <View className='pd-t-20 mg-b-20 flex-row flex-col-center space-between'>
+                <Text>历史上的今天</Text>
+                <View className='iconfont' style={{color}} onClick={() => goHistoryToday()}><Text className='font28'>更多</Text>&#xe6aa;</View>
+              </View>
+              <View>
+                <View className='black font32 mg-b-20 underline' onClick={() => goDetails()}>{historyToday[0].year}-{historyToday[0].month}-{historyToday[0].day}：{historyToday[0].title}</View>
+                {historyToday[0].picUrl && <View className='w100-per'>
+                  <Image className='mg-b-20 w100-per' mode='aspectFit' src={historyToday[0].picUrl} />
+                  </View>}
+                <Text className='ellipsis lh-50'>{historyToday[0].details}</Text>
+              </View>
+            </View>}
+            </View>}
         </View>}
       </View>
     </View>
