@@ -1,7 +1,7 @@
 import Taro, {useEffect, useState} from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import { useSelector } from '@tarojs/redux'
-import _updateLog from '../../../../assets/json/update_log.json'
+import _updateLog from '../../assets/json/update_log.json'
 import './index.scss'
 
 function About() {
