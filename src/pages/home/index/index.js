@@ -229,7 +229,12 @@ function Index() {
 
   // 去设置皮肤
   const goSettingSkin = () => {
-    animateFixedBtn();
+    // 延迟大发好
+    let tId = setTimeout(() => {
+      animateFixedBtn();
+      clearTimeout(tId);
+    }, 1000);
+
     Taro.navigateTo({
       url: `/pages/home/skin_setting/index?color=${colors.colorRandom}`,
       events: {
@@ -252,7 +257,12 @@ function Index() {
 
   // 去通知
   const goNotice = () => {
-    animateFixedBtn();
+    // 延迟隐藏防止向左的箭头提前出现显示红点
+    let tId = setTimeout(() => {
+      animateFixedBtn();
+      clearTimeout(tId);
+    }, 1000);
+
     Taro.navigateTo({
       url: `/pages/other/pages/notice/index?color=${colors.colorRandom}`,
       events: {
@@ -268,6 +278,19 @@ function Index() {
           setNoticeRead(read);
         }
       }
+    });
+  };
+
+  // 去关于
+  const goAbout = () => {
+    // 延迟大发好
+    let tId = setTimeout(() => {
+      animateFixedBtn();
+      clearTimeout(tId);
+    }, 1000);
+
+    Taro.navigateTo({
+      url: `/pages/other/pages/about/index?color=${colors.about}`,
     });
   };
 
@@ -499,9 +522,10 @@ function Index() {
           {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
           {/*</Navigator>*/}
           <Button className='iconfont w64 h64 lh-64 text-center font40 share white pd-0 bg-black mg-r-20' openType='contact'>&#xe6bb;</Button>
-          <Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
-            <View className='iconfont w64 h64 lh-64 text-center font44 white'>&#xe626;</View>
-          </Navigator>
+          <Button className='iconfont w64 h64 lh-64 text-center font44 white pd-0 bg-black mg-r-20' onClick={() => goAbout()}>&#xe626;</Button>
+          {/*<Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>*/}
+            {/*<View className='iconfont w64 h64 lh-64 text-center font44 white'>&#xe626;</View>*/}
+          {/*</Navigator>*/}
         </View>
       </View>
       <View className='h0 of-hidden relative'>
