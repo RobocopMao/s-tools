@@ -33,9 +33,9 @@
   .fixed-btn {
     position: fixed;
     bottom: 10px;
-    right: -336px;
+    right: -400px;
     z-index: 10;
-    width: 416px;
+    width: 480px;
     border-radius: 50px 0 0 50px;
     &.bg-black {
       background-color: rgba(0, 0, 0, 0.6);
@@ -44,10 +44,23 @@
       background-color: transparent;
     }
     .func-btn {
-      width: 336px;
+      width: 400px;
       & > .bg-black {
         background-color: transparent;
       }
+    }
+  }
+  .badge {
+    &:before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: red;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      z-index: 11;
     }
   }
 }

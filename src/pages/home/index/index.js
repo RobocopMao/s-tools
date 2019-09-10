@@ -18,7 +18,7 @@ const BANNER_NO = Taro.getStorageSync('BANNER_NO');
 
 function Index() {
   const pConfig = useSelector(state => state.pConfig);
-  const {news, girls, ip} = pConfig.config;
+  const {news, girls, ip, noticeTime, notice} = pConfig.config;
   const [shareNode, setShareNode] = useState({});
   const [shareImgPath, setShareImgPath] = useState('');
   const [itemNode, setItemNode] = useState({});
@@ -27,6 +27,7 @@ function Index() {
   const [bannerNo, setBannerNo] = useState(BANNER_NO ? BANNER_NO : 0);
   const [animationData, setAnimationData] = useState({});
   const [showFixedBtn, setShowFixedBtn] = useState(false);
+  const [noticeRead, setNoticeRead] = useState(true);
 
   const colors = {
     weather: shuffleColors[0],
@@ -46,7 +47,7 @@ function Index() {
     girls: shuffleColors[14],
     translate: shuffleColors[15],
     about: '#000',
-    skin_setting: shuffleColors[random(0, 13)]
+    colorRandom: shuffleColors[random(0, 13)]
   };
 
   useEffect(() => {
@@ -87,6 +88,22 @@ function Index() {
   useEffect(() => {
     drawShareCanvas(bannerNo);
   }, [shareNode]);
+
+  // 通知
+  useEffect(() => {
+    if (noticeTime) {
+      const NOTICE = Taro.getStorageSync('NOTICE');
+      if (NOTICE) { // 本地有通知缓存
+        if (NOTICE.time === noticeTime && notice.replace(/^\s*/,'').length) {  // 本地通知时间和网络相等,且有通知
+          setNoticeRead(NOTICE.read);
+        } else {  // 本地通知时间和网络不相等
+          setNewNotice();
+        }
+      } else {
+        setNewNotice();
+      }
+    }
+  }, [noticeTime, notice]);
 
   // 转发
   useEffect(() => {
@@ -214,7 +231,7 @@ function Index() {
   const goSettingSkin = () => {
     animateFixedBtn();
     Taro.navigateTo({
-      url: `/pages/home/skin_setting/index?color=${colors.skin_setting}`,
+      url: `/pages/home/skin_setting/index?color=${colors.colorRandom}`,
       events: {
         acceptDataFromSkinSetting(data) {  // 监听事件
           // console.log('acceptDataFromLocationSearch');
@@ -231,6 +248,42 @@ function Index() {
         }
       }
     });
+  };
+
+  // 去通知
+  const goNotice = () => {
+    animateFixedBtn();
+    Taro.navigateTo({
+      url: `/pages/other/pages/notice/index?color=${colors.colorRandom}`,
+      events: {
+        acceptDataFromNotice(data) {  // 监听事件
+          // console.log('acceptDataFromLocationSearch');
+          // console.log(data);
+
+          // switchBanner(data.bannerNo);
+          const {read} = data;
+          const NOTICE = Taro.getStorageSync('NOTICE');
+          NOTICE.read = read;
+          Taro.setStorageSync('NOTICE', NOTICE); // 更新notice缓存
+          setNoticeRead(read);
+        }
+      }
+    });
+  };
+
+  // 设置新通知
+  const setNewNotice = () => {
+    const newNotice = {
+      notice: notice.replace(/^\s*/, ''),
+      time: noticeTime,
+      read: false,
+    };
+    Taro.setStorageSync('NOTICE', newNotice);
+    if (!notice.replace(/^\s*/, '').length) {  // 没有通知，配置用的空格（因为目前配置必须填写东西）
+      setNoticeRead(true);
+    } else {
+      setNoticeRead(false);
+    }
   };
 
   // 显示/隐藏底部按钮
@@ -434,17 +487,18 @@ function Index() {
         </View>}
       </View>
       <View className='flex-row flex-col-center h80 bg-black fixed-btn' animation={animationData}>
-        <Button className='iconfont w80 h80 lh-80 text-center font40 circle white pd-0 bg-black' onClick={() => animateFixedBtn()}>
-          {showFixedBtn && <View className='iconfont w80 h80 lh-80 text-center font44 white'>&#xe6aa;</View>}
-          {!showFixedBtn && <View className='iconfont w80 h80 lh-80 text-center font44 white'>&#xe69b;</View>}
+        <Button className='iconfont flex-row flex-col-center flex-row-center w80 h80 text-center font40 white pd-0 bg-black' onClick={() => animateFixedBtn()}>
+          {showFixedBtn && <View className='iconfont w64 h64 lh-64 text-center font44 white'>&#xe6aa;</View>}
+          {!showFixedBtn && <View className={`iconfont w64 h64 lh-64 text-center font44 white relative ${noticeRead ? '' : 'badge'}`}>&#xe69b;</View>}
         </Button>
         <View className='flex-row flex-col-center func-btn' id='funcBtn'>
-          <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-r-20' openType='share'>&#xe649;</Button>
-          <Button className='iconfont w64 h64 lh-64 text-center font40 circle white pd-0 bg-black font48 mg-r-20' onClick={() => goSettingSkin()}>&#xe6ba;</Button>
+          <Button className={`iconfont w64 h64 lh-64 text-center font40 white pd-0 bg-black mg-r-20 relative ${noticeRead ? '' : 'badge'}`} onClick={() => goNotice()}>&#xe6bf;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font40 share white pd-0 bg-black mg-r-20' openType='share'>&#xe649;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font48 white pd-0 bg-black mg-r-20' onClick={() => goSettingSkin()}>&#xe6ba;</Button>
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
           {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
           {/*</Navigator>*/}
-          <Button className='iconfont w64 h64 lh-64 text-center font40 circle share white pd-0 bg-black mg-r-20' openType='contact'>&#xe6bb;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font40 share white pd-0 bg-black mg-r-20' openType='contact'>&#xe6bb;</Button>
           <Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>
             <View className='iconfont w64 h64 lh-64 text-center font44 white'>&#xe626;</View>
           </Navigator>
