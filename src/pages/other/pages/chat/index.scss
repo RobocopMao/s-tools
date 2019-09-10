@@ -1,0 +1,8 @@
+@import "../../../../assets/styles/variable";
+.chat {
+  .qr-code {
+    width: 500px;
+    height: 500px;
+    box-shadow: 0 0 10px 5px $color-f5;
+  }
+}

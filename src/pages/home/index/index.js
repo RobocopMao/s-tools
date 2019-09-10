@@ -10,7 +10,7 @@ import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
 const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837',
-  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E'];
+  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#6200EA', '#4E342E', '#607D8B'];
 const shuffleColors = shuffle(colorsArr);
 
 // bannerNo
@@ -46,6 +46,7 @@ function Index() {
     news: shuffleColors[13],
     girls: shuffleColors[14],
     translate: shuffleColors[15],
+    chat: shuffleColors[16],
     about: '#000',
     colorRandom: shuffleColors[random(0, 13)]
   };
@@ -472,6 +473,17 @@ function Index() {
             </View>
             <View className='font24'>体质指数计算</View>
             <View className='btm-shadow' style={{backgroundColor: colors.bmi}} />
+            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+          </Navigator>
+        </View>
+        <View className='flex-50per bd-box'>
+          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.chat}} url={`/pages/other/pages/chat/index?color=${colors.chat}`}>
+            <View className='flex-row space-between'>
+              <View className='lh-64'><Text className='font40'>闲</Text>聊机器人</View>
+              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6df;</View>
+            </View>
+            <View className='font24'>来自腾讯AI开放平台</View>
+            <View className='btm-shadow' style={{backgroundColor: colors.chat}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>
