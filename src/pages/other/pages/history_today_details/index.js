@@ -62,8 +62,8 @@ function HistoryTodayDetails() {
   return (
     <View className='history-today-details'>
       {historyToday && <View className='pd-20 bd-box'>
-        <View className='font36 bold'>{historyToday.year}-{historyToday.month}-{historyToday.day}：{historyToday.title}</View>
-        {historyToday.picUrl && <Image className='w100-per mg-b-20 mg-t-20' mode='widthFix' src={historyToday.picUrl} />}
+        <View className='font36 bold black'>{historyToday.year}-{historyToday.month}-{historyToday.day}：{historyToday.title}</View>
+        {historyToday.picUrl && <Image className='w100-per mg-b-20 mg-t-20' mode='aspectFit' src={historyToday.picUrl} />}
         <Text className='font32 lh-50'>{historyToday.details}</Text>
       </View>}
     </View>

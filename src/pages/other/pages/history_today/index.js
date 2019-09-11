@@ -38,7 +38,7 @@ function HistoryToday() {
                 <View className='bd-radius white pd-t-4 pd-b-4 pd-r-20 pd-l-20' style={{backgroundColor: color}}>{year}</View>
                 <View className='bold text-center h38 lh-38 line-dot' style={{color}}>—— ·</View>
                 {picUrl && <View className='relative flex-grow-1 of-hidden img-box' onClick={() => goDetails(index)}>
-                  <Image mode='widthFix' className='w100-per' src={picUrl} />
+                  <Image mode='widthFix' className='w100-per h100-per' src={picUrl} />
                   <View className='white pd-6 pd-l-10 bd-box item-img-title'>{title}</View>
                 </View>}
                 {!picUrl && <View className='flex-grow-1 relative text-box' onClick={() => goDetails(index)}>
