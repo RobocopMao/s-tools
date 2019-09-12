@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Image, Video } from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import { getNewsTypes, getNewsList } from '../../../../apis/news'
-import {useAsyncEffect} from '../../../../utils';
+import {useAsyncEffect} from '../../../../utils'
 import './index.scss'
 
 function News() {
@@ -15,7 +15,11 @@ function News() {
   const [newsList, setNewsList] = useState([]);
   const [typeId, setTypeId] = useState(0);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingErr, setLoadingErr] = useState(false);
   const [color, setColor] = useState('');
+
+  let tId = null;
 
   // 设置color
   useEffect(() => {
@@ -74,9 +78,25 @@ function News() {
   };
 
   const _getNewsList = async (typeId, page) => {
+    setIsLoading(true);
+    setLoadingErr(false);
+
+    let count = 0;
+    let tId = setInterval(() => {
+      console.log(count);
+      if (count > 10) {
+        setLoadingErr(true);
+        setIsLoading(false);
+        clearInterval(tId);
+      }
+      count++;
+    }, 1000);
+
     const res = await getNewsList({typeId, page});
     setNewsList([...newsList, ...res]);
     setPage(prevPage => prevPage + 1);
+    setIsLoading(false);
+    clearInterval(tId);
   };
 
   const changeTypes = (typeId) => {
@@ -95,7 +115,10 @@ function News() {
   };
 
   const scrollToLower = () => {
-    _getNewsList(typeId, page);
+    if (!isLoading) {
+      _getNewsList(typeId, page);
+    }
+
   };
 
   const goNewsDetails = ({newsId, videoList, imgList, title, source, postTime}) => {
@@ -175,6 +198,8 @@ function News() {
             </View>
           )
         })}
+        {isLoading && <View className='pd-20 text-center'>正在加载中……</View>}
+        {loadingErr && <View className='pd-20 text-center' onClick={() => _getNewsList(typeId, page)}>加载失败，请重试</View>}
       </ScrollView>}
     </View>
   )
