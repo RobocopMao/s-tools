@@ -19,8 +19,6 @@ function News() {
   const [loadingErr, setLoadingErr] = useState(false);
   const [color, setColor] = useState('');
 
-  let tId = null;
-
   // 设置color
   useEffect(() => {
     const {color} = this.$router.params;
