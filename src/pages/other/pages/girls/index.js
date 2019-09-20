@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useState, useShareAppMessage} from '@tarojs/taro'
 import {View, Text, ScrollView, Image} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
@@ -40,19 +40,15 @@ function Girls() {
     Taro.showShareMenu({
       withShareTicket: true
     });
+  }, []);
 
-    onShareAppMessage();
-  }, [color]);
-
-  const onShareAppMessage = () => {
-    this.$scope.onShareAppMessage = (res) => {
-      return {
-        title: '对面的男孩看过来',
-        path: `/pages/other/pages/girls/index?color=${color}&from=SHARE`,
-      }
-    };
-
-  };
+  // 转发
+  useShareAppMessage(res => {
+    return {
+      title: '对面的男孩看过来',
+      path: `/pages/other/pages/girls/index?color=${color}&from=SHARE`,
+    }
+  });
 
   // 随机获取图片
   const getImgList = async () => {

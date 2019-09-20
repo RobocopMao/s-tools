@@ -1,9 +1,9 @@
 import Taro, {useEffect, useRouter, useShareAppMessage, useState} from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 import './index.scss'
-import moment from "moment";
-import {getHistoryToday} from "../../../../apis/calendar";
-import {useAsyncEffect} from "../../../../utils";
+import moment from 'moment'
+import {getHistoryToday} from '../../../../apis/calendar'
+import {useAsyncEffect} from '../../../../utils'
 
 function HistoryTodayDetails() {
   const router = useRouter();
