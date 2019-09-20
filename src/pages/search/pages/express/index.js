@@ -1,10 +1,11 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Button, Input} from '@tarojs/components'
 import {getLogisticsDetails, getLogisticsTypeId} from '../../../../apis/express'
 import moment from 'moment';
 import './index.scss'
 
 function Express() {
+  const router = useRouter();
   const [expressNo, setExpressNo] = useState(''); // 快递编号
   const [expressComId, setExpressComId] = useState(''); // 物流公司编号
   const [expressComName, setExpressComName] = useState('');  // 物流公司名称
@@ -14,14 +15,14 @@ function Express() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
 
   // 从快递记录过来
   useEffect(() => {
-    const {expressNo, expressComId, expressComName} = this.$router.params;
+    const {expressNo, expressComId, expressComName} = router.params;
     // console.log(expressComId, expressNo);
     if (expressNo && expressComId) {
       // console.log('not undefined');

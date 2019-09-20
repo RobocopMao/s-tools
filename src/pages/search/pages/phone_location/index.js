@@ -1,9 +1,10 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { View, Text, Input } from '@tarojs/components'
 import { getPhoneLocation } from '../../../../apis/phone'
 import './index.scss'
 
 function PhoneLocation() {
+  const router = useRouter();
   const [mobile, setMobile] = useState('');
   const [province, setProvince] = useState('');
   const [carrier, setCarrier] = useState('');
@@ -11,7 +12,7 @@ function PhoneLocation() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

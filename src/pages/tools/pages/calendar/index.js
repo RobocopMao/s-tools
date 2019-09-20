@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import moment from 'moment'
 import { useAsyncEffect } from '../../../../utils'
@@ -6,6 +6,7 @@ import {getHistoryToday, getHolidaySingle} from '../../../../apis/calendar'
 import './index.scss'
 
 function Calendar() {
+  const router = useRouter();
   const [day, setDay] = useState(Number(moment().format('D')));  // 选中的日期
   const [week, setWeek] = useState(moment().format('dddd'));  // 选中的星期
   const [month, setMonth] = useState(Number(moment().format('M'))); // 选中日期月份
@@ -19,7 +20,7 @@ function Calendar() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

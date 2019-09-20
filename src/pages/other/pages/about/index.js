@@ -1,17 +1,18 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import { useSelector } from '@tarojs/redux'
 import _updateLog from '../../assets/json/update_log.json'
 import './index.scss'
 
 function About() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const {news, girls} = pConfig.config;
   const [color, setColor] = useState('');
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

@@ -1,9 +1,10 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Input} from '@tarojs/components'
 import { getRubbishType } from '../../../../apis/trash'
 import './index.scss'
 
 function TrashSort() {
+  const router = useRouter();
   const [trashName, setTrashName] = useState('');
   const [goodsName, setGoodsName] = useState('');
   const [goodsType, setGoodsType] = useState('');
@@ -12,7 +13,7 @@ function TrashSort() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

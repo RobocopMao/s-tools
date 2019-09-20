@@ -1,4 +1,4 @@
-import Taro, { useState, useEffect } from '@tarojs/taro'
+import Taro, {useState, useEffect, useRouter} from '@tarojs/taro'
 import { View, Text, ScrollView, RichText } from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
@@ -7,6 +7,7 @@ import { useAsyncEffect } from '../../../../utils'
 import './index.scss'
 
 function Jokes() {
+  const router = useRouter();
   const user = useSelector(state => state.user);
   const {windowHeight} = user.systemInfo;
   // const [page, setPage] = useState(1);  // 分页
@@ -17,7 +18,7 @@ function Jokes() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     // setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

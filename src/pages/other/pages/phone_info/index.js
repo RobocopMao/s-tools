@@ -1,9 +1,10 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Button, Video} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import './index.scss'
 
 function PhoneInfo() {
+  const router = useRouter();
   const user = useSelector(state => state.user);
   const {brand, model, pixelRatio, screenWidth, screenHeight, statusBarHeight, language, version, system, platform, fontSizeSetting, SDKVersion,
     cameraAuthorized, locationAuthorized, microphoneAuthorized, notificationAuthorized, bluetoothEnabled, locationEnabled, wifiEnabled,
@@ -12,7 +13,7 @@ function PhoneInfo() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

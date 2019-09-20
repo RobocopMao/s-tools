@@ -1,4 +1,4 @@
-import Taro, {useState, useEffect, useShareAppMessage} from '@tarojs/taro'
+import Taro, {useState, useEffect, useShareAppMessage, useRouter} from '@tarojs/taro'
 import { View, RichText, Button } from '@tarojs/components'
 import moment from 'moment'
 import { useAsyncEffect } from '../../../../utils'
@@ -6,6 +6,7 @@ import { getNewsDetails } from '../../../../apis/news'
 import './index.scss'
 
 function NewsDetails() {
+  const router = useRouter();
   const [newsId, setNewsId] = useState('');
   const [newsDetails, setNewsDetails] = useState({});
   const [newsContent, setNewsContent] = useState('');
@@ -13,13 +14,13 @@ function NewsDetails() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
 
   useAsyncEffect(async () => {
-    const {newsId} = this.$router.params;
+    const {newsId} = router.params;
     setNewsId(newsId);
     const res = await getNewsDetails({newsId});
     setNewsDetails(res);
@@ -66,7 +67,7 @@ function NewsDetails() {
       </View>
       <View className='flex-column bg-no fixed-btn'>
         <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font44' style={{color}} openType='share'>&#xe649;</Button>
-        {this.$router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font50 mg-t-20' style={{color}} onClick={() => goHome()}>&#xe6b7;</Button>}
+        {router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-no pd-0 font50 mg-t-20' style={{color}} onClick={() => goHome()}>&#xe6b7;</Button>}
       </View>
     </View>
   )

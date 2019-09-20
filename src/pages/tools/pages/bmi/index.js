@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { useSelector } from '@tarojs/redux'
 import {View, PickerView, PickerViewColumn, Button, ScrollView} from '@tarojs/components'
 import {getNodeRect} from '../../../../utils'
@@ -11,6 +11,7 @@ function BMI() {
     kgs.push(i);
   }
 
+  const router = useRouter();
   const user = useSelector(state => state.user);
   const {windowHeight} = user.systemInfo;
   const [color, setColor] = useState('');
@@ -32,7 +33,7 @@ function BMI() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { View, Text, ScrollView, Image, Video } from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
@@ -7,6 +7,7 @@ import {useAsyncEffect} from '../../../../utils'
 import './index.scss'
 
 function News() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {news} = pConfig.config;
@@ -21,7 +22,7 @@ function News() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

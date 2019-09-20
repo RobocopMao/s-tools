@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, ScrollView, Button, Checkbox} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
@@ -7,6 +7,7 @@ import forEach from 'lodash/forEach'
 import './index.scss'
 
 function ExpressNote() {
+  const router = useRouter();
   const user = useSelector(state => state.user);
   const {windowHeight} = user.systemInfo;
   const [noteList, setNoteList] = useState([]);
@@ -17,7 +18,7 @@ function ExpressNote() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { useSelector } from '@tarojs/redux'
 import moment from 'moment';
 import {View} from '@tarojs/components'
@@ -6,6 +6,7 @@ import {fanyiTranslate} from '../../../../apis/baidu_fanyi';
 import './index.scss'
 
 function Translate() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {windowHeight} = user.systemInfo;
@@ -51,7 +52,7 @@ function Translate() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

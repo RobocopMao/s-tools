@@ -1,16 +1,17 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import rpn from '../../../../utils/rpn'
 import './index.scss'
 
 function Calculator() {
+  const router = useRouter();
   const [result, setResult] = useState(0);
   const [formula, setFormula] = useState('');
   // const [color, setColor] = useState('');
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     // setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

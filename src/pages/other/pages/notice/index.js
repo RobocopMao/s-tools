@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import moment from 'moment'
 // import { useSelector } from '@tarojs/redux'
@@ -7,13 +7,14 @@ import './index.scss'
 function Notice() {
   // const pConfig = useSelector(state => state.pConfig);
   // const {notice, noticeTime} = pConfig.config;
+  const router = useRouter();
   const [notice, setNotice] = useState(null);
   const [showNotice, setShowNotice] = useState(true);
   const [color, setColor] = useState('');
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

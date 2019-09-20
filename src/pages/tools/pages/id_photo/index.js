@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { useSelector, useDispatch } from '@tarojs/redux'
 import {View} from '@tarojs/components'
 import {aiAccessToken, aiBodySeg} from '../../../../apis/baidu_ai'
@@ -8,6 +8,7 @@ import base64src from '../../../../utils/base64src'
 import './index.scss'
 
 function IDPhoto() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {bdAiAK, bdAiSK} = pConfig.config;
@@ -27,7 +28,7 @@ function IDPhoto() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

@@ -1,10 +1,11 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Swiper, SwiperItem} from '@tarojs/components'
 import banners from '../../../utils/banners'
 import {getNodeRect} from '../../../utils';
 import './index.scss'
 
 function SkinSetting() {
+  const router = useRouter();
   const BANNER_NO = Taro.getStorageSync('BANNER_NO');
   const [color, setColor] = useState('');
   const [swiperHeight, setSwiperHeight] = useState(0);
@@ -12,7 +13,7 @@ function SkinSetting() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

@@ -1,15 +1,16 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 import moment from 'moment'
 import './index.scss'
 
 function HistoryToday() {
+  const router = useRouter();
   const [historyToday, setHistoryToday] = useState([]);
   const [color, setColor] = useState('');
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

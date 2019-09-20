@@ -1,10 +1,11 @@
-import Taro, {useEffect, useShareAppMessage, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useShareAppMessage, useState} from '@tarojs/taro'
 import {View, Text, Button, Video} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import './index.scss'
 
 function VideoBox() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {windowWidth} = user.systemInfo;
@@ -25,8 +26,8 @@ function VideoBox() {
   }, [video]);
 
   useEffect(() => {
-    const {poster, title, source, postTime} = this.$router.params;
-    setVideoUrl(this.$router.params.video);
+    const {poster, title, source, postTime} = router.params;
+    setVideoUrl(router.params.video);
     setPoster(poster);
     setTitle(title);
     setSource(source);
@@ -92,7 +93,7 @@ function VideoBox() {
       </View>}
       <View className='flex-column bg-no fixed-btn'>
         <Button className='iconfont w64 h64 lh-64 circle bd-white pd-0 font44 black' openType='share'>&#xe649;</Button>
-        {this.$router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-white pd-0 font50 black mg-t-20' onClick={() => goHome()}>&#xe6b7;</Button>}
+        {router.params.from === 'SHARE' && <Button className='iconfont w64 h64 lh-64 circle bd-white pd-0 font50 black mg-t-20' onClick={() => goHome()}>&#xe6b7;</Button>}
       </View>
     </View>
   )

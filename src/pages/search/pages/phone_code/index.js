@@ -1,10 +1,11 @@
-import Taro, { useState, useEffect } from '@tarojs/taro'
+import Taro, {useState, useEffect, useRouter} from '@tarojs/taro'
 import { View, Text, Input } from '@tarojs/components'
 import { getPhoneCode } from '../../../../apis/phone'
 import {useAsyncEffect} from '../../../../utils'
 import './index.scss'
 
 function PhoneCode() {
+  const router = useRouter();
   const [area, setArea] = useState('');
   const [phoneCodeList, setPhoneCodeList] = useState([]);
   const [phoneCodeFilterList, setPhoneCodeFilterList] = useState([]);
@@ -12,7 +13,7 @@ function PhoneCode() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

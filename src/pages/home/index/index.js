@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState, usePageScroll, useShareAppMessage} from '@tarojs/taro'
+import Taro, {useEffect, useState, usePageScroll, useShareAppMessage, useRouter} from '@tarojs/taro'
 import {View, Text, Image, Navigator, ScrollView} from '@tarojs/components'
 import { useSelector } from '@tarojs/redux'
 import shuffle from 'lodash/shuffle'
@@ -25,6 +25,7 @@ const tabTypes = [
 ];
 
 function Index() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {news, girls, ip, noticeTime, notice} = pConfig.config;
@@ -65,7 +66,7 @@ function Index() {
   };
 
   useEffect(() => {
-    const {from, bannerNo} = this.$router.params;
+    const {from, bannerNo} = router.params;
     if (from === 'SHARE') {
       setBannerNo(Number(bannerNo));
       Taro.setStorageSync('BANNER_NO', Number(bannerNo));

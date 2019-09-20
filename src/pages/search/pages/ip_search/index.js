@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Input} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import {getAimIp} from '../../../../apis/ip'
@@ -7,6 +7,7 @@ import './index.scss'
 
 function IpSearch() {
   // const [selfIpInfo, setSelfIpInfo] = useState({});
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const {ip} = pConfig.config;
   const [aimIp, setAimIp] = useState('');
@@ -15,7 +16,7 @@ function IpSearch() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import qrCodeImg from '../../assets/images/qrcode.jpg'
 import screenShoot1Img from '../../assets/images/screen_shot1.jpg'
@@ -6,11 +6,12 @@ import screenShoot2Img from '../../assets/images/screen_shot2.jpg'
 import './index.scss'
 
 function Chat() {
+  const router = useRouter();
   const [color, setColor] = useState('');
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);

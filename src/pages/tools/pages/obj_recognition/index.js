@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, ScrollView, Image} from '@tarojs/components'
 import { useSelector, useDispatch } from '@tarojs/redux'
 import { aiAccessToken, aiImageAdvancedGeneral, aiImageAnimal, aiImagePlant, aiImageIngredient, aiImageDish, aiImageLandmark, aiImageCurrency, aiImageLogo } from '../../../../apis/baidu_ai'
@@ -7,6 +7,7 @@ import {setBdAiToken} from '../../../../redux/user/action'
 import './index.scss'
 
 function ObjRecognition() {
+  const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {bdAiAK, bdAiSK} = pConfig.config;
@@ -30,7 +31,7 @@ function ObjRecognition() {
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
