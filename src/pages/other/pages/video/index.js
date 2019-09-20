@@ -6,6 +6,8 @@ import './index.scss'
 
 function VideoBox() {
   const pConfig = useSelector(state => state.pConfig);
+  const user = useSelector(state => state.user);
+  const {windowWidth} = user.systemInfo;
   const {video} = pConfig.config;
   const [videoUrl, setVideoUrl] = useState('');
   const [poster, setPoster] = useState('');
@@ -74,13 +76,9 @@ function VideoBox() {
   return (
     <View className='video h100-per white'>
       {video && <View className='w100-per'>
-        <View className='font36 mg-20'>{title}</View>
-        <View className='font24 mg-l-20 mg-r-20 mg-b-20'>
-          <Text className='mg-r-20'>{source}</Text>
-          <Text>{moment(postTime).format('YYYY-MM-DD HH:mm')}</Text>
-        </View>
         <Video
           className='w100-per'
+          style={{height: `${windowWidth / 300 * 225}px`}}
           id='videoPlayer'
           src={videoUrl}
           poster={poster}
@@ -89,6 +87,11 @@ function VideoBox() {
           title={title}
           onError={() => playError()}
         />
+        <View className='font24 mg-20'>
+          <Text className='mg-r-20'>{source}</Text>
+          <Text>{moment(postTime).format('YYYY-MM-DD HH:mm')}</Text>
+        </View>
+        <View className='font36 mg-l-20 mg-r-20'>{title}</View>
       </View>}
       <View className='flex-column bg-no fixed-btn'>
         <Button className='iconfont w64 h64 lh-64 circle bd-white pd-0 font44 black' openType='share'>&#xe649;</Button>

@@ -527,7 +527,7 @@ function Index() {
           {!showFixedBtn && <View className={`iconfont w64 h64 lh-64 text-center font44 white relative ${noticeRead ? '' : 'badge'}`}>&#xe69b;</View>}
         </Button>
         <View className='flex-row flex-col-center func-btn' id='funcBtn'>
-          <Button className={`iconfont w64 h64 lh-64 text-center font40 white pd-0 bg-black mg-r-20 relative ${noticeRead ? '' : 'badge'}`} onClick={() => goNotice()}>&#xe6bf;</Button>
+          <Button className={`iconfont w64 h64 lh-64 text-center font44 white pd-0 bg-black mg-r-20 relative ${noticeRead ? '' : 'badge'}`} onClick={() => goNotice()}>&#xe6ab;</Button>
           <Button className='iconfont w64 h64 lh-64 text-center font40 share white pd-0 bg-black mg-r-20' openType='share'>&#xe649;</Button>
           <Button className='iconfont w64 h64 lh-64 text-center font48 white pd-0 bg-black mg-r-20' onClick={() => goSettingSkin()}>&#xe6ba;</Button>
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
