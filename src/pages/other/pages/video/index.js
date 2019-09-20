@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useShareAppMessage, useState} from '@tarojs/taro'
 import {View, Text, Button, Video} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
@@ -52,18 +52,15 @@ function VideoBox() {
     Taro.showShareMenu({
       withShareTicket: true
     });
+  }, []);
 
-    onShareAppMessage();
-  }, [videoUrl, poster, postTime, source, title]);
-
-  const onShareAppMessage = () => {
-    this.$scope.onShareAppMessage = (res) => {
-      return {
-        title,
-        path: `/pages/other/pages/video/index?video=${videoUrl}&poster=${poster}&title=${title}&source=${source}&postTime=${postTime}&from=SHARE`,
-      }
-    };
-  };
+  // 转发
+  useShareAppMessage(res => {
+    return {
+      title,
+      path: `/pages/other/pages/video/index?video=${videoUrl}&poster=${poster}&title=${title}&source=${source}&postTime=${postTime}&from=SHARE`,
+    }
+  });
 
   const playError = () => {
     Taro.showToast({title: '很抱歉！视频播放错误', icon: 'none'});

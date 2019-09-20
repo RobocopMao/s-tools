@@ -1,3 +1,4 @@
+@import "../../../assets/styles/variable";
 .index {
   background-color: #1E154D;
   .share-img-canvas {
@@ -27,8 +28,29 @@
   }
   .banner-img {
     position: sticky;
+    top: -200Px;
+    z-index: 10;
+  }
+  .tabs {
+    position: sticky;
     top: 0;
     z-index: 10;
+    white-space: nowrap;
+    &.text-dark {
+      color: $black;
+      text-shadow: 1px 1px $white;
+    }
+    &.text-light {
+      color: $white;
+      text-shadow: 1px 1px $black;
+    }
+    .tab-active {
+      .tab-text {
+        //text-shadow: 1px 1px #000;
+        font-weight: bold;
+        font-size: 32px;
+      }
+    }
   }
   .fixed-btn {
     position: fixed;

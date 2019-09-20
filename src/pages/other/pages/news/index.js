@@ -144,7 +144,7 @@ function News() {
         {newsTypes.map((type) => {
           const {typeId, typeName, active} = type;
           return (
-            <View key={typeId} className={`inline-block pd-t-16 pd-b-16 pd-r-20 pd-l-20 relative ${active ? 'type-active' : ''}`} style={{}} onClick={() => changeTypes(typeId)}>
+            <View key={typeId} className={`inline-block pd-t-16 pd-b-16 pd-r-20 pd-l-20 relative ${active ? 'type-active' : ''}`} onClick={() => changeTypes(typeId)}>
               <Text>{typeName}</Text>
               {active && <View className='w30 h6 type-btn-line' style={{backgroundColor: color}} />}
             </View>

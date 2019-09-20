@@ -1,5 +1,5 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
-import { View, Text, Image, Navigator } from '@tarojs/components'
+import Taro, {useEffect, useState, usePageScroll, useShareAppMessage} from '@tarojs/taro'
+import {View, Text, Image, Navigator, ScrollView} from '@tarojs/components'
 import { useSelector } from '@tarojs/redux'
 import shuffle from 'lodash/shuffle'
 import random from 'lodash/random'
@@ -16,9 +16,19 @@ const shuffleColors = shuffle(colorsArr);
 // bannerNo
 const BANNER_NO = Taro.getStorageSync('BANNER_NO');
 
+// tabs 类型
+const tabTypes = [
+  {name: '全部分类', id: 0},
+  {name: '工具类', id: 1},
+  {name: '查询类', id: 2},
+  {name: '其他', id: 3}
+];
+
 function Index() {
   const pConfig = useSelector(state => state.pConfig);
+  const user = useSelector(state => state.user);
   const {news, girls, ip, noticeTime, notice} = pConfig.config;
+  const {statusBarHeight, navSafeHeight} = user.systemInfo;
   const [shareNode, setShareNode] = useState({});
   const [shareImgPath, setShareImgPath] = useState('');
   const [itemNode, setItemNode] = useState({});
@@ -28,6 +38,8 @@ function Index() {
   const [animationData, setAnimationData] = useState({});
   const [showFixedBtn, setShowFixedBtn] = useState(false);
   const [noticeRead, setNoticeRead] = useState(true);
+  const [selectedTabId, setSelectedTabId] = useState(0);
+  const [showTitle, setShowTitle] = useState(false);
 
   const colors = {
     weather: shuffleColors[0],
@@ -107,25 +119,32 @@ function Index() {
     }
   }, [noticeTime, notice]);
 
-  // 转发
+  // 显示转发按钮
   useEffect(() => {
     // 显示转发按钮
     Taro.showShareMenu({
       withShareTicket: true
     });
+  }, []);
 
-    onShareAppMessage();
-  }, [shareImgPath, bannerNo]);
+  // 转发
+  useShareAppMessage(res => {
+    return {
+      title: '超级好看又耐用的小工具集合',
+      path: `/pages/home/index/index?from=SHARE&bannerNo=${bannerNo}`,
+      imageUrl: shareImgPath
+    }
+  });
 
-  const onShareAppMessage = () => {
-    this.$scope.onShareAppMessage = (res) => {
-      return {
-        title: '超级好看又耐用的小工具集合',
-        path: `/pages/home/index/index?from=SHARE&bannerNo=${bannerNo}`,
-        imageUrl: shareImgPath
-      }
-    };
-  };
+  // 页面滚动
+  usePageScroll(res => {
+    const {scrollTop} = res;
+    if (scrollTop > 130) {
+      setShowTitle(true);
+    } else {
+      setShowTitle(false);
+    }
+  });
 
   // 去天气情报小程序
   const goSWeatherMiniProgram = () => {
@@ -329,11 +348,38 @@ function Index() {
     setShowFixedBtn(prev => !prev);
   };
 
+  // 切换选中的tab Id
+  const changeTabId = (id) => {
+    setSelectedTabId(Number(id));
+  };
+
   return (
-    <View className='font26 white relative index' style={{backgroundColor: banners[bannerNo]['color']}}>
+    <View className='font26 white relative flex-grow-1 index' style={{backgroundColor: banners[bannerNo]['color']}}>
       <Image className='w100-per banner-img' style={{height: '200px'}} src={banners[bannerNo]['img']} />
+      <View className={`tabs pd-l-40 pd-r-40 mg-r-20 mg-l-20 pd-b-20 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`} style={{backgroundColor: banners[bannerNo]['color']}}>
+        {showTitle && <View className='flex-row' style={{height: `${navSafeHeight + statusBarHeight}Px`}}>
+          <View className='bold font36' style={{alignSelf: `flex-end`, marginTop: `${statusBarHeight}px`, lineHeight: `${navSafeHeight}px`}}>小工具S</View>
+        </View>}
+        <ScrollView
+          className='tabs flex-row flex-col-center font30'
+          scrollX
+          scrollWithAnimation
+          style={{height: '36px'}}
+          id='newsTypes'
+        >
+          {tabTypes.map((type, index) => {
+            const {name, id} = type;
+            return (
+              <View key={id} className={`inline-block mg-t-10 mg-b-10 mg-r-20 pd-t-6 pd-b-6 pd-r-20 relative ${selectedTabId === index ? 'tab-active' : ''}`} onClick={() => changeTabId(id)}>
+                <Text className='tab-text'>{name}</Text>
+                {/*{selectedTabId === index && <View className='w100-per h2 bg-white mg-t-10 bd-radius-50 type-btn-line' />}*/}
+              </View>
+            )
+          })}
+        </ScrollView>
+      </View>
       <View className='flex-row flex-wrap pd-40 bd-box pd-t-0' style={{backgroundColor: banners[bannerNo]['color']}}>
-        <View className='flex-50per bd-box' onClick={() => goSWeatherMiniProgram()}>
+        {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box' onClick={() => goSWeatherMiniProgram()}>
           <View className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.weather}}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>天</Text>气预报</View>
@@ -344,8 +390,8 @@ function Index() {
             {!itemImgPath && <Canvas className='item-line-canvas h100-per w100-per' canvasId='itemLine' id='itemLine' />}
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </View>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.jokes}} url={`/pages/other/pages/jokes/index?color=${colors.jokes}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>开</Text>心一刻</View>
@@ -355,8 +401,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.jokes}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.char_recognition}} url={`/pages/tools/pages/char_recognition/index?color=${colors.char_recognition}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>通</Text>用文字识别</View>
@@ -366,8 +412,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.char_recognition}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.obj_recognition}} url={`/pages/tools/pages/obj_recognition/index?color=${colors.obj_recognition}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>图</Text>片识物</View>
@@ -377,8 +423,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.obj_recognition}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.id_photo}} url={`/pages/tools/pages/id_photo/index?color=${colors.id_photo}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>证</Text>件照换背景</View>
@@ -388,8 +434,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.id_photo}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.trash_sort}} url={`/pages/search/pages/trash_sort/index?color=${colors.trash_sort}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>垃</Text>圾分类</View>
@@ -399,8 +445,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.trash_sort}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.express_note}} url={`/pages/search/pages/express_note/index?color=${colors.express_note}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>快</Text>递查询</View>
@@ -410,8 +456,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.express_note}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.translate}} url={`/pages/tools/pages/translate/index?color=${colors.translate}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>小</Text>翻译</View>
@@ -421,8 +467,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.translate}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_location}} url={`/pages/search/pages/phone_location/index?color=${colors.phone_location}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>手</Text>机号归属地</View>
@@ -432,8 +478,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.phone_location}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_code}} url={`/pages/search/pages/phone_code/index?color=${colors.phone_code}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>世</Text>界电话区号</View>
@@ -443,8 +489,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.phone_code}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.calendar}} url={`/pages/tools/pages/calendar/index?color=${colors.calendar}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>小</Text>日历</View>
@@ -454,8 +500,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.calendar}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.calculator}} url={`/pages/tools/pages/calculator/index?color=${colors.calculator}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>简</Text>易计算器</View>
@@ -465,8 +511,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.calculator}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 1) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.bmi}} url={`/pages/tools/pages/bmi/index?color=${colors.bmi}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>BMI</Text>指数</View>
@@ -476,8 +522,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.bmi}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.chat}} url={`/pages/other/pages/chat/index?color=${colors.chat}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>闲</Text>聊机器人</View>
@@ -487,8 +533,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.chat}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        <View className='flex-50per bd-box'>
+        </View>}
+        {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_info}} url={`/pages/other/pages/phone_info/index?color=${colors.phone_info}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>手</Text>机信息助手</View>
@@ -498,8 +544,8 @@ function Index() {
             <View className='btm-shadow' style={{backgroundColor: colors.phone_info}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
-        </View>
-        {ip && <View className='flex-50per bd-box'>
+        </View>}
+        {ip && (selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.ip_search}} url={`/pages/search/pages/ip_search/index?color=${colors.ip_search}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>IP</Text>查询</View>
@@ -510,7 +556,7 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>}
-        {news && <View className='flex-50per bd-box'>
+        {news && (selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.news}} url={`/pages/other/pages/news/index?color=${colors.news}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>新</Text>闻Lite</View>
@@ -521,7 +567,7 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>}
-        {girls && <View className='flex-50per bd-box'>
+        {girls && (selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.girls}} url={`/pages/other/pages/girls/index?color=${colors.girls}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>养</Text>眼福利图</View>

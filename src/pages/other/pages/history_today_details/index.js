@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState} from '@tarojs/taro'
+import Taro, {useEffect, useRouter, useShareAppMessage, useState} from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 import './index.scss'
 import moment from "moment";
@@ -6,20 +6,21 @@ import {getHistoryToday} from "../../../../apis/calendar";
 import {useAsyncEffect} from "../../../../utils";
 
 function HistoryTodayDetails() {
+  const router = useRouter();
   const [historyToday, setHistoryToday] = useState(null);
   const [number, setNumber] = useState(0);
   const [color, setColor] = useState('');
 
   // 设置color
   useEffect(() => {
-    const {color} = this.$router.params;
+    const {color} = router.params;
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
 
   // 初始化数据
   useAsyncEffect(async () => {
-    const {number} = this.$router.params;
+    const {number} = router.params;
     setNumber(number);
     const HISTORY_TODAY_DATE = Taro.getStorageSync('HISTORY_TODAY_DATE');  //缓存日期
     if (moment().format('YYYY-MM-DD') === HISTORY_TODAY_DATE) {
@@ -45,19 +46,15 @@ function HistoryTodayDetails() {
     Taro.showShareMenu({
       withShareTicket: true
     });
+  }, []);
 
-    onShareAppMessage();
-  }, [historyToday, color, number]);
-
-  const onShareAppMessage = () => {
-    this.$scope.onShareAppMessage = (res) => {
-      return {
-        title: historyToday.title,
-        path: `/pages/other/pages/history_today_details/index?color=${color}&number=${number}&from=SHARE`,
-      }
-    };
-
-  };
+  // 转发
+  useShareAppMessage(res => {
+    return {
+      title: historyToday.title,
+      path: `/pages/other/pages/history_today_details/index?color=${color}&number=${number}&from=SHARE`,
+    }
+  });
 
   return (
     <View className='history-today-details'>

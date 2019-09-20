@@ -1,4 +1,4 @@
-import Taro, {useState, useEffect} from '@tarojs/taro'
+import Taro, {useState, useEffect, useShareAppMessage} from '@tarojs/taro'
 import { View, RichText, Button } from '@tarojs/components'
 import moment from 'moment'
 import { useAsyncEffect } from '../../../../utils'
@@ -43,19 +43,15 @@ function NewsDetails() {
     Taro.showShareMenu({
       withShareTicket: true
     });
+  }, []);
 
-    onShareAppMessage();
-  }, [newsDetails, color]);
-
-  const onShareAppMessage = () => {
-    this.$scope.onShareAppMessage = (res) => {
-      return {
-        title: newsDetails.title,
-        path: `/pages/other/pages/news_details/index?newsId=${newsId}&color=${color}&from=SHARE`,
-      }
-    };
-
-  };
+  // 转发
+  useShareAppMessage(res => {
+    return {
+      title: newsDetails.title,
+      path: `/pages/other/pages/news_details/index?newsId=${newsId}&color=${color}&from=SHARE`,
+    }
+  });
 
   const goHome = () => {
     Taro.reLaunch({url: '/pages/home/index/index'});

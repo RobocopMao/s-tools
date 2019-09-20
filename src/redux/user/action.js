@@ -12,12 +12,13 @@ export const setSystemInfo = (systemInfo) => {
 export const setSystemInfoAsync = () => {
   return async (dispatch) => {
     const menuButton =  Taro.getMenuButtonBoundingClientRect(); // 胶囊
-    const {bottom, height} = menuButton;
+    const {bottom, height, top} = menuButton;
     let res = await getSystemInfo();
     const {windowHeight, screenHeight, statusBarHeight} = res;
     let _windowHeight = {
       customWindowHeight: windowHeight,
-      windowHeight: screenHeight - ((bottom - height - statusBarHeight) * 2 + height + statusBarHeight)  // 屏幕高度 - [（胶囊上下距离:上不含状态栏高）* 2 + 胶囊高 + 状态栏高度]
+      windowHeight: screenHeight - ((bottom - height - statusBarHeight) * 2 + height + statusBarHeight),  // 屏幕高度 - [（胶囊上下距离:上不含状态栏高）* 2 + 胶囊高 + 状态栏高度]
+      navSafeHeight: (top - statusBarHeight) * 2 + height // 导航的安全高度： 胶囊高 + 两倍上下边距
     };
     let systemInfo = Object.assign({}, res,{menuButton}, _windowHeight);
     dispatch(setSystemInfo(systemInfo));
