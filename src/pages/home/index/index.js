@@ -1,4 +1,4 @@
-import Taro, {useEffect, useState, usePageScroll, useShareAppMessage, useRouter} from '@tarojs/taro'
+import Taro, {useEffect, useState, usePageScroll, useShareAppMessage, useRouter, useReachBottom} from '@tarojs/taro'
 import {View, Text, Image, Navigator, ScrollView} from '@tarojs/components'
 import { useSelector } from '@tarojs/redux'
 import shuffle from 'lodash/shuffle'
@@ -41,6 +41,7 @@ function Index() {
   const [noticeRead, setNoticeRead] = useState(true);
   const [selectedTabId, setSelectedTabId] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
+  const [animationData1, setAnimationData1] = useState({});
 
   const colors = {
     weather: shuffleColors[0],
@@ -137,14 +138,10 @@ function Index() {
     }
   });
 
-  // 页面滚动
+  // 页面滚动,触发title显示/隐藏动画
   usePageScroll(res => {
     const {scrollTop} = res;
-    if (scrollTop > 130) {
-      setShowTitle(true);
-    } else {
-      setShowTitle(false);
-    }
+    animationTitle(scrollTop);
   });
 
   // 去天气情报小程序
@@ -351,16 +348,40 @@ function Index() {
 
   // 切换选中的tab Id
   const changeTabId = (id) => {
-    setSelectedTabId(Number(id));
+    if (id !== selectedTabId) {
+      setSelectedTabId(Number(id));
+      Taro.pageScrollTo({
+        scrollTop: 0,
+        duration: 500
+      })
+    }
+  };
+
+  // 显示/隐藏title的动画
+  const animationTitle = (scrollTop) => {
+    let animation = Taro.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+      // delay: !showAnimation ? 0 : maxDelay,
+    });
+
+    if (scrollTop > 130) {
+      animation.height(navSafeHeight + statusBarHeight).step();
+    } else {
+      animation.height(0).step();
+    }
+
+    setAnimationData1(animation);
   };
 
   return (
     <View className='font26 white relative flex-grow-1 index' style={{backgroundColor: banners[bannerNo]['color']}}>
       <Image className='w100-per banner-img' style={{height: '200px'}} src={banners[bannerNo]['img']} />
-      <View className={`tabs pd-l-40 pd-r-40 mg-r-20 mg-l-20 pd-b-20 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`} style={{backgroundColor: banners[bannerNo]['color']}}>
-        {showTitle && <View className='flex-row' style={{height: `${navSafeHeight + statusBarHeight}Px`}}>
-          <View className='bold font36' style={{alignSelf: `flex-end`, marginTop: `${statusBarHeight}px`, lineHeight: `${navSafeHeight}px`}}>小工具S</View>
-        </View>}
+      <View className={`tabs pd-l-40 pd-r-40 mg-r-20 mg-l-20 pd-b-20 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}
+            style={{backgroundColor: banners[bannerNo]['color'], opacity: `0.95`}}>
+        <View className='flex-row of-hidden' style={{height: `0Px`}} animation={animationData1}>
+          <View className='bold font40' style={{alignSelf: `flex-end`, marginTop: `${statusBarHeight}px`, lineHeight: `${navSafeHeight}px`}}>小工具S</View>
+        </View>
         <ScrollView
           className='tabs flex-row flex-col-center font30'
           scrollX
