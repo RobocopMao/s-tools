@@ -140,6 +140,7 @@ function Calendar() {
 
   // 整体滚动
   const onScroll = e => {
+    e.stopPropagation();
     // if (scrollType === 'CLICK') {
     //   return;
     // }
@@ -215,76 +216,85 @@ function Calendar() {
 
   return (
     <View className='calendar'>
-      <View className='flex-column mg-20'>
-        <View className='flex-row flex-col-center space-between mg-b-10'>
-          <View className='flex-row flex-col-center'>
-            <View className='font80 mg-r-20' style={{color}}>{month}月</View>
-            <View className='flex-column'>
-              <Text>{week}{year <= Number(moment().format('YYYY')) && <Text><Text> · </Text><Text style={{color}}>{dateInfo.typeDes}</Text></Text>}</Text>
-              <Text>{year}年</Text>
+      <View className='flex-column mg-l-20 mg-r-20 mg-t-30'>
+        <View className='bd-radius radius-box mg-b-30'>
+          <View className='flex-row flex-col-center space-between mg-b-10'>
+            <View className='flex-row flex-col-center'>
+              <View className='font80 mg-r-20' style={{color}}>{month}月</View>
+              <View className='flex-column'>
+                <Text>{week}{year <= Number(moment().format('YYYY')) && <Text><Text> · </Text><Text style={{color}}>{dateInfo.typeDes}</Text></Text>}</Text>
+                <Text>{year}年</Text>
+              </View>
+            </View>
+            {moment(date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD') && <View className='circle white text-center w80 h80' style={{backgroundColor: color}} onClick={() => goToday()}>
+              <Text className='lh-80'>今</Text>
+            </View>}
+          </View>
+          {year <= Number(moment().format('YYYY')) && <View>这是今年第 <Text className='black'>{dateInfo.dayOfYear}</Text> 天，第 <Text className='black'>{dateInfo.weekOfYear}</Text> 周</View>}
+        </View>
+        {/*<View className='line' />*/}
+        <View className='bd-radius radius-box mg-b-30'>
+          <View className='flex-column'>
+            <View className='flex-row space-around pd-t-20 pd-b-20'>
+              <Text>日</Text>
+              <Text>一</Text>
+              <Text>二</Text>
+              <Text>三</Text>
+              <Text>四</Text>
+              <Text>五</Text>
+              <Text>六</Text>
+            </View>
+            <View className='line' />
+            <ScrollView
+              className=''
+              scrollY
+              enableFlex
+              style={{height: '240px'}}
+              scrollWithAnimation
+              scrollTop={scrollTop + 'px'}
+              onScroll={(e) => onScroll(e)}
+            >
+              {calendarData.map((months, index) => {
+                return (
+                  <View className='flex-row flex-wrap space-around' style={{height: '240px'}} key={String(index)}>
+                    {months.map((days, index1) => {
+                      return (
+                        <View className='flex-row space-around flex-col-center pd-t-10 pd-b-10 flex-1-7per' key={String(index1)}>
+                          <View className={`w60 h60 text-center circle ${days._day === day && days._month === month && days._year === year
+                          && days.type === 'CURRENT' && days.bgColor !== 'bg-blue' ? 'bd-1' : ''}`} style={{backgroundColor: days.bgColor === 'bg-blue' ? color : 'transparent'}} onClick={() => onClickDay(days, index)}>
+                            <Text className={`lh-60 ${days.color}`}>{days._day}</Text>
+                          </View>
+                        </View>
+                      )
+                    })}
+                  </View>
+                )
+              })}
+            </ScrollView>
+          </View>
+        </View>
+        {/*<View className='line' />*/}
+
+        {year <= Number(moment().format('YYYY')) && <View>
+          <View className='bd-radius radius-box mg-b-30'>
+            <View className='black font32'>农历{dateInfo.yearTips}{dateInfo.chineseZodiac}年 {dateInfo.lunarCalendar} {dateInfo.solarTerms}</View>
+            <View className='mg-t-10 mg-b-10'>
+              <Text className='green'>宜：</Text>
+              <Text>{dateInfo.suit}</Text>
+            </View>
+            <View>
+              <Text className='orange'>忌：</Text>
+              <Text>{dateInfo.avoid}</Text>
             </View>
           </View>
-          {moment(date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD') && <View className='circle white text-center w80 h80' style={{backgroundColor: color}} onClick={() => goToday()}>
-            <Text className='lh-80'>今</Text>
-          </View>}
-        </View>
-        {year <= Number(moment().format('YYYY')) && <View className='mg-b-20'>这是今年第 <Text className='black'>{dateInfo.dayOfYear}</Text> 天，第 <Text className='black'>{dateInfo.weekOfYear}</Text> 周</View>}
-        <View className='line' />
-        <View className='flex-column'>
-          <View className='flex-row space-around pd-t-20 pd-b-20'>
-            <Text>日</Text>
-            <Text>一</Text>
-            <Text>二</Text>
-            <Text>三</Text>
-            <Text>四</Text>
-            <Text>五</Text>
-            <Text>六</Text>
+          {/*<View className='line' />*/}
+          <View className='bd-radius radius-box mg-b-30'>
+            <View>星座：{dateInfo.constellation}</View>
           </View>
-          <View className='line' />
-          <ScrollView
-            className=''
-            scrollY
-            enableFlex
-            style={{height: '240px'}}
-            scrollWithAnimation
-            scrollTop={scrollTop + 'px'}
-            onScroll={(e) => onScroll(e)}
-          >
-            {calendarData.map((months, index) => {
-              return (
-                <View className='flex-row flex-wrap space-around' style={{height: '240px'}} key={String(index)}>
-                  {months.map((days, index1) => {
-                    return (
-                      <View className='flex-row space-around flex-col-center pd-t-10 pd-b-10 flex-1-7per' key={String(index1)}>
-                        <View className={`w60 h60 text-center circle ${days._day === day && days._month === month && days._year === year
-                        && days.type === 'CURRENT' && days.bgColor !== 'bg-blue' ? 'bd-1' : ''}`} style={{backgroundColor: days.bgColor === 'bg-blue' ? color : 'transparent'}} onClick={() => onClickDay(days, index)}>
-                          <Text className={`lh-60 ${days.color}`}>{days._day}</Text>
-                        </View>
-                      </View>
-                    )
-                  })}
-                </View>
-              )
-            })}
-          </ScrollView>
-        </View>
-        <View className='line' />
-        {year <= Number(moment().format('YYYY')) && <View>
-          <View className='pd-t-20 black font32'>农历{dateInfo.yearTips}{dateInfo.chineseZodiac}年 {dateInfo.lunarCalendar} {dateInfo.solarTerms}</View>
-          <View className='mg-t-10 mg-b-10'>
-            <Text className='green'>宜：</Text>
-            <Text>{dateInfo.suit}</Text>
-          </View>
-          <View className='mg-b-20'>
-            <Text className='orange'>忌：</Text>
-            <Text>{dateInfo.avoid}</Text>
-          </View>
-          <View className='line' />
-          <View className='pd-t-20 mg-b-20'>星座：{dateInfo.constellation}</View>
-          {date === moment().format('YYYYMMDD') && <View>
-            {historyToday.length && <View className='line' />}
+          {date === moment().format('YYYYMMDD') && <View className='bd-radius radius-box mg-b-30'>
+            {/*{historyToday.length && <View className='line' />}*/}
             {historyToday.length && <View>
-              <View className='pd-t-20 mg-b-20 flex-row flex-col-center space-between'>
+              <View className='mg-b-20 flex-row flex-col-center space-between'>
                 <Text>历史上的今天</Text>
                 <View className='iconfont' style={{color}} onClick={() => goHistoryToday()}><Text className='font28'>更多</Text>&#xe6aa;</View>
               </View>
@@ -304,7 +314,7 @@ function Calendar() {
 }
 
 Calendar.config = {
-  navigationBarTitleText: '万年历'
+  navigationBarTitleText: '小日历'
 };
 
 export default Calendar;

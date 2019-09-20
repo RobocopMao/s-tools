@@ -446,10 +446,10 @@ function Index() {
         <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.calendar}} url={`/pages/tools/pages/calendar/index?color=${colors.calendar}`}>
             <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>万</Text>年历</View>
+              <View className='lh-64'><Text className='font40'>小</Text>日历</View>
               <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe62e;</View>
             </View>
-            <View className='font24'>日期/节日/星座/宜忌</View>
+            <View className='font24'>日期/节日/宜忌/历史</View>
             <View className='btm-shadow' style={{backgroundColor: colors.calendar}} />
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>

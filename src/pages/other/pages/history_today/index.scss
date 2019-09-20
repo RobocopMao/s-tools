@@ -10,12 +10,15 @@
     margin-left: 80px;
     border-left: 4px solid $color-c;
     .item {
-      margin-left: -78px;
+      margin-left: -82px;
+      .year {
+        flex: 0 0 120px;
+      }
       .line-dot {
         flex: 0 0 100px;
       }
       .img-box {
-        box-shadow: 0 0 1px 1px $color-c;
+        //box-shadow: 0 0 1px 1px $color-c;
         //width: 490px;
         height: 260px
       }
