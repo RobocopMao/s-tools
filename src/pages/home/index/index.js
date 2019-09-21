@@ -40,7 +40,6 @@ function Index() {
   const [showFixedBtn, setShowFixedBtn] = useState(false);
   const [noticeRead, setNoticeRead] = useState(true);
   const [selectedTabId, setSelectedTabId] = useState(0);
-  const [showTitle, setShowTitle] = useState(false);
   const [animationData1, setAnimationData1] = useState({});
 
   const colors = {
@@ -330,7 +329,6 @@ function Index() {
 
   // 显示/隐藏底部按钮
   const animateFixedBtn = () => {
-    // 身高picker
     let animation = Taro.createAnimation({
       duration: 500,
       timingFunction: 'ease',
@@ -353,7 +351,7 @@ function Index() {
       Taro.pageScrollTo({
         scrollTop: 0,
         duration: 500
-      })
+      });
     }
   };
 
@@ -362,13 +360,13 @@ function Index() {
     let animation = Taro.createAnimation({
       duration: 500,
       timingFunction: 'ease',
-      // delay: !showAnimation ? 0 : maxDelay,
+      transformOrigin: 'bottom center 0'
     });
 
-    if (scrollTop > 130) {
-      animation.height(navSafeHeight + statusBarHeight).step();
+    if (scrollTop > 110) {
+      animation.opacity(1).height(navSafeHeight + statusBarHeight).step();
     } else {
-      animation.height(0).step();
+      animation.opacity(0).height(0).step();
     }
 
     setAnimationData1(animation);
@@ -376,30 +374,37 @@ function Index() {
 
   return (
     <View className='font26 white relative flex-grow-1 index' style={{backgroundColor: banners[bannerNo]['color']}}>
-      <Image className='w100-per banner-img' style={{height: '200px'}} src={banners[bannerNo]['img']} />
-      <View className={`tabs pd-l-40 pd-r-40 mg-r-20 mg-l-20 pd-b-20 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}
-            style={{backgroundColor: banners[bannerNo]['color'], opacity: `0.95`}}>
-        <View className='flex-row of-hidden' style={{height: `0Px`}} animation={animationData1}>
-          <View className='bold font40' style={{alignSelf: `flex-end`, marginTop: `${statusBarHeight}px`, lineHeight: `${navSafeHeight}px`}}>小工具S</View>
+      {/*头部*/}
+      <View className='header'>
+        {/*banner*/}
+        <Image className='w100-per banner-img' style={{height: '200px'}} src={banners[bannerNo]['img']} />
+        <View className={`tabs pd-l-40 pd-r-40 mg-r-20 mg-l-20 pd-b-20 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}
+              style={{backgroundColor: banners[bannerNo]['color'], opacity: `0.95`}}>
+          {/*title*/}
+          <View className='flex-row of-hidden' style={{height: `0Px`, opacity: 0}} animation={animationData1}>
+            <View className='bold font40' style={{alignSelf: `flex-end`, marginTop: `${statusBarHeight}px`, lineHeight: `${navSafeHeight}px`}}>小工具S</View>
+          </View>
+          {/*tabs*/}
+          <ScrollView
+            className='tabs flex-row flex-col-center font30'
+            scrollX
+            scrollWithAnimation
+            style={{height: '36px'}}
+            id='newsTypes'
+          >
+            {tabTypes.map((type, index) => {
+              const {name, id} = type;
+              return (
+                <View key={id} className={`inline-block mg-t-10 mg-b-10 mg-r-20 pd-t-6 pd-b-6 pd-r-20 relative ${selectedTabId === index ? 'tab-active' : ''}`} onClick={() => changeTabId(id)}>
+                  <Text className='tab-text'>{name}</Text>
+                  {/*{selectedTabId === index && <View className='w100-per h2 bg-white mg-t-10 bd-radius-50 type-btn-line' />}*/}
+                </View>
+              )
+            })}
+          </ScrollView>
         </View>
-        <ScrollView
-          className='tabs flex-row flex-col-center font30'
-          scrollX
-          scrollWithAnimation
-          style={{height: '36px'}}
-          id='newsTypes'
-        >
-          {tabTypes.map((type, index) => {
-            const {name, id} = type;
-            return (
-              <View key={id} className={`inline-block mg-t-10 mg-b-10 mg-r-20 pd-t-6 pd-b-6 pd-r-20 relative ${selectedTabId === index ? 'tab-active' : ''}`} onClick={() => changeTabId(id)}>
-                <Text className='tab-text'>{name}</Text>
-                {/*{selectedTabId === index && <View className='w100-per h2 bg-white mg-t-10 bd-radius-50 type-btn-line' />}*/}
-              </View>
-            )
-          })}
-        </ScrollView>
       </View>
+      {/*内容列表*/}
       <View className='flex-row flex-wrap pd-40 bd-box pd-t-0' style={{backgroundColor: banners[bannerNo]['color']}}>
         {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box' onClick={() => goSWeatherMiniProgram()}>
           <View className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.weather}}>
