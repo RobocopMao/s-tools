@@ -292,7 +292,7 @@ function Calendar() {
           <View className='bd-radius radius-box mg-b-30'>
             <View>星座：{dateInfo.constellation}</View>
           </View>
-          {date === moment().format('YYYYMMDD') && <View className='bd-radius radius-box mg-b-30'>
+          {date === moment().format('YYYYMMDD') && historyToday.length && <View className='bd-radius radius-box mg-b-30'>
             {/*{historyToday.length && <View className='line' />}*/}
             {historyToday.length && <View>
               <View className='mg-b-20 flex-row flex-col-center space-between'>
