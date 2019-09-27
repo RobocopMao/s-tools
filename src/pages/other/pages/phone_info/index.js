@@ -1,6 +1,7 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
-import {View, Text, Button, Video} from '@tarojs/components'
+import {View} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function PhoneInfo() {
@@ -137,7 +138,11 @@ function PhoneInfo() {
           <View>{notificationSoundAuthorized ? `是` : `否` }</View>
         </View>}
       </View>
-      <View className='pd-20 pd-t-0 color-a1 font24'>Tips: 以上信息均在小程序初始化时获取，动态修改不会刷新数据</View>
+      <View className='pd-20 color-a1 font24'>Tips: 以上信息均在小程序初始化时获取，动态修改不会刷新数据</View>
+      {/*广告位*/}
+      <View className='pd-20'>
+        <ComponentCommonBannerAd />
+      </View>
     </View>
   )
 }

@@ -2,7 +2,8 @@ import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { useSelector } from '@tarojs/redux'
 import moment from 'moment';
 import {View} from '@tarojs/components'
-import {fanyiTranslate} from '../../../../apis/baidu_fanyi';
+import {fanyiTranslate} from '../../../../apis/baidu_fanyi'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function Translate() {
@@ -146,7 +147,7 @@ function Translate() {
       <View className='pd-20'>
         <Button className='iconfont text-center pd-0 mg-0 h80 lh-80 white bd-radius-50 ' disabled={!q} onClick={() => translate()} style={{backgroundColor: color}}>翻 译</Button>
       </View>
-      {transResult.length && <View className='pd-t-0 pd-b-80 bd-box relative'>
+      {transResult.length && <View className='pd-t-0 pd-b-40 bd-box relative'>
         <View className='black pd-20 pd-t-10 pd-b-0'>
           <View className='mg-b-20'>翻译结果:</View>
           <View className='line' />
@@ -156,8 +157,14 @@ function Translate() {
             <View className='pd-20 bd-box' key={String(index)} onLongPress={() => Taro.setClipboardData({data: result.dst})}>{result.dst}</View>
           )
         })}
-        <View className='iconfont font46 pd-10 copy-btn' onClick={() => copyAll()}>&#xe643;</View>
-        <View className='pd-20 color-a1 font24'>Tips: 点击右下角图标可复制全部内容，长按单条内容可复制单条内容。</View>
+        <View className='pd-20 flex-column relative'>
+          <View className='color-a1 font24 mg-b-20'>Tips: 点击右下角图标可复制全部内容，长按单条内容可复制单条内容。</View>
+          <View className='iconfont font46 pd-10 text-right' onClick={() => copyAll()}>&#xe643;</View>
+        </View>
+        {/*广告位*/}
+        <View className='pd-20'>
+          <ComponentCommonBannerAd />
+        </View>
       </View>}
     </View>
   )

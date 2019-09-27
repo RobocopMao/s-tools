@@ -1,6 +1,7 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Input} from '@tarojs/components'
 import { getRubbishType } from '../../../../apis/trash'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function TrashSort() {
@@ -112,6 +113,10 @@ function TrashSort() {
                 </View>
               )
             })}
+          </View>
+          {/*广告位*/}
+          <View className='mg-t-40 mg-b-40'>
+            <ComponentCommonBannerAd />
           </View>
         </View>}
       </View>

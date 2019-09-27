@@ -1,9 +1,10 @@
 import Taro, {useState, useEffect, useRouter} from '@tarojs/taro'
-import { View, Text, ScrollView, RichText } from '@tarojs/components'
+import { View, Text, ScrollView, RichText} from '@tarojs/components'
 import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import { getJokesRandom } from '../../../../apis/jokes'
 import { useAsyncEffect } from '../../../../utils'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function Jokes() {
@@ -63,6 +64,11 @@ function Jokes() {
                 <Text>于 {moment(joke.updateTime).format('YYYY-MM-DD HH:mm')} 加入</Text>
               </View>}
               {jokes.length !== index + 1 && joke.content.length > 20 && <View className='line mg-t-40 mg-b-20' />}
+              {/*广告位*/}
+              {index === 9 && <View className='mg-b-20'>
+                <ComponentCommonBannerAd />
+                <View className='line mg-t-20' />
+              </View>}
             </View>
           )
         })}

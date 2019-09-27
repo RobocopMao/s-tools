@@ -1,8 +1,9 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
-import {View, Text} from '@tarojs/components'
+import {View} from '@tarojs/components'
 import qrCodeImg from '../../assets/images/qrcode.jpg'
 import screenShoot1Img from '../../assets/images/screen_shot1.jpg'
 import screenShoot2Img from '../../assets/images/screen_shot2.jpg'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function Chat() {
@@ -25,8 +26,10 @@ function Chat() {
   };
 
   return (
-    <View className='chat flex-column flex-col-center flex-row-center h100-per'>
-      <Image className='qr-code' src={qrCodeImg} showMenuByLongpress />
+    <View className='chat text-center'>
+      <View className='flex-row flex-row-center mg-t-40'>
+        <Image className='qr-code' src={qrCodeImg} showMenuByLongpress />
+      </View>
       <View className='text-center mg-t-20'>
         <View>长按上方二维码保存图片</View>
         <View>然后识别二维码进入公众号</View>
@@ -40,6 +43,9 @@ function Chat() {
       <View className='text-center mg-t-40'>
         <View>本功能来自腾讯AI开放平台</View>
         <View>如果你有闲置公众号也可以一键接入哦</View>
+      </View>
+      <View className='mg-t-40 mg-b-40 pd-l-20 pd-r-20'>
+        <ComponentCommonBannerAd />
       </View>
     </View>
   )

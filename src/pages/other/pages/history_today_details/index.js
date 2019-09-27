@@ -1,9 +1,10 @@
 import Taro, {useEffect, useRouter, useShareAppMessage, useState} from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
-import './index.scss'
 import moment from 'moment'
 import {getHistoryToday} from '../../../../apis/calendar'
 import {useAsyncEffect} from '../../../../utils'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
+import './index.scss'
 
 function HistoryTodayDetails() {
   const router = useRouter();
@@ -62,6 +63,10 @@ function HistoryTodayDetails() {
         <View className='font36 bold black mg-b-20'>{historyToday.year}-{historyToday.month}-{historyToday.day}：{historyToday.title}</View>
         {historyToday.picUrl && <Image className='w100-per mg-b-20' mode='aspectFit' src={historyToday.picUrl} />}
         <Text className='font32 lh-50'>{historyToday.details}</Text>
+      </View>}
+      {/*广告位*/}
+      {historyToday && <View className='pd-20 mg-b-20'>
+        <ComponentCommonBannerAd />
       </View>}
     </View>
   )

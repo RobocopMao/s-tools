@@ -2,6 +2,7 @@ import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { useSelector } from '@tarojs/redux'
 import {View, PickerView, PickerViewColumn, Button, ScrollView} from '@tarojs/components'
 import {getNodeRect} from '../../../../utils'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function BMI() {
@@ -164,6 +165,9 @@ function BMI() {
           <View className='line' />
         </View>
         <View className='mg-b-20'>4. 有人认为最好看的体形BMI指数值为：女士BMI=19，男士BMI=22。</View>
+        <View className='mg-b-20'>
+          <ComponentCommonBannerAd />
+        </View>
       </ScrollView>
       {/*蒙层*/}
       {showMask && <View className='mask' style={{backgroundColor: color, opacity: 0.6}} onClick={() => hideMask()} />}

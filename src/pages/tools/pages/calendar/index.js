@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import moment from 'moment'
 import { useAsyncEffect } from '../../../../utils'
 import {getHistoryToday, getHolidaySingle} from '../../../../apis/calendar'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function Calendar() {
@@ -307,7 +308,11 @@ function Calendar() {
                 <Text className='ellipsis lh-50'>{historyToday[0].details}</Text>
               </View>
             </View>}
-            </View>}
+          </View>}
+          {/*广告位*/}
+          <View className='mg-b-30'>
+            <ComponentCommonBannerAd />
+          </View>
         </View>}
       </View>
     </View>
