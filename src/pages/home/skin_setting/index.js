@@ -1,15 +1,19 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Swiper, SwiperItem} from '@tarojs/components'
-import banners from '../../../utils/banners'
+import { useSelector } from '@tarojs/redux'
+import bannersConfig from '../../../utils/banners'
 import {getNodeRect} from '../../../utils';
 import './index.scss'
 
 function SkinSetting() {
   const router = useRouter();
+  const pConfig = useSelector(state => state.pConfig);
+  const {showingBanners} = pConfig.config;
   const BANNER_NO = Taro.getStorageSync('BANNER_NO');
   const [color, setColor] = useState('');
   const [swiperHeight, setSwiperHeight] = useState(0);
   const [current, setCurrent] = useState(BANNER_NO);
+  const [banners, setBanners] = useState([]);
 
   // 设置color
   useEffect(() => {
@@ -17,6 +21,15 @@ function SkinSetting() {
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
+
+  useEffect(() => {
+    console.log(showingBanners)
+    if (typeof showingBanners === 'undefined') {  // 等待showingBanners更新
+      return;
+    }
+    let _banners = getBanners();
+    setBanners(_banners);
+  }, [showingBanners]);
 
   useEffect(async () => {
     const node = await getNodeRect('#swiperBox');
@@ -28,6 +41,20 @@ function SkinSetting() {
     // console.log(e);
     const {current} = e.detail;
     setCurrent(current);
+  };
+
+  // 通过配置获取初始化banner
+  const getBanners = () => {
+    let banners = [];
+    let showingBannersArr = [...new Set(showingBanners.split(','))];  // 去重
+    if (showingBannersArr.length > bannersConfig.length) { //
+      showingBannersArr = showingBannersArr.splice(0, bannersConfig.length);
+    }
+    console.log(showingBannersArr);
+    for (let [, item] of showingBannersArr.entries()) {
+      banners.push(bannersConfig[Number(item) - 1]);
+    }
+    return banners;
   };
 
   const saveSkinSetting = () => {

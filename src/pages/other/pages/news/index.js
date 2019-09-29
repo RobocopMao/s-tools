@@ -10,7 +10,7 @@ function News() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {news} = pConfig.config;
+  const {showing} = pConfig.config;
   const {windowHeight} = user.systemInfo;
   const [newsTypes, setNewsTypes] = useState([]);
   const [newsList, setNewsList] = useState([]);
@@ -28,15 +28,15 @@ function News() {
   }, []);
 
   useAsyncEffect(() => {
-    if (typeof news === 'undefined') {  // 等待news更新
+    if (typeof showing === 'undefined') {  // 等待showing更新
       return;
     }
-    if (!news) {
+    if (!showing) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     } else {
       initNews();
     }
-  }, [news]);
+  }, [showing]);
 
   const [scrollHeight, setScrollHeight] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
@@ -52,7 +52,7 @@ function News() {
         setScrollHeight(scrollHeight);
       })
       .exec()
-  }, [scrollHeight, news]);
+  }, [scrollHeight, showing]);
 
   // 初始化数据
   const initNews = async () => {
@@ -135,7 +135,7 @@ function News() {
 
   return (
     <View className='news'>
-      {news && <ScrollView
+      {showing && <ScrollView
         className='news-types flex-row flex-col-center bg-white font32'
         scrollX
         scrollWithAnimation
@@ -152,7 +152,7 @@ function News() {
           )
         })}
       </ScrollView>}
-      {news && <ScrollView
+      {showing && <ScrollView
         className='news-list bg-white'
         scrollY
         scrollWithAnimation

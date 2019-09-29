@@ -7,7 +7,7 @@ import './index.scss'
 function About() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
-  const {news, girls} = pConfig.config;
+  const {showing} = pConfig.config;
   const [color, setColor] = useState('');
 
   // 设置color
@@ -38,7 +38,7 @@ function About() {
 
         <Text className='pd-20 black bold'>使用方法与说明：</Text>
         <Text className='pd-20'>1. 万年历：可以查看从本月起一年的日历，日历可以竖向滚动，下一年的日历信息需要等待接口更新。</Text>
-        {news && girls && <Text className='pd-20'>2. 其他：由于小程序限制，在小程序审核期间，新闻Lite、新闻里的视频、养眼福利图、ip查询将隐藏，届时你将不能访问它们，待审核通过发布后方可正常访问。</Text>}
+        {showing && <Text className='pd-20'>2. 其他：由于小程序限制，在小程序审核期间，新闻Lite、新闻里的视频、养眼福利图、ip查询、历史上的今天将隐藏，届时你将不能访问它们，待审核通过发布后方可正常访问。</Text>}
         <Text className='pd-20 black bold'>更新日志：</Text>
         <View className='pd-20 flex-column mg-b-20'>
           {updateLog.map((log, index) => {

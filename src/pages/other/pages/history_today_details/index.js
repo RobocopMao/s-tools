@@ -1,5 +1,6 @@
 import Taro, {useEffect, useRouter, useShareAppMessage, useState} from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import {getHistoryToday} from '../../../../apis/calendar'
 import {useAsyncEffect} from '../../../../utils'
@@ -8,6 +9,8 @@ import './index.scss'
 
 function HistoryTodayDetails() {
   const router = useRouter();
+  const pConfig = useSelector(state => state.pConfig);
+  const {showing} = pConfig.config;
   const [historyToday, setHistoryToday] = useState(null);
   const [number, setNumber] = useState(0);
   const [color, setColor] = useState('');
@@ -18,6 +21,15 @@ function HistoryTodayDetails() {
     setColor(color);
     Taro.setNavigationBarColor({frontColor: '#ffffff', backgroundColor: color});
   }, []);
+
+  useAsyncEffect(() => {
+    if (typeof showing === 'undefined') {  // 等待showing更新
+      return;
+    }
+    if (!showing) {
+      Taro.reLaunch({url: '/pages/home/index/index'});
+    }
+  }, [showing]);
 
   // 初始化数据
   useAsyncEffect(async () => {
@@ -59,7 +71,7 @@ function HistoryTodayDetails() {
 
   return (
     <View className='history-today-details'>
-      {historyToday && <View className='pd-20 bd-box'>
+      {showing && historyToday && <View className='pd-20 bd-box'>
         <View className='font36 bold black mg-b-20'>{historyToday.year}-{historyToday.month}-{historyToday.day}：{historyToday.title}</View>
         {historyToday.picUrl && <Image className='w100-per mg-b-20' mode='aspectFit' src={historyToday.picUrl} />}
         <Text className='font32 lh-50'>{historyToday.details}</Text>

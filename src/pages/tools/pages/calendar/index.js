@@ -1,5 +1,6 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
+import {useSelector} from '@tarojs/redux'
 import moment from 'moment'
 import { useAsyncEffect } from '../../../../utils'
 import {getHistoryToday, getHolidaySingle} from '../../../../apis/calendar'
@@ -8,6 +9,8 @@ import './index.scss'
 
 function Calendar() {
   const router = useRouter();
+  const pConfig = useSelector(state => state.pConfig);
+  const {showing} = pConfig.config;
   const [day, setDay] = useState(Number(moment().format('D')));  // 选中的日期
   const [week, setWeek] = useState(moment().format('dddd'));  // 选中的星期
   const [month, setMonth] = useState(Number(moment().format('M'))); // 选中日期月份
@@ -293,7 +296,7 @@ function Calendar() {
           <View className='bd-radius radius-box mg-b-30'>
             <View>星座：{dateInfo.constellation}</View>
           </View>
-          {date === moment().format('YYYYMMDD') && historyToday.length && <View className='bd-radius radius-box mg-b-30'>
+          {showing && date === moment().format('YYYYMMDD') && historyToday.length && <View className='bd-radius radius-box mg-b-30'>
             {/*{historyToday.length && <View className='line' />}*/}
             {historyToday.length && <View>
               <View className='mg-b-20 flex-row flex-col-center space-between'>

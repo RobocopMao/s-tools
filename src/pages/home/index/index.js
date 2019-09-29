@@ -5,7 +5,7 @@ import shuffle from 'lodash/shuffle'
 import random from 'lodash/random'
 import { S_WEATHER_APPID} from '../../../apis/config'
 import {getNodeRect} from '../../../utils';
-import banners from '../../../utils/banners'
+import bannersConfig from '../../../utils/banners'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
@@ -28,7 +28,7 @@ function Index() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {news, girls, ip, noticeTime, notice} = pConfig.config;
+  const {showing, noticeTime, notice, showingBanners, enableSkinSetting} = pConfig.config;
   const {statusBarHeight, navSafeHeight} = user.systemInfo;
   const [shareNode, setShareNode] = useState({});
   const [shareImgPath, setShareImgPath] = useState('');
@@ -41,6 +41,7 @@ function Index() {
   const [noticeRead, setNoticeRead] = useState(true);
   const [selectedTabId, setSelectedTabId] = useState(0);
   const [animationData1, setAnimationData1] = useState({});
+  const [banners, setBanners] = useState(bannersConfig);
 
   const colors = {
     weather: shuffleColors[0],
@@ -65,6 +66,16 @@ function Index() {
     colorRandom: shuffleColors[random(0, 13)]
   };
 
+  // 根据配置更新banners
+  useEffect(() => {
+    if (typeof showingBanners === 'undefined') {  // 等待showingBanners更新
+      return;
+    }
+    let _banners = getBanners();
+    setBanners(_banners);
+  }, [showingBanners]);
+
+  // 来自分享的设置
   useEffect(() => {
     const {from, bannerNo} = router.params;
     if (from === 'SHARE') {
@@ -132,7 +143,7 @@ function Index() {
   useShareAppMessage(res => {
     return {
       title: '超级好看又耐用的小工具集合',
-      path: `/pages/home/index/index?from=SHARE&bannerNo=${bannerNo}`,
+      path: `/pages/home/index/index?from=SHARE&bannerNo=${Taro.getStorageSync('BANNER_NO')}`,
       imageUrl: shareImgPath
     }
   });
@@ -247,6 +258,13 @@ function Index() {
 
   // 去设置皮肤
   const goSettingSkin = () => {
+    // 节日期间不允许换肤
+    if (!enableSkinSetting) {
+      Taro.showToast({title: '当前时间段不支持换肤哦', icon: 'none'});
+      animateFixedBtn();
+      return;
+    }
+
     // 延迟大发好
     let tId = setTimeout(() => {
       animateFixedBtn();
@@ -372,6 +390,28 @@ function Index() {
     setAnimationData1(animation);
   };
 
+  // 通过配置获取初始化banner
+  const getBanners = () => {
+    let banners = [];
+    let showingBannersArr = [...new Set(showingBanners.split(','))];  // 去重
+    if (Number(showingBannersArr[0]) > Number(showingBannersArr[1])) {   // 判断是不是需要特别显示，比如11代表国庆节，显示在第一个
+      setBannerNo(0);
+      // Taro.setStorageSync('BANNER_NO', 0);
+    } else {
+      // let _bannerNo = BANNER_NO > 0 ? BANNER_NO - 1 : 0;
+      // setBannerNo(_bannerNo);
+      // Taro.setStorageSync('BANNER_NO', _bannerNo);
+    }
+    if (showingBannersArr.length > bannersConfig.length) { // 后台配置的显示个数不能大于实际该有的个数
+      showingBannersArr = showingBannersArr.splice(0, bannersConfig.length);
+    }
+    // console.log(showingBannersArr);
+    for (let [, item] of showingBannersArr.entries()) {
+      banners.push(bannersConfig[Number(item) - 1]);
+    }
+    return banners;
+  };
+
   return (
     <View className='font26 white relative flex-grow-1 index' style={{backgroundColor: banners[bannerNo]['color']}}>
       {/*头部*/}
@@ -405,7 +445,7 @@ function Index() {
         </View>
       </View>
       {/*内容列表*/}
-      <View className='flex-row flex-wrap pd-40 bd-box pd-t-0' style={{backgroundColor: banners[bannerNo]['color']}}>
+      <View className='flex-row flex-wrap pd-40 bd-box pd-t-0' style={{backgroundColor: banners.length ? banners[bannerNo]['color'] : ''}}>
         {(selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box' onClick={() => goSWeatherMiniProgram()}>
           <View className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.weather}}>
             <View className='flex-row space-between'>
@@ -572,7 +612,7 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>}
-        {ip && (selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
+        {showing && (selectedTabId === 0 || selectedTabId === 2) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.ip_search}} url={`/pages/search/pages/ip_search/index?color=${colors.ip_search}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>IP</Text>查询</View>
@@ -583,7 +623,7 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>}
-        {news && (selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
+        {showing && (selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.news}} url={`/pages/other/pages/news/index?color=${colors.news}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>新</Text>闻Lite</View>
@@ -594,7 +634,7 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </Navigator>
         </View>}
-        {girls && (selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
+        {showing && (selectedTabId === 0 || selectedTabId === 3) && <View className='flex-50per bd-box'>
           <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.girls}} url={`/pages/other/pages/girls/index?color=${colors.girls}`}>
             <View className='flex-row space-between'>
               <View className='lh-64'><Text className='font40'>养</Text>眼福利图</View>

@@ -9,7 +9,7 @@ function IpSearch() {
   // const [selfIpInfo, setSelfIpInfo] = useState({});
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
-  const {ip} = pConfig.config;
+  const {showing} = pConfig.config;
   const [aimIp, setAimIp] = useState('');
   const [aimIpInfo, setAimIpInfo] = useState({});
   const [color, setColor] = useState('');
@@ -22,13 +22,13 @@ function IpSearch() {
   }, []);
 
   useAsyncEffect(() => {
-    if (typeof ip === 'undefined') {  // 等待ip更新
+    if (typeof showing === 'undefined') {  // 等待showing更新
       return;
     }
-    if (!ip) {
+    if (!showing) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     }
-  }, [ip]);
+  }, [showing]);
 
   // useAsyncEffect(async () => {
   //   //   const res = await getSelfIp();
@@ -65,7 +65,7 @@ function IpSearch() {
 
   return (
     <View className='ip-search'>
-      {ip && <View className='flex-column pos-sticky pd-t-10 pd-b-20' style={{backgroundColor: color}}>
+      {showing && <View className='flex-column pos-sticky pd-t-10 pd-b-20' style={{backgroundColor: color}}>
         {/*<View className='flex-column'>*/}
           {/*<Text className='mg-b-10 bold'>当前用户的IP信息：</Text>*/}
           {/*<Text className='mg-b-10'>IP地址：<Text className='blue'>{selfIpInfo.ip}</Text></Text>*/}
@@ -90,7 +90,6 @@ function IpSearch() {
           <Text className='mg-b-10'>网络服务商：{aimIpInfo.isp}</Text>
         </View>}
       {/*</View>*/}
-
     </View>
   )
 }

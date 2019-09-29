@@ -9,7 +9,7 @@ function VideoBox() {
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
   const {windowWidth} = user.systemInfo;
-  const {video} = pConfig.config;
+  const {showing} = pConfig.config;
   const [videoUrl, setVideoUrl] = useState('');
   const [poster, setPoster] = useState('');
   const [title, setTitle] = useState('');
@@ -17,13 +17,13 @@ function VideoBox() {
   const [postTime, setPostTime] = useState('');
 
   useEffect(() => {
-    if (typeof video === 'undefined') {  // 等待news更新
+    if (typeof showing === 'undefined') {  // 等待showing更新
       return;
     }
-    if (!video) {
+    if (!showing) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     }
-  }, [video]);
+  }, [showing]);
 
   useEffect(() => {
     const {poster, title, source, postTime} = router.params;
@@ -73,7 +73,7 @@ function VideoBox() {
 
   return (
     <View className='video h100-per white'>
-      {video && <View className='w100-per'>
+      {showing && <View className='w100-per'>
         <Video
           className='w100-per'
           style={{height: `${windowWidth / 300 * 225}px`}}

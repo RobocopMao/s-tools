@@ -10,7 +10,7 @@ function Girls() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
-  const {girls} = pConfig.config;
+  const {showing} = pConfig.config;
   const {windowHeight} = user.systemInfo;
   const [isLoading, setIsLoading] = useState(false); // 加载提示
   const [col1, setCol1] = useState([]);
@@ -26,15 +26,15 @@ function Girls() {
   }, []);
 
   useAsyncEffect(() => {
-    if (typeof girls === 'undefined') {  // 等待girls更新
+    if (typeof showing === 'undefined') {  // 等待showing更新
       return;
     }
-    if (!girls) {
+    if (!showing) {
       Taro.reLaunch({url: '/pages/home/index/index'});
     } else {
       getImgList();
     }
-  }, [girls]);
+  }, [showing]);
 
   useEffect(() => {
     // 显示转发按钮
@@ -89,7 +89,7 @@ function Girls() {
 
   return (
     <View className='girls'>
-      {girls && <ScrollView
+      {showing && <ScrollView
         className=''
         scrollY
         scrollWithAnimation

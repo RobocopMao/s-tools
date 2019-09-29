@@ -8,8 +8,9 @@ import bannerImg7 from '../pages/home/assets/images/banner7.jpg';
 import bannerImg8 from '../pages/home/assets/images/banner8.jpg';
 import bannerImg9 from '../pages/home/assets/images/banner9.jpg';
 import bannerImg10 from '../pages/home/assets/images/banner10.jpg';
+import bannerImg11 from '../pages/home/assets/images/banner11.jpg';
 
-const banners = [
+const bannersConfig = [
   {img: bannerImg1, color: '#1E154D', colorType: 'dark'},
   {img: bannerImg2, color: '#FFC103', colorType: 'dark'},
   {img: bannerImg3, color: '#504dbe', colorType: 'dark'},
@@ -19,6 +20,7 @@ const banners = [
   {img: bannerImg7, color: '#01479d', colorType: 'dark'},
   {img: bannerImg8, color: '#FFA6B6', colorType: 'dark'},
   {img: bannerImg9, color: '#000000', colorType: 'dark'},
-  {img: bannerImg10, color: '#EFE5E5', colorType: 'light'}];
+  {img: bannerImg10, color: '#EFE5E5', colorType: 'light'},
+  {img: bannerImg11, color: '#AD1D26', colorType: 'dark'}];
 
-export default banners;
+export default bannersConfig;
