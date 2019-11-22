@@ -23,7 +23,7 @@ function SkinSetting() {
   }, []);
 
   useEffect(() => {
-    console.log(showingBanners)
+    // console.log(showingBanners)
     if (typeof showingBanners === 'undefined') {  // 等待showingBanners更新
       return;
     }
@@ -50,7 +50,7 @@ function SkinSetting() {
     if (showingBannersArr.length > bannersConfig.length) { //
       showingBannersArr = showingBannersArr.splice(0, bannersConfig.length);
     }
-    console.log(showingBannersArr);
+    // console.log(showingBannersArr);
     for (let [, item] of showingBannersArr.entries()) {
       banners.push(bannersConfig[Number(item) - 1]);
     }
