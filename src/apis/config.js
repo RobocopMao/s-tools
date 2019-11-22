@@ -3,9 +3,9 @@ const request = new Request();
 
 const HOST = 'https://www.mxnzp.com';
 
-export const app_id = '';
+export const APP_ID = '';
 
-export const app_secret = '';
+export const APP_SECRET = '';
 
 export const S_WEATHER_APPID = '';
 

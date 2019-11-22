@@ -1,7 +1,7 @@
 /**封装的网络请求**/
 // import qs from 'qs';
 import Taro from '@tarojs/taro';
-import HOST, {app_id, app_secret} from './config';
+import HOST, {APP_ID, APP_SECRET} from './config';
 
 class Request {
   get(options) {
@@ -29,7 +29,7 @@ class Request {
     let data = options.data || {};
     let method = options.method || 'GET';
     let dataType = 'json';
-    let header = {app_id, app_secret};
+    let header = {app_id: APP_ID, app_secret: APP_SECRET};
     let loading = typeof options.loading !== 'undefined' ? options.loading : true;
     let needCode = typeof options.needCode !== 'undefined' ? options.needCode : false;
     let from = options.from;
