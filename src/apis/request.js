@@ -1,7 +1,7 @@
 /**封装的网络请求**/
 // import qs from 'qs';
 import Taro from '@tarojs/taro';
-import HOST from './config';
+import HOST, {app_id, app_secret} from './config';
 
 class Request {
   get(options) {
@@ -29,19 +29,15 @@ class Request {
     let data = options.data || {};
     let method = options.method || 'GET';
     let dataType = 'json';
-    let header = {};
+    let header = {app_id, app_secret};
     let loading = typeof options.loading !== 'undefined' ? options.loading : true;
     let needCode = typeof options.needCode !== 'undefined' ? options.needCode : false;
     let from = options.from;
     // let header = {'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'};
     if (method === 'GET') {
-      header = {
-        'content-type': 'application/json;charset=UTF-8', // 默认值
-      }
+      header['content-type'] = 'application/json;charset=UTF-8' // 默认值
     } else if (method === 'POST') {
-      header = {
-        'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      }
+      header['content-type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
     }
     let params = {
       url,
