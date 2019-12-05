@@ -1,7 +1,8 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Text, Button, Input} from '@tarojs/components'
-import {getLogisticsDetails, getLogisticsTypeId} from '../../../../apis/express'
 import moment from 'moment';
+import {getLogisticsDetails, getLogisticsTypeId} from '../../../../apis/express'
+import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
 import './index.scss'
 
 function Express() {
@@ -178,6 +179,10 @@ function Express() {
             </View>
           )
         })}
+        {/*广告位*/}
+        {expressDetails.length && <View className='pd-b-20 pd-t-40'>
+          <ComponentCommonBannerAd />
+        </View>}
         {!expressDetails.length && expressComId && <View className='text-center color9'>暂时没有物流信息</View>}
       </View>
     </View>
