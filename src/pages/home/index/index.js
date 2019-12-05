@@ -4,9 +4,10 @@ import { useSelector } from '@tarojs/redux'
 import shuffle from 'lodash/shuffle'
 import random from 'lodash/random'
 import { S_WEATHER_APPID} from '../../../apis/config'
-import {getNodeRect} from '../../../utils';
+import {getNodeRect} from '../../../utils'
 import bannersConfig from '../../../utils/banners'
 import './index.scss'
+import {useInterstitialAd} from '../../../hooks'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
 const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837',
@@ -28,6 +29,7 @@ function Index() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
+  const interstitialAd = useInterstitialAd();
   const {showing, noticeTime, notice, showingBanners, enableSkinSetting} = pConfig.config;
   const {statusBarHeight, navSafeHeight} = user.systemInfo;
   const [shareNode, setShareNode] = useState({});
@@ -284,6 +286,12 @@ function Index() {
           Taro.setStorageSync('BANNER_NO', bannerNo);
           let tId = setTimeout(() => {  // 需要延迟，不然banner图片画不出来
             drawShareCanvas(bannerNo);
+            // 设置皮肤成功加载插屏广告
+            if (interstitialAd) {
+              interstitialAd.show().catch((err) => {
+                console.error(err);
+              });
+            }
             clearTimeout(tId);
           }, 1000);
         }
