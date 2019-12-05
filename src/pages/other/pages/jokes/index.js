@@ -57,15 +57,15 @@ function Jokes() {
       <View className='mg-l-20 mg-r-20'>
         {jokes.map((joke, index) => {
           return (
-            <View key={String(index)} className={`${joke.content.length > 20 ? 'pd-t-20' : ''}`}>
-              {joke.content.length > 20 && <RichText nodes={joke.content.replace(/\s{2,}/g, '<p></p>')} className='font32 lh-50 black' />}
-              {joke.content.length > 20 && <View className='mg-t-30 font24'>
+            <View key={String(index)} className={`${joke.content.length > 50 ? 'pd-t-20' : ''}`}>
+              {joke.content.length > 50 && <RichText nodes={joke.content.replace(/\s{2,}/g, '<p></p>')} className='font32 lh-50 black' />}
+              {joke.content.length > 50 && <View className='mg-t-30 font24'>
                 {/*<Text className='mg-r-20 blue'>{index + 1}</Text>*/}
                 <Text>于 {moment(joke.updateTime).format('YYYY-MM-DD HH:mm')} 加入</Text>
               </View>}
-              {jokes.length !== index + 1 && joke.content.length > 20 && <View className='line mg-t-40 mg-b-20' />}
+              {jokes.length !== index + 1 && joke.content.length > 50 && <View className='line mg-t-40 mg-b-20' />}
               {/*广告位*/}
-              {index === 9 && <View className='mg-b-20'>
+              {(index === 9 || (index && index % 50 === 0)) && <View className='mg-b-20'>
                 <ComponentCommonBannerAd />
                 <View className='line mg-t-20' />
               </View>}
