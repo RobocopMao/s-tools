@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from '@tarojs/redux'
 import { aiAccessToken, aiOcrGeneralBasic, aiOcrAccurateBasic } from '../../../../apis/baidu_ai'
 import {useAsyncEffect} from '../../../../utils'
 import {setBdAiToken} from '../../../../redux/user/action'
+import {useInterstitialAd} from '../../../../hooks';
 import './index.scss'
 
 function CharRecognition() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
+  const interstitialAd = useInterstitialAd();
   const {bdAiAK, bdAiSK} = pConfig.config;
   const {access_token} = user.bdAiToken;
   const {windowHeight} = user.systemInfo;
@@ -83,6 +85,12 @@ function CharRecognition() {
         const {words_result} = res1;
         setWordsResult(words_result);
         setScrollTop(prev => prev === 0 ? 0.1 : 0);
+        // 识别成功加载插屏广告
+        if (interstitialAd) {
+          interstitialAd.show().catch((err) => {
+            console.error(err);
+          });
+        }
       },
       fail(res) {
         Taro.showToast({title: res.errMsg, icon: 'none'});
