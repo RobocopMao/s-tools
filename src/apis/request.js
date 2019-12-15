@@ -52,6 +52,10 @@ class Request {
     }
 
     return new Promise((resolve, reject) => {
+      if (process.env.NODE_ENV !== 'production')  {
+        Taro.addInterceptor(Taro.interceptors.logInterceptor);
+        Taro.addInterceptor(Taro.interceptors.timeoutInterceptor);
+      }
       Taro.request(params)
         .then(res => {
           Taro.hideLoading();
