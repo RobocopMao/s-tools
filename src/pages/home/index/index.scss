@@ -1,6 +1,50 @@
 @import "../../../assets/styles/variable";
 .index {
   background-color: #1E154D;
+  @keyframes shakeTopx {
+    0%,
+    100% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      -webkit-transform-origin: 50% 0;
+      transform-origin: 50% 0;
+    }
+    5% {
+      -webkit-transform: rotate(1deg);
+      transform: rotate(1deg);
+    }
+    10%,
+    20%,
+    30% {
+      -webkit-transform: rotate(-2deg);
+      transform: rotate(-2deg);
+    }
+    15%,
+    25%,
+    35% {
+      -webkit-transform: rotate(2deg);
+      transform: rotate(2deg);
+    }
+    40% {
+      -webkit-transform: rotate(-1deg);
+      transform: rotate(-1deg);
+    }
+    45% {
+      -webkit-transform: rotate(1deg);
+      transform: rotate(1deg);
+    }
+    50% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  }
+  .shake {
+    animation: shakeTopx 2s ease-in-out infinite;
+    .iconfont {
+      transform: scale(1.1);
+      transition: all 0.5s;
+    }
+  }
   .share-img-canvas {
     position: absolute;
     left: 99999px;
@@ -55,6 +99,14 @@
         font-weight: bold;
         font-size: 34px;
       }
+    }
+  }
+  .version {
+    &.text-dark {
+      color: $black;
+    }
+    &.text-light {
+      color: $white;
     }
   }
   .fixed-btn {
