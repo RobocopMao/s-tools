@@ -1,0 +1,154 @@
+[{
+  "pageName": "jokes",
+  "upperTxt": "开",
+  "lowerTxt": "心一刻",
+  "introTxt": "笑话段子",
+  "iconClass": "font48 iconic_sentiment_very_satisfied_px",
+  "url": "/pages/other/pages/jokes/index",
+  "extraTabId": 3,
+  "useShowing": false
+}, {
+  "pageName": "char_recognition",
+  "upperTxt": "通",
+  "lowerTxt": "用文字识别",
+  "introTxt": "识别图片里的文字信息",
+  "iconClass": "font40 iconic_translate_px",
+  "url": "/pages/tools/pages/char_recognition/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "obj_recognition",
+  "upperTxt": "图",
+  "lowerTxt": "片识物",
+  "introTxt": "识别图片里的物体信息",
+  "iconClass": "font46 iconic_image_search_px",
+  "url": "/pages/tools/pages/obj_recognition/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "id_photo",
+  "upperTxt": "证",
+  "lowerTxt": "件照换背景",
+  "introTxt": "快速修改证件照背景色",
+  "iconClass": "font46 iconic_transform_px",
+  "url": "/pages/tools/pages/id_photo/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "trash_sort",
+  "upperTxt": "垃",
+  "lowerTxt": "圾分类",
+  "introTxt": "垃圾分类查询",
+  "iconClass": "font50 iconic_sync_px",
+  "url": "/pages/search/pages/trash_sort/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
+  "pageName": "express_note",
+  "upperTxt": "快",
+  "lowerTxt": "递查询",
+  "introTxt": "快递查询/记录",
+  "iconClass": "font50 iconic_local_shipping_px",
+  "url": "/pages/search/pages/express_note/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
+  "pageName": "translate",
+  "upperTxt": "小",
+  "lowerTxt": "翻译",
+  "introTxt": "支持多种语言翻译",
+  "iconClass": "font50 iconic_g_translate_px",
+  "url": "/pages/tools/pages/translate/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "phone_location",
+  "upperTxt": "手",
+  "lowerTxt": "机号归属地",
+  "introTxt": "查询手机归属地",
+  "iconClass": "font46 iconic_room_px",
+  "url": "/pages/search/pages/phone_location/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
+  "pageName": "phone_code",
+  "upperTxt": "世",
+  "lowerTxt": "界电话区号",
+  "introTxt": "世界各地电话区号",
+  "iconClass": "font46 iconic_language_px",
+  "url": "/pages/search/pages/phone_code/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
+  "pageName": "calendar",
+  "upperTxt": "小",
+  "lowerTxt": "日历",
+  "introTxt": "日期/节日/宜忌/历史",
+  "iconClass": "font46 iconic_date_range_px",
+  "url": "/pages/tools/pages/calendar/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "calculator",
+  "upperTxt": "简",
+  "lowerTxt": "易计算器",
+  "introTxt": "计算器",
+  "iconClass": "font46 iconic_exposure_px",
+  "url": "/pages/tools/pages/calculator/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "bmi",
+  "upperTxt": "BMI",
+  "lowerTxt": "指数",
+  "introTxt": "体质指数计算",
+  "iconClass": "font46 iconBMI",
+  "url": "/pages/tools/pages/bmi/index",
+  "extraTabId": 1,
+  "useShowing": false
+}, {
+  "pageName": "chat",
+  "upperTxt": "闲",
+  "lowerTxt": "聊机器人",
+  "introTxt": "来自腾讯AI开放平台",
+  "iconClass": "font46 iconic_face_outline_px",
+  "url": "/pages/other/pages/chat/index",
+  "extraTabId": 3,
+  "useShowing": false
+}, {
+  "pageName": "phone_info",
+  "upperTxt": "手",
+  "lowerTxt": "机信息助手",
+  "introTxt": "手机系统的基本信息",
+  "iconClass": "font46 iconic_smartphone_px",
+  "url": "/pages/other/pages/phone_info/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
+  "pageName": "ip_search",
+  "upperTxt": "IP",
+  "lowerTxt": "查询",
+  "introTxt": "查询IP地址",
+  "iconClass": "font44 iconsrcip",
+  "url": "/pages/search/pages/ip_search/index",
+  "extraTabId": 2,
+  "useShowing": true
+}, {
+  "pageName": "news",
+  "upperTxt": "新",
+  "lowerTxt": "闻Lite",
+  "introTxt": "新闻/视频",
+  "iconClass": "font46 iconic_description_px",
+  "url": "/pages/other/pages/news/index",
+  "extraTabId": 3,
+  "useShowing": true
+}, {
+  "pageName": "girls",
+  "upperTxt": "养",
+  "lowerTxt": "眼福利图",
+  "introTxt": "美女图",
+  "iconClass": "font46 iconic_image_px",
+  "url": "/pages/other/pages/girls/index",
+  "extraTabId": 3,
+  "useShowing": true
+}]

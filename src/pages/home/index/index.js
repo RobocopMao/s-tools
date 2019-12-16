@@ -8,6 +8,7 @@ import {getNodeRect} from '../../../utils'
 import bannersConfig from '../../../utils/banners'
 import {useInterstitialAd} from '../../../hooks'
 import {ComponentCommonVideoAd} from '../../../components/common/video_ad'
+import cardsConfig from '../assets/json/cards_config.json'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
@@ -490,194 +491,23 @@ function Index() {
             <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
           </View>
         </View>}
-        {(selectedTabId === 0 || selectedTabId === 3) && <View className={`flex-50per bd-box ${shakingCard === 'jokes' ? 'shake' : ''}`} onTouchStart={() => shakingCards('jokes')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.jokes}} url={`/pages/other/pages/jokes/index?color=${colors.jokes}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>开</Text>心一刻</View>
-              <View className='iconfont w64 h64 lh-64 text-center font48'>&#xe6c5;</View>
+        {cardsConfig.map((card, index) => {
+          const {pageName, upperTxt, lowerTxt, introTxt, icon, iconClass, url, extraTabId, useShowing} = card;
+          return (
+            (useShowing ? showing : true) && (selectedTabId === 0 || selectedTabId === extraTabId) && <View key={pageName} className={`flex-50per bd-box ${shakingCard === pageName ? 'shake' : ''}`} onTouchStart={() => shakingCards(pageName)} onTouchEnd={() => shakingCards()}>
+              <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors[pageName]}} url={`${url}?color=${colors[pageName]}`}>
+                <View className='flex-row space-between'>
+                  <View className='lh-64'><Text className='font40'>{upperTxt}</Text>{lowerTxt}</View>
+                  <View className={`iconfont w64 h64 lh-64 text-center font46 ${iconClass}`} />
+                </View>
+                <View className='font24'>{introTxt}</View>
+                <View className='btm-shadow' style={{backgroundColor: colors[pageName]}} />
+                <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
+              </Navigator>
             </View>
-            <View className='font24'>笑话段子</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.jokes}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'char_recognition' ? 'shake' : ''}`} onTouchStart={() => shakingCards('char_recognition')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.char_recognition}} url={`/pages/tools/pages/char_recognition/index?color=${colors.char_recognition}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>通</Text>用文字识别</View>
-              <View className='iconfont w64 h64 lh-64 text-center font40'>&#xe6cb;</View>
-            </View>
-            <View className='font24'>识别图片里的文字信息</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.char_recognition}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'obj_recognition' ? 'shake' : ''}`} onTouchStart={() => shakingCards('obj_recognition')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.obj_recognition}} url={`/pages/tools/pages/obj_recognition/index?color=${colors.obj_recognition}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>图</Text>片识物</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe709;</View>
-            </View>
-            <View className='font24'>识别图片里的物体信息</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.obj_recognition}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'id_photo' ? 'shake' : ''}`} onTouchStart={() => shakingCards('id_photo')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.id_photo}} url={`/pages/tools/pages/id_photo/index?color=${colors.id_photo}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>证</Text>件照换背景</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe704;</View>
-            </View>
-            <View className='font24'>快速修改证件照背景色</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.id_photo}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 2) && <View className={`flex-50per bd-box ${shakingCard === 'trash_sort' ? 'shake' : ''}`} onTouchStart={() => shakingCards('trash_sort')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.trash_sort}} url={`/pages/search/pages/trash_sort/index?color=${colors.trash_sort}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>垃</Text>圾分类</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6c4;</View>
-            </View>
-            <View className='font24'>垃圾分类查询</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.trash_sort}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 2) && <View className={`flex-50per bd-box ${shakingCard === 'express_note' ? 'shake' : ''}`} onTouchStart={() => shakingCards('express_note')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.express_note}} url={`/pages/search/pages/express_note/index?color=${colors.express_note}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>快</Text>递查询</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6b5;</View>
-            </View>
-            <View className='font24'>快递查询/记录</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.express_note}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'translate' ? 'shake' : ''}`} onTouchStart={() => shakingCards('translate')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.translate}} url={`/pages/tools/pages/translate/index?color=${colors.translate}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>小</Text>翻译</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe661;</View>
-            </View>
-            <View className='font24'>支持多种语言翻译</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.translate}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 2) && <View className={`flex-50per bd-box ${shakingCard === 'phone_location' ? 'shake' : ''}`} onTouchStart={() => shakingCards('phone_location')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_location}} url={`/pages/search/pages/phone_location/index?color=${colors.phone_location}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>手</Text>机号归属地</View>
-              <View className='iconfont w64 h64 lh-64 text-center font50'>&#xe6b8;</View>
-            </View>
-            <View className='font24'>查询手机归属地</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.phone_location}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 2) && <View className={`flex-50per bd-box ${shakingCard === 'phone_code' ? 'shake' : ''}`} onTouchStart={() => shakingCards('phone_code')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_code}} url={`/pages/search/pages/phone_code/index?color=${colors.phone_code}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>世</Text>界电话区号</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe668;</View>
-            </View>
-            <View className='font24'>世界各地电话区号</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.phone_code}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'calendar' ? 'shake' : ''}`} onTouchStart={() => shakingCards('calendar')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.calendar}} url={`/pages/tools/pages/calendar/index?color=${colors.calendar}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>小</Text>日历</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe62e;</View>
-            </View>
-            <View className='font24'>日期/节日/宜忌/历史</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.calendar}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'calculator' ? 'shake' : ''}`} onTouchStart={() => shakingCards('calculator')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.calculator}} url={`/pages/tools/pages/calculator/index?color=${colors.calculator}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>简</Text>易计算器</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b2;</View>
-            </View>
-            <View className='font24'>计算器</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.calculator}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 1) && <View className={`flex-50per bd-box ${shakingCard === 'bmi' ? 'shake' : ''}`} onTouchStart={() => shakingCards('bmi')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.bmi}} url={`/pages/tools/pages/bmi/index?color=${colors.bmi}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>BMI</Text>指数</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe648;</View>
-            </View>
-            <View className='font24'>体质指数计算</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.bmi}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 3) && <View className={`flex-50per bd-box ${shakingCard === 'chat' ? 'shake' : ''}`} onTouchStart={() => shakingCards('chat')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.chat}} url={`/pages/other/pages/chat/index?color=${colors.chat}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>闲</Text>聊机器人</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6df;</View>
-            </View>
-            <View className='font24'>来自腾讯AI开放平台</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.chat}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {(selectedTabId === 0 || selectedTabId === 2) && <View className={`flex-50per bd-box ${shakingCard === 'phone_info' ? 'shake' : ''}`} onTouchStart={() => shakingCards('phone_info')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.phone_info}} url={`/pages/other/pages/phone_info/index?color=${colors.phone_info}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>手</Text>机信息助手</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe693;</View>
-            </View>
-            <View className='font24'>手机系统的基本信息</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.phone_info}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {showing && (selectedTabId === 0 || selectedTabId === 2) && <View className={`flex-50per bd-box ${shakingCard === 'ip_search' ? 'shake' : ''}`} onTouchStart={() => shakingCards('ip_search')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.ip_search}} url={`/pages/search/pages/ip_search/index?color=${colors.ip_search}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>IP</Text>查询</View>
-              <View className='iconfont w64 h64 lh-64 text-center font44'>&#xe609;</View>
-            </View>
-            <View className='font24'>查询IP地址</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.ip_search}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {showing && (selectedTabId === 0 || selectedTabId === 3) && <View className={`flex-50per bd-box ${shakingCard === 'news' ? 'shake' : ''}`} onTouchStart={() => shakingCards('news')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.news}} url={`/pages/other/pages/news/index?color=${colors.news}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>新</Text>闻Lite</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b6;</View>
-            </View>
-            <View className='font24'>新闻/视频</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.news}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {showing && (selectedTabId === 0 || selectedTabId === 3) && <View className={`flex-50per bd-box ${shakingCard === 'girls' ? 'shake' : ''}`} onTouchStart={() => shakingCards('girls')} onTouchEnd={() => shakingCards()}>
-          <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors.girls}} url={`/pages/other/pages/girls/index?color=${colors.girls}`}>
-            <View className='flex-row space-between'>
-              <View className='lh-64'><Text className='font40'>养</Text>眼福利图</View>
-              <View className='iconfont w64 h64 lh-64 text-center font46'>&#xe6b4;</View>
-            </View>
-            <View className='font24'>美女图</View>
-            <View className='btm-shadow' style={{backgroundColor: colors.girls}} />
-            <Image className='item-line-img h100-per w100-per' src={itemImgPath} />
-          </Navigator>
-        </View>}
-        {selectedTabId === 0 && <View className={`flex-100per version text-center pd-t-24 lh-40 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}>版本号：{version}</View>}
+          )
+        })}
+        {selectedTabId === 0 && version && <View className={`flex-100per version text-center pd-t-24 lh-40 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}>版本号：{version || '2.4.6'}</View>}
       </View>
       <View className='flex-row flex-col-center h80 bg-black fixed-btn' animation={animationData}>
         <Button className='iconfont flex-row flex-col-center flex-row-center w80 h80 text-center font40 white pd-0 bg-black' onClick={() => animateFixedBtn()}>
