@@ -67,6 +67,8 @@ class Request {
               judgeBaiduAIErrCode(data, resolve);
             } else if (from === 'BAIDU_FANYI') { // 来自百度翻译，数据返回和基本错误码提示
               judgeBaiduFanyiErrCode(data, resolve);
+            } else if (from === 'SHOW_API') { // 来自易源API
+              judgeShowApiErrCode(data, resolve);
             } else {  // RollToolsApi的数据返回和错误提示
               if (data.code === 1) {
                 resolve(data.data);
@@ -77,7 +79,7 @@ class Request {
           }
         })
         .catch(err => {
-          // console.log(err);
+          console.log(err);
           Taro.hideLoading();
           const {errMsg} = err;
           if (/timeout/.test(errMsg)) {
@@ -196,6 +198,78 @@ const judgeBaiduFanyiErrCode = (data, resolve) => {
       break;
     default:
       resolve(data);
+  }
+};
+
+// 判断易源api错误码
+const judgeShowApiErrCode = (data, resolve) => {
+  const {showapi_res_code} = data;
+  switch (showapi_res_code) {
+    case -1:
+      Taro.showToast({title: '系统调用错误', icon: 'none', duration: 2000});
+      break;
+    case -2:
+      Taro.showToast({title: '可调用次数或金额为0', icon: 'none', duration: 2000});
+      break;
+    case -3:
+      Taro.showToast({title: '读取超时', icon: 'none', duration: 2000});
+      break;
+    case -4:
+      Taro.showToast({title: '服务端返回数据解析错误', icon: 'none', duration: 2000});
+      break;
+    case -5:
+      Taro.showToast({title: '后端服务器DNS解析错误', icon: 'none', duration: 2000});
+      break;
+    case -6:
+      Taro.showToast({title: '服务不存在或未上线', icon: 'none', duration: 2000});
+      break;
+    case -7:
+      Taro.showToast({title: 'API创建者的网关资源不足', icon: 'none', duration: 2000});
+      break;
+    case -1000:
+      Taro.showToast({title: '系统维护', icon: 'none', duration: 2000});
+      break;
+    case -1002:
+      Taro.showToast({title: 'showapi_appid字段必传', icon: 'none', duration: 2000});
+      break;
+    case -1003:
+      Taro.showToast({title: 'showapi_sign字段必传', icon: 'none', duration: 2000});
+      break;
+    case -1004:
+      Taro.showToast({title: '签名sign验证有误', icon: 'none', duration: 2000});
+      break;
+    case -1005:
+      Taro.showToast({title: 'showapi_timestamp无效', icon: 'none', duration: 2000});
+      break;
+    case -1006:
+      Taro.showToast({title: 'app无权限调用接口 ', icon: 'none', duration: 2000});
+      break;
+    case -1007:
+      Taro.showToast({title: '没有订购套餐', icon: 'none', duration: 2000});
+      break;
+    case -1008:
+      Taro.showToast({title: '服务商关闭对您的调用权限', icon: 'none', duration: 2000});
+      break;
+    case -1009:
+      Taro.showToast({title: '调用频率受限', icon: 'none', duration: 2000});
+      break;
+    case -1010:
+      Taro.showToast({title: '找不到您的应用', icon: 'none', duration: 2000});
+      break;
+    case -1011:
+      Taro.showToast({title: '子授权app_child_id无效', icon: 'none', duration: 2000});
+      break;
+    case -1012:
+      Taro.showToast({title: '子授权已过期或失效', icon: 'none', duration: 2000});
+      break;
+    case -1013:
+      Taro.showToast({title: '子授权ip受限', icon: 'none', duration: 2000});
+      break;
+    case -1014:
+      Taro.showToast({title: 'token权限无效', icon: 'none', duration: 2000});
+      break;
+    default:
+      resolve(data.showapi_res_body);
   }
 };
 

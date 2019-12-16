@@ -50,7 +50,8 @@ class App extends Component {
           'pages/ip_search/index',
           'pages/trash_sort/index',
           'pages/express/index',
-          'pages/express_note/index'
+          'pages/express_note/index',
+          'pages/idiom/index'
         ],
       },
       {

@@ -107,6 +107,15 @@
   "extraTabId": 1,
   "useShowing": false
 }, {
+  "pageName": "idiom",
+  "upperTxt": "成",
+  "lowerTxt": "语释义",
+  "introTxt": "成语语义解释",
+  "iconClass": "font44 iconchengyu",
+  "url": "/pages/search/pages/idiom/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
   "pageName": "chat",
   "upperTxt": "闲",
   "lowerTxt": "聊机器人",

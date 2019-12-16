@@ -1,7 +1,7 @@
 import Taro, {useEffect, useRouter, useState} from '@tarojs/taro'
 import {View, Swiper, SwiperItem} from '@tarojs/components'
 import { useSelector } from '@tarojs/redux'
-import bannersConfig from '../../../utils/banners'
+import bannersConfig from '../assets/js/banners'
 import {getNodeRect} from '../../../utils';
 import './index.scss'
 
