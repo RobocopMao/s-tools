@@ -65,10 +65,10 @@ function Idiom() {
         <View className='line' />
         <Text className='mg-t-20 font36 black'>词义解释</Text>
         <Text className='mg-t-10'>{idiomInfo.content}</Text>
-        <Text className='mg-t-30 font36 black'>出自典故</Text>
-        <Text className='mg-t-10'>{idiomInfo.derivation}</Text>
-        <Text className='mg-t-30 font36 black'>示例用法</Text>
-        <Text className='mg-t-10'>{idiomInfo.samples}</Text>
+        {idiomInfo.derivation && <Text className='mg-t-30 font36 black'>出自典故</Text>}
+        {idiomInfo.derivation && <Text className='mg-t-10'>{idiomInfo.derivation}</Text>}
+        {idiomInfo.samples && <Text className='mg-t-30 font36 black'>示例用法</Text>}
+        {idiomInfo.samples && <Text className='mg-t-10'>{idiomInfo.samples}</Text>}
         {/*广告位*/}
         <View className='mg-t-40'>
           <ComponentCommonBannerAd />
