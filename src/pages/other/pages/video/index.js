@@ -87,7 +87,7 @@ function VideoBox() {
         />
         <View className='font24 mg-20'>
           <Text className='mg-r-20'>{source}</Text>
-          <Text>{moment(postTime).format('YYYY-MM-DD HH:mm')}</Text>
+          <Text>{moment(Number(postTime) ? Number(postTime) : postTime).format('YYYY-MM-DD HH:mm')}</Text>
         </View>
         <View className='font36 mg-l-20 mg-r-20'>{title}</View>
       </View>}
@@ -101,8 +101,8 @@ function VideoBox() {
 
 VideoBox.config = {
   navigationBarTitleText: '视频详情',
-  backgroundColor: '#000',
-  navigationBarBackgroundColor: '000',
+  backgroundColor: '#000000',
+  navigationBarBackgroundColor: '#000000',
   navigationBarTextStyle: 'white'
 };
 

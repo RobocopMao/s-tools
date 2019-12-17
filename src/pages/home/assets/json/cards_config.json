@@ -134,6 +134,15 @@
   "extraTabId": 2,
   "useShowing": false
 }, {
+  "pageName": "quotations",
+  "upperTxt": "英",
+  "lowerTxt": "语励志语录",
+  "introTxt": "英语励志名言警句",
+  "iconClass": "font46 iconic_bookmark_border_px",
+  "url": "/pages/other/pages/quotations/index",
+  "extraTabId": 3,
+  "useShowing": false
+}, {
   "pageName": "ip_search",
   "upperTxt": "IP",
   "lowerTxt": "查询",

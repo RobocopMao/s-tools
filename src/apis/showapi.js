@@ -14,4 +14,13 @@ export const getIdiom = async (data) => {
   });
 };
 
-//
+// 随机返回1-10条英文语录
+export const getQuotations = async (data) => {
+  return await request.post({
+    host: HOST,
+    url: '/1211-1',
+    data,
+    from: FROM,
+    loading: false,
+  });
+};

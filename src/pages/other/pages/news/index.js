@@ -191,7 +191,7 @@ function News() {
               </View>
               <View className='flex-row font24 pd-b-20'>
                 <Text className='mg-r-20'>{source}</Text>
-                {postTime && <Text>{moment(postTime).format('YYYY-MM-DD HH:mm')}</Text>}
+                {postTime && <Text>{moment(Number(postTime) ? Number(postTime) : postTime).format('YYYY-MM-DD HH:mm')}</Text>}
               </View>
               <View className='line' />
             </View>

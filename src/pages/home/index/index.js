@@ -7,13 +7,13 @@ import { S_WEATHER_APPID} from '../../../apis/config'
 import {getNodeRect} from '../../../utils'
 import bannersConfig from '../assets/js/banners'
 import {useInterstitialAd} from '../../../hooks'
-import {ComponentCommonVideoAd} from '../../../components/common/video_ad'
+// import {ComponentCommonVideoAd} from '../../../components/common/video_ad'
 import cardsConfig from '../assets/json/cards_config.json'
 import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
 const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837',
-  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#7C4DFF', '#6200EA', '#4E342E', '#607D8B', '#00E5FF'];
+  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#7C4DFF', '#6200EA', '#4E342E', '#607D8B', '#00E5FF', '#616161'];
 const shuffleColors = shuffle(colorsArr);
 
 // bannerNo
@@ -68,8 +68,9 @@ function Index() {
     chat: shuffleColors[16],
     phone_info: shuffleColors[17],
     idiom: shuffleColors[18],
-    about: '#000',
-    colorRandom: shuffleColors[random(0, 13)]
+    quotations: shuffleColors[19],
+    about: '#000000',
+    colorRandom: shuffleColors[random(0, 19)]
   };
 
   // 根据配置更新banners

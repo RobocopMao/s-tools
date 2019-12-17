@@ -81,7 +81,8 @@ class App extends Component {
           'pages/history_today_details/index',
           'pages/notice/index',
           'pages/chat/index',
-          'pages/phone_info/index'
+          'pages/phone_info/index',
+          'pages/quotations/index'
         ],
       }
     ],
