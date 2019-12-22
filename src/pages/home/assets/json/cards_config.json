@@ -143,11 +143,29 @@
   "extraTabId": 3,
   "useShowing": false
 }, {
+  "pageName": "rare_words",
+  "upperTxt": "生",
+  "lowerTxt": "僻字",
+  "introTxt": "通过拆字查询生僻字",
+  "iconClass": "font46 icontongyongwenzishibie-shengpizi",
+  "url": "/pages/search/pages/rare_words/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
+  "pageName": "bing_wallpaper",
+  "upperTxt": "B",
+  "lowerTxt": "ing每日壁纸",
+  "introTxt": "必应搜索首页每日壁纸",
+  "iconClass": "font48 iconbing",
+  "url": "/pages/other/pages/bing_wallpaper/index",
+  "extraTabId": 3,
+  "useShowing": false
+}, {
   "pageName": "ip_search",
   "upperTxt": "IP",
   "lowerTxt": "查询",
   "introTxt": "查询IP地址",
-  "iconClass": "font44 iconsrcip",
+  "iconClass": "font42 iconsrcip",
   "url": "/pages/search/pages/ip_search/index",
   "extraTabId": 2,
   "useShowing": true

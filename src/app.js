@@ -51,7 +51,8 @@ class App extends Component {
           'pages/trash_sort/index',
           'pages/express/index',
           'pages/express_note/index',
-          'pages/idiom/index'
+          'pages/idiom/index',
+          'pages/rare_words/index'
         ],
       },
       {
@@ -82,7 +83,8 @@ class App extends Component {
           'pages/notice/index',
           'pages/chat/index',
           'pages/phone_info/index',
-          'pages/quotations/index'
+          'pages/quotations/index',
+          'pages/bing_wallpaper/index'
         ],
       }
     ],

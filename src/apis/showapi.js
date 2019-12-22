@@ -24,3 +24,23 @@ export const getQuotations = async (data) => {
     loading: false,
   });
 };
+
+// 生僻字查询
+export const getRareWords = async (data) => {
+  return await request.post({
+    host: HOST,
+    url: '/905-1',
+    data,
+    from: FROM
+  });
+};
+
+// 提供微软必应(Bing)搜索首页每日的壁纸大图及相关介绍
+export const getBingWallpaper = async (data) => {
+  return await request.post({
+    host: HOST,
+    url: '/1287-1',
+    data,
+    from: FROM
+  });
+};
