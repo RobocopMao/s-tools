@@ -502,7 +502,7 @@ function Index() {
               <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors[pageName]}} url={`${url}?color=${colors[pageName]}`}>
                 <View className='flex-row space-between'>
                   <View className='lh-64'><Text className='font40'>{upperTxt}</Text>{lowerTxt}</View>
-                  <View className={`iconfont w64 h64 lh-64 text-center font46 ${iconClass}`} />
+                  <View className={`iconfont w64 h64 lh-64 text-center ${iconClass}`} />
                 </View>
                 <View className='font24'>{introTxt}</View>
                 <View className='btm-shadow' style={{backgroundColor: colors[pageName]}} />
