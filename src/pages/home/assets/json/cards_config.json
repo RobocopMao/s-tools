@@ -147,7 +147,7 @@
   "upperTxt": "生",
   "lowerTxt": "僻字",
   "introTxt": "通过拆字查询生僻字",
-  "iconClass": "font46 icontongyongwenzishibie-shengpizi",
+  "iconClass": "font44 icontongyongwenzishibie-shengpizi",
   "url": "/pages/search/pages/rare_words/index",
   "extraTabId": 2,
   "useShowing": false
