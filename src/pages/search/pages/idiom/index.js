@@ -34,7 +34,7 @@ function Idiom() {
     }
     const res = await getIdiom({keyword, showapi_appid: showApiAppID, showapi_sign: showApiSecret});
     const {ret_code, data, ret_message} = res;
-    if (ret_code === 0) {
+    if (Number(ret_code) === 0) {
       setIdiomInfo(data);
     } else {
       Taro.showToast({title: ret_message, icon: 'none', duration: 2000});

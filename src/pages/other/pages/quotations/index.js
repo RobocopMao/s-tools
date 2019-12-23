@@ -34,7 +34,7 @@ function Quotations() {
   const fetchQuotations = async () => {
     const res = await getQuotations({count, showapi_appid: showApiAppID, showapi_sign: showApiSecret});
     const {ret_code, data, ret_message} = res;
-    if (ret_code === 0) {
+    if (Number(ret_code) === 0) {
       let newQuotations = quotations.concat(data);
       setQuotations(newQuotations);
     } else {
