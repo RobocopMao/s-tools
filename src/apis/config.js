@@ -1,13 +1,13 @@
 import Request from './request';
 const request = new Request();
 
-const HOST = 'https://www.mxnzp.com';
+const HOST = '';
 
-export const APP_ID = 'nfkjv6hpvkliuuso';
+export const APP_ID = '';
 
-export const APP_SECRET = 'Qy9MdWxhZGJMZGFzV0laWTVHZTV3UT09';
+export const APP_SECRET = '';
 
-export const S_WEATHER_APPID = 'wx892bebdc63488ab2';
+export const S_WEATHER_APPID = '';
 
 // 查询远程配置
 export const getRemoteConfig = async (data) => {
