@@ -16,7 +16,7 @@ function Calendar() {
   const [month, setMonth] = useState(Number(moment().format('M'))); // 选中日期月份
   const [year, setYear] = useState(Number(moment().format('YYYY')));  // 选中日期的年份
   const [date, setDate] = useState(moment().format('YYYYMMDD'));  // 请求日期格式
-  const [dateInfo, setDateInfo] = useState({}); // 请求回来的数据
+  const [dateInfo, setDateInfo] = useState(null); // 请求回来的数据
   const [calendarData, setCalendarData] = useState([]);
   const [scrollTop, setScrollTop] = useState(0);
   const [historyToday, setHistoryToday] = useState([]);
@@ -31,8 +31,13 @@ function Calendar() {
 
   useAsyncEffect(async () => {
     // const date = moment().format('YYYYMMDD');
-    const res = await getHolidaySingle({date});
-    setDateInfo(res);
+    const {code, data} = await getHolidaySingle({date});
+    if (code) {
+      setDateInfo(data);
+    } else {
+      setDateInfo(null);
+    }
+
   }, [date]);
 
   // 历史上的今天
@@ -152,8 +157,8 @@ function Calendar() {
     // console.log(e);
     const {scrollTop, deltaY, scrollHeight} = e.detail;
     let _scrollTop = 0;
-    let date = `${year}-${month < 10 ? '0' + String(month) : String(month)}-${day < 10 ? '0' + String(day) : String(day)}`;
     if (deltaY >= 0) { // 往下滑
+      let date = month === 12 ? `${year + 1}-${String(1).padStart(2, '0')}-${String(day).padStart(2, '0')}` : `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       _scrollTop = Math.floor(scrollTop / 240) * 240;
       if (scrollTop % 240 === 0) {
         let _date = moment(date).subtract(1, 'month').format('YYYY-MM-DD');
@@ -164,11 +169,12 @@ function Calendar() {
         setMonth(_month);
         setYear(_year);
 
-        let __date = `${_year}-${_month < 10 ? '0' + String(_month) : String(_month)}-${_day < 10 ? '0' + String(_day) : String(_day)}`;
+        let __date = `${_year}-${String(_month).padStart(2, '0')}-${String(_day).padStart(2, '0')}`;
         setDate(moment(__date).format('YYYYMMDD'));
         setWeek(moment(__date).format('dddd'));
       }
     } else { // 往上滑
+      let date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       _scrollTop = Math.ceil(scrollTop / 240) * 240;
       if (scrollTop % 240 === 0) {
         let _date = moment(date).add(1, 'month').format('YYYY-MM-DD');
@@ -179,7 +185,7 @@ function Calendar() {
         setMonth(_month);
         setYear(_year);
 
-        let __date = `${_year}-${_month < 10 ? '0' + String(_month) : String(_month)}-${_day < 10 ? '0' + String(_day) : String(_day)}`;
+        let __date = `${_year}-${String(_month).padStart(2, '0')}-${String(_day).padStart(2, '0')}`;
         setDate(moment(__date).format('YYYYMMDD'));
         setWeek(moment(__date).format('dddd'));
       }
@@ -197,7 +203,7 @@ function Calendar() {
       setMonth(_month);
     } else {
       setScrollTop(0);
-      setMonth(_month + 1);
+      setMonth(_month);
     }
     setDay(_day);
     setYear(_year);
@@ -227,7 +233,7 @@ function Calendar() {
             <View className='flex-row flex-col-center'>
               <View className='font80 mg-r-20' style={{color}}>{month}月</View>
               <View className='flex-column'>
-                <Text>{week}{year <= Number(moment().format('YYYY')) && <Text><Text> · </Text><Text style={{color}}>{dateInfo.typeDes}</Text></Text>}</Text>
+                <Text>{week}{dateInfo && dateInfo.typeDes && <Text><Text> · </Text><Text style={{color}}>{dateInfo.typeDes}</Text></Text>}</Text>
                 <Text>{year}年</Text>
               </View>
             </View>
@@ -235,7 +241,7 @@ function Calendar() {
               <Text className='lh-80'>今</Text>
             </View>}
           </View>
-          {year <= Number(moment().format('YYYY')) && <View>这是今年第 <Text className='black'>{dateInfo.dayOfYear}</Text> 天，第 <Text className='black'>{dateInfo.weekOfYear}</Text> 周</View>}
+          {dateInfo && dateInfo.dayOfYear && dateInfo.weekOfYear && <View>这是今年第 <Text className='black'>{dateInfo.dayOfYear}</Text> 天，第 <Text className='black'>{dateInfo.weekOfYear}</Text> 周</View>}
         </View>
         {/*<View className='line' />*/}
         <View className='bd-radius radius-box mg-b-30'>
@@ -280,17 +286,17 @@ function Calendar() {
         </View>
         {/*<View className='line' />*/}
 
-        {year <= Number(moment().format('YYYY')) && <View>
+        {dateInfo && <View>
           <View className='bd-radius radius-box mg-b-30'>
-            <View className='black font32'>农历{dateInfo.yearTips}{dateInfo.chineseZodiac}年 {dateInfo.lunarCalendar} {dateInfo.solarTerms}</View>
-            <View className='mg-t-10 mg-b-10'>
+            {dateInfo.yearTips && dateInfo.chineseZodiac && dateInfo.lunarCalendar && dateInfo.solarTerms && <View className='black font32'>农历{dateInfo.yearTips}{dateInfo.chineseZodiac}年 {dateInfo.lunarCalendar} {dateInfo.solarTerms}</View>}
+            {dateInfo.suit && <View className='mg-t-10 mg-b-10'>
               <Text className='green'>宜：</Text>
               <Text>{dateInfo.suit}</Text>
-            </View>
-            <View>
+            </View>}
+            {dateInfo.avoid && <View>
               <Text className='orange'>忌：</Text>
               <Text>{dateInfo.avoid}</Text>
-            </View>
+            </View>}
           </View>
           {/*<View className='line' />*/}
           <View className='bd-radius radius-box mg-b-30'>

@@ -7,6 +7,7 @@ export const getHolidaySingle = async (data) => {
   return await request.get({
     url: '/holiday/single/' + data.date,
     data: null,
+    needCode: true,
   });
 };
 
