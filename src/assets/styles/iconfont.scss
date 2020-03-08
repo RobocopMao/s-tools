@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'iconfont';  /* project id 1379291 */
-  src: url('//at.alicdn.com/t/font_1379291_y8xj67qtvle.eot');
-  src: url('//at.alicdn.com/t/font_1379291_y8xj67qtvle.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1379291_y8xj67qtvle.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1379291_y8xj67qtvle.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1379291_y8xj67qtvle.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1379291_y8xj67qtvle.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1379291_1pjcliom19w.eot');
+  src: url('//at.alicdn.com/t/font_1379291_1pjcliom19w.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1379291_1pjcliom19w.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1379291_1pjcliom19w.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1379291_1pjcliom19w.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1379291_1pjcliom19w.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -16,32 +16,128 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.iconrenwu:before {
-  content: "\e60c";
-}
-
-.iconsrcip:before {
-  content: "\e609";
-}
-
-.iconBMI:before {
-  content: "\e648";
-}
-
-.iconchengyu:before {
-  content: "\e603";
+.iconhanzi:before {
+  content: "\e6fe";
 }
 
 .iconbing:before {
   content: "\e641";
 }
 
+.icontongyongwenzishibie-shengpizi:before {
+  content: "\e662";
+}
+
+.iconic_bookmark_border_px:before {
+  content: "\e654";
+}
+
+.iconchengyu:before {
+  content: "\e603";
+}
+
+.iconic_smartphone_px:before {
+  content: "\e693";
+}
+
+.iconic_notifications_none_px:before {
+  content: "\e6ab";
+}
+
+.iconic_face_outline_px:before {
+  content: "\e6df";
+}
+
+.iconic_content_copy_px:before {
+  content: "\e643";
+}
+
+.iconic_swap_hori_px-copy:before {
+  content: "\e70a";
+}
+
+.iconic_g_translate_px:before {
+  content: "\e661";
+}
+
+.iconic_arrow_drop_down_px:before {
+  content: "\e698";
+}
+
+.iconic_arrow_drop_up_px:before {
+  content: "\e69a";
+}
+
+.iconrenwu:before {
+  content: "\e60c";
+}
+
+.iconic_transform_px:before {
+  content: "\e704";
+}
+
+.iconic_save_px:before {
+  content: "\e6bc";
+}
+
 .iconwujilu:before {
   content: "\e657";
 }
 
-.icontongyongwenzishibie-shengpizi:before {
-  content: "\e662";
+.iconic_sms_px:before {
+  content: "\e6bb";
+}
+
+.iconic_amp_stories_px:before {
+  content: "\e6ba";
+}
+
+.iconBMI:before {
+  content: "\e648";
+}
+
+.iconic_image_search_px:before {
+  content: "\e709";
+}
+
+.iconic_check_box_px:before {
+  content: "\e6af";
+}
+
+.iconic_check_box_outline_blank_px:before {
+  content: "\e6b9";
+}
+
+.iconsrcip:before {
+  content: "\e609";
+}
+
+.iconic_play_circle_filled_px:before {
+  content: "\e660";
+}
+
+.iconic_room_px:before {
+  content: "\e6b8";
+}
+
+.iconic_home_px:before {
+  content: "\e6b7";
+}
+
+.iconic_description_px:before {
+  content: "\e6b6";
+}
+
+.iconic_local_shipping_px:before {
+  content: "\e6b5";
+}
+
+.iconic_image_px:before {
+  content: "\e6b4";
+}
+
+.iconic_filter_drama_px:before {
+  content: "\e6b3";
 }
 
 .iconic_date_range_px:before {
@@ -50,14 +146,6 @@
 
 .iconic_launch_px:before {
   content: "\e649";
-}
-
-.iconic_bookmark_border_px:before {
-  content: "\e654";
-}
-
-.iconic_g_translate_px:before {
-  content: "\e661";
 }
 
 .iconic_language_px:before {
@@ -80,40 +168,12 @@
   content: "\e626";
 }
 
-.iconic_play_circle_filled_px:before {
-  content: "\e660";
-}
-
-.iconic_content_copy_px:before {
-  content: "\e643";
-}
-
 .iconic_add_px:before {
   content: "\e644";
 }
 
-.iconic_smartphone_px:before {
-  content: "\e693";
-}
-
 .iconic_crop_free_px:before {
   content: "\e697";
-}
-
-.iconic_filter_drama_px:before {
-  content: "\e6b3";
-}
-
-.iconic_transform_px:before {
-  content: "\e704";
-}
-
-.iconic_arrow_drop_down_px:before {
-  content: "\e698";
-}
-
-.iconic_arrow_drop_up_px:before {
-  content: "\e69a";
 }
 
 .iconic_chevron_left_px:before {
@@ -136,20 +196,8 @@
   content: "\e6c4";
 }
 
-.iconic_notifications_none_px:before {
-  content: "\e6ab";
-}
-
 .iconic_sentiment_very_satisfied_px:before {
   content: "\e6c5";
-}
-
-.iconic_check_box_px:before {
-  content: "\e6af";
-}
-
-.iconic_check_box_outline_blank_px:before {
-  content: "\e6b9";
 }
 
 .iconic_list_alt_px:before {
@@ -162,48 +210,4 @@
 
 .iconic_exposure_px:before {
   content: "\e6b2";
-}
-
-.iconic_image_px:before {
-  content: "\e6b4";
-}
-
-.iconic_local_shipping_px:before {
-  content: "\e6b5";
-}
-
-.iconic_description_px:before {
-  content: "\e6b6";
-}
-
-.iconic_home_px:before {
-  content: "\e6b7";
-}
-
-.iconic_room_px:before {
-  content: "\e6b8";
-}
-
-.iconic_image_search_px:before {
-  content: "\e709";
-}
-
-.iconic_amp_stories_px:before {
-  content: "\e6ba";
-}
-
-.iconic_sms_px:before {
-  content: "\e6bb";
-}
-
-.iconic_save_px:before {
-  content: "\e6bc";
-}
-
-.iconic_swap_hori_px-copy:before {
-  content: "\e70a";
-}
-
-.iconic_face_outline_px:before {
-  content: "\e6df";
 }

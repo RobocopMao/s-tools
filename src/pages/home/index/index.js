@@ -13,7 +13,7 @@ import './index.scss'
 
 // 随机卡片的颜色,写在外面防止卡片闪色
 const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837', '#FFAB91',
-  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#7C4DFF', '#6200EA', '#4E342E', '#607D8B', '#00E5FF', '#616161', '#81C784'];
+  '#FF6D00', '#FF3D00', '#FF5252', '#FF4081', '#AA00FF', '#7C4DFF', '#6200EA', '#4E342E', '#607D8B', '#00E5FF', '#616161', '#81C784', '#FFCA28'];
 const shuffleColors = shuffle(colorsArr);
 
 // bannerNo
@@ -71,8 +71,9 @@ function Index() {
     quotations: shuffleColors[19],
     rare_words: shuffleColors[20],
     bing_wallpaper: shuffleColors[21],
+    dictionary: shuffleColors[22],
     about: '#000000',
-    colorRandom: shuffleColors[random(0, 19)]
+    colorRandom: shuffleColors[random(0, 22)]
   };
 
   // 根据配置更新banners

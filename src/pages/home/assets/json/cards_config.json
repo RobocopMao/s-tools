@@ -152,6 +152,15 @@
   "extraTabId": 2,
   "useShowing": false
 }, {
+  "pageName": "dictionary",
+  "upperTxt": "汉",
+  "lowerTxt": "字字典",
+  "introTxt": "查询汉字读音和含义",
+  "iconClass": "font44 iconhanzi",
+  "url": "/pages/search/pages/dictionary/index",
+  "extraTabId": 2,
+  "useShowing": false
+}, {
   "pageName": "bing_wallpaper",
   "upperTxt": "B",
   "lowerTxt": "ing每日壁纸",

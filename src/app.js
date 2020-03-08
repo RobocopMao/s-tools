@@ -52,7 +52,8 @@ class App extends Component {
           'pages/express/index',
           'pages/express_note/index',
           'pages/idiom/index',
-          'pages/rare_words/index'
+          'pages/rare_words/index',
+          'pages/dictionary/index',
         ],
       },
       {
@@ -106,7 +107,7 @@ class App extends Component {
       navigationBarTitleText: '小工具S',
       navigationBarTextStyle: 'white'
     },
-    navigateToMiniProgramAppIdList: [''],
+    navigateToMiniProgramAppIdList: ['wx892bebdc63488ab2'],
     permission: {
       'scope.userLocation': {
         'desc': '你的位置信息将用于小程序查询天气'
