@@ -11,6 +11,7 @@ import bannerImg10 from '../images/banner10.jpg';
 import bannerImg11 from '../images/banner11.jpg';
 import bannerImg12 from '../images/banner12.jpg';
 import bannerImg13 from '../images/banner13.jpg';
+import bannerImg14 from '../images/banner14.jpg';
 
 const bannersConfig = [
   {img: bannerImg1, color: '#1E154D', colorType: 'dark'},
@@ -26,6 +27,7 @@ const bannersConfig = [
   {img: bannerImg11, color: '#AD1D26', colorType: 'dark'},
   {img: bannerImg12, color: '#fcbf82', colorType: 'light'},
   {img: bannerImg13, color: '#E03447', colorType: 'dark'},
+  {img: bannerImg14, color: '#e7eaea', colorType: 'light'},
 ];
 
 export default bannersConfig;

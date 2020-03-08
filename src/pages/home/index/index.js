@@ -27,6 +27,9 @@ const tabTypes = [
   {name: '其他', id: 3}
 ];
 
+// 版本号
+const VERSION = '2.4.9';
+
 function Index() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
@@ -512,7 +515,7 @@ function Index() {
             </View>
           )
         })}
-        {selectedTabId === 0 && version && <View className={`flex-100per version text-center pd-t-24 lh-40 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}>版本号：{version || '2.4.9'}</View>}
+        {selectedTabId === 0 && version && <View className={`flex-100per version text-center pd-t-24 lh-40 ${banners[bannerNo]['colorType'] === 'dark' ? 'text-light' : 'text-dark'}`}>版本号：{version || VERSION}</View>}
       </View>
       <View className='flex-row flex-col-center h80 bg-black fixed-btn' animation={animationData}>
         <Button className='iconfont flex-row flex-col-center flex-row-center w80 h80 text-center font40 white pd-0 bg-black' onClick={() => animateFixedBtn()}>
