@@ -24,4 +24,11 @@
       z-index: 1;
     }
   }
+  &.dark-model {
+    view.update-log {
+      &:before, &:after {
+        background-color: $white;
+      }
+    }
+  }
 }

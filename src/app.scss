@@ -608,3 +608,26 @@ button::after {
   height: 0;
   color: transparent;
 }
+
+.dark-model {
+  background-color: #000000;
+  color: $color-e6;
+  // 文字颜色
+  .dm-white {
+    color: #ffffff;
+  }
+  .dm-color-e6 {
+    color: $color-e6;
+  }
+  .dm-color-c6 {
+    color: $color-c6;
+  }
+
+  // 背景
+  .dm-bg-black {
+    background-color: $black;
+  }
+  .dm-bg-09 {
+    background-color: $color-09;
+  }
+}

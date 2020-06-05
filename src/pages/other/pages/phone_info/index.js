@@ -20,8 +20,8 @@ function PhoneInfo() {
   }, []);
 
   return (
-    <View className='phone-info'>
-      <View className='bd-radius mg-20 bg-white'>
+    <View className={`phone-info ${user.useDarkModel ? 'dark-model' : ''}`}>
+      <View className='bd-radius mg-20 bg-white dm-bg-09'>
         <View className='flex-row space-between pd-26'>
           <View>设备品牌</View>
           <View>{brand}</View>
@@ -138,7 +138,7 @@ function PhoneInfo() {
           <View>{notificationSoundAuthorized ? `是` : `否` }</View>
         </View>}
       </View>
-      <View className='pd-20 color-a1 font24'>Tips: 以上信息均在小程序初始化时获取，动态修改不会刷新数据</View>
+      <View className='pd-20 color-a1 font24 dm-color-c6'>Tips: 以上信息均在小程序初始化时获取，动态修改不会刷新数据</View>
       {/*广告位*/}
       <View className='pd-20'>
         <ComponentCommonBannerAd />

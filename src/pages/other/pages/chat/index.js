@@ -4,10 +4,12 @@ import qrCodeImg from '../../assets/images/qrcode.jpg'
 import screenShoot1Img from '../../assets/images/screen_shot1.jpg'
 import screenShoot2Img from '../../assets/images/screen_shot2.jpg'
 import {ComponentCommonBannerAd} from '../../../../components/common/banner_ad'
+import {useSelector} from '@tarojs/redux'
 import './index.scss'
 
 function Chat() {
   const router = useRouter();
+  const user = useSelector(state => state.user);
   const [color, setColor] = useState('');
 
   // 设置color
@@ -26,7 +28,7 @@ function Chat() {
   };
 
   return (
-    <View className='chat text-center'>
+    <View className={`chat text-center ${user.useDarkModel ? 'dark-model' : ''}`}>
       <View className='flex-row flex-row-center mg-t-40'>
         <Image className='qr-code' src={qrCodeImg} showMenuByLongpress />
       </View>

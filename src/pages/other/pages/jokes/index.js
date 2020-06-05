@@ -47,7 +47,7 @@ function Jokes() {
 
   return (
     <ScrollView
-      className='jokes'
+      className={`jokes ${user.useDarkModel ? 'dark-model' : ''}`}
       scrollY
       scrollWithAnimation
       style={{height: `${windowHeight}px`}}
@@ -58,7 +58,7 @@ function Jokes() {
         {jokes.map((joke, index) => {
           return (
             <View key={String(index)} className={`${joke.content.length > 50 ? 'pd-t-20' : ''}`}>
-              {joke.content.length > 50 && <RichText nodes={joke.content.replace(/\s{2,}/g, '<p></p>')} className='font32 lh-50 black' />}
+              {joke.content.length > 50 && <RichText nodes={joke.content.replace(/\s{2,}/g, '<p></p>')} className='font32 lh-50 black dm-color-e6' />}
               {joke.content.length > 50 && <View className='mg-t-30 font24'>
                 {/*<Text className='mg-r-20 blue'>{index + 1}</Text>*/}
                 <Text>于 {moment(joke.updateTime).format('YYYY-MM-DD HH:mm')} 加入</Text>

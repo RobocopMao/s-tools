@@ -78,6 +78,7 @@ function Index() {
     bing_wallpaper: shuffleColors[21],
     dictionary: shuffleColors[22],
     about: '#000000',
+    darkModel: '#000000',
     colorRandom: shuffleColors[random(0, 22)]
   };
 
@@ -327,6 +328,9 @@ function Index() {
   const openDarkModel = () => {
       Taro.setStorageSync('USE_DARK_MODEL', !user.useDarkModel);
       dispatch(setDarkModel(!user.useDarkModel));
+      let tips = !user.useDarkModel ? '已开启深色模式' : '深色模式已关闭';
+      Taro.showToast({title: tips, icon: 'none'});
+      animateFixedBtn();
   };
 
   // 去通知
@@ -517,7 +521,7 @@ function Index() {
           const {pageName, upperTxt, lowerTxt, introTxt, icon, iconClass, url, extraTabId, useShowing} = card;
           return (
             (useShowing ? showing : true) && (selectedTabId === 0 || selectedTabId === extraTabId) && <View key={pageName} className={`flex-50per bd-box ${shakingCard === pageName ? 'shake' : ''}`} onTouchStart={() => shakingCards(pageName)} onTouchEnd={() => shakingCards()}>
-              <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors[pageName]}} url={`${url}?color=${colors[pageName]}`}>
+              <Navigator className='flex-column bd-radius pd-20 pd-b-30 mg-20 relative' style={{backgroundColor: colors[pageName]}} url={`${url}?color=${user.useDarkModel ? colors['darkModel'] : colors[pageName]}`}>
                 <View className='flex-row space-between'>
                   <View className='lh-64'><Text className='font40'>{upperTxt}</Text>{lowerTxt}</View>
                   <View className={`iconfont w64 h64 lh-64 text-center ${iconClass}`} />
@@ -543,7 +547,7 @@ function Index() {
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
           {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
           {/*</Navigator>*/}
-          <Button className='iconfont w64 h64 lh-64 text-center font44 white pd-0 bg-black mg-r-20' onClick={() => openDarkModel()}>&#xe68f;</Button>
+          <Button className='iconfont w64 h64 lh-64 text-center font50 white pd-0 bg-black mg-r-20' onClick={() => openDarkModel()}>&#xe68f;</Button>
           <Button className='iconfont w64 h64 lh-64 text-center font40 share white pd-0 bg-black mg-r-20' openType='contact'>&#xe6bb;</Button>
           <Button className='iconfont w64 h64 lh-64 text-center font44 white pd-0 bg-black mg-r-20' onClick={() => goAbout()}>&#xe626;</Button>
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>*/}
