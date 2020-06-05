@@ -112,9 +112,9 @@
   .fixed-btn {
     position: fixed;
     bottom: 10px;
-    right: -400px;
+    right: -420px;
     z-index: 10;
-    width: 480px;
+    width: 500px;
     border-radius: 50px 0 0 50px;
     &.bg-black {
       background-color: rgba(0, 0, 0, 0.6);
@@ -123,7 +123,7 @@
       background-color: transparent;
     }
     .func-btn {
-      width: 400px;
+      width: 420px;
       & > .bg-black {
         background-color: transparent;
       }

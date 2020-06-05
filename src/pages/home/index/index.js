@@ -1,6 +1,6 @@
 import Taro, {useEffect, useState, usePageScroll, useShareAppMessage, useRouter} from '@tarojs/taro'
 import {View, Text, Image, Navigator, ScrollView, /**Swiper, SwiperItem**/} from '@tarojs/components'
-import { useSelector } from '@tarojs/redux'
+import { useSelector, useDispatch } from '@tarojs/redux'
 import shuffle from 'lodash/shuffle'
 import random from 'lodash/random'
 import { S_WEATHER_APPID} from '../../../apis/config'
@@ -10,6 +10,7 @@ import {useInterstitialAd} from '../../../hooks'
 // import {ComponentCommonVideoAd} from '../../../components/common/video_ad'
 import cardsConfig from '../assets/json/cards_config.json'
 import './index.scss'
+import {setDarkModel} from "../../../redux/user/action";
 
 // 随机卡片的颜色,写在外面防止卡片闪色
 const colorsArr = ['#304FFE', '#0091EA', '#00B8D4', '#00BFA5', '#1B5E20', '#00C853', '#9E9D24', '#AEEA00', '#FFB837', '#FFAB91',
@@ -34,6 +35,7 @@ function Index() {
   const router = useRouter();
   const pConfig = useSelector(state => state.pConfig);
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const interstitialAd = useInterstitialAd();
   const {showing, noticeTime, notice, showingBanners, enableSkinSetting, version} = pConfig.config;
   const {statusBarHeight, navSafeHeight} = user.systemInfo;
@@ -143,6 +145,12 @@ function Index() {
       }
     }
   }, [noticeTime, notice]);
+
+  // 初始化深色模式
+  useEffect(() => {
+    const USE_DARK_MODEL = Taro.getStorageSync('USE_DARK_MODEL');
+    dispatch(setDarkModel(!!USE_DARK_MODEL));
+  }, []);
 
   // 显示转发按钮
   useEffect(() => {
@@ -313,6 +321,12 @@ function Index() {
         }
       }
     });
+  };
+
+  // 开启深色模式
+  const openDarkModel = () => {
+      Taro.setStorageSync('USE_DARK_MODEL', !user.useDarkModel);
+      dispatch(setDarkModel(!user.useDarkModel));
   };
 
   // 去通知
@@ -529,6 +543,7 @@ function Index() {
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-t-20' url={`/pages/home/color_setting/index?color=${colors.color_setting}`}>*/}
           {/*<View className='iconfont w64 h64 lh-64 text-center font44'>&#xe63f;</View>*/}
           {/*</Navigator>*/}
+          <Button className='iconfont w64 h64 lh-64 text-center font44 white pd-0 bg-black mg-r-20' onClick={() => openDarkModel()}>&#xe68f;</Button>
           <Button className='iconfont w64 h64 lh-64 text-center font40 share white pd-0 bg-black mg-r-20' openType='contact'>&#xe6bb;</Button>
           <Button className='iconfont w64 h64 lh-64 text-center font44 white pd-0 bg-black mg-r-20' onClick={() => goAbout()}>&#xe626;</Button>
           {/*<Navigator className='bd-box circle w64 h64 bg-black mg-r-20' url={`/pages/other/pages/about/index?color=${colors.about}`}>*/}

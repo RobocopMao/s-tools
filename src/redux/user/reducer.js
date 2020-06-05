@@ -1,8 +1,9 @@
-import {SET_SYSTEM_INFO, SET_BD_AI_TOKEN} from './constant'
+import {SET_SYSTEM_INFO, SET_BD_AI_TOKEN, SET_DARK_MODEL} from './constant'
 
 const INITIAL_STATE = {
   systemInfo: {},
-  bdAiToken: {}
+  bdAiToken: {},
+  useDarkModel: false,
 };
 
 export default function reducer (state = INITIAL_STATE, action) {
@@ -17,6 +18,11 @@ export default function reducer (state = INITIAL_STATE, action) {
         ...state,
         bdAiToken: Object.assign({}, state.bdAiToken, action.bdAiToken)
       };
+    case SET_DARK_MODEL:
+      return {
+        ...state,
+        useDarkModel: action.useDarkModel
+      }
     default:
        return state
   }

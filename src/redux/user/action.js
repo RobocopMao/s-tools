@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import {SET_SYSTEM_INFO, SET_BD_AI_TOKEN} from './constant'
+import {SET_SYSTEM_INFO, SET_BD_AI_TOKEN, SET_DARK_MODEL} from './constant'
 import {getSystemInfo} from '../../utils';
 
 export const setSystemInfo = (systemInfo) => {
@@ -30,5 +30,13 @@ export const setBdAiToken = (bdAiToken) => {
   return {
     type: SET_BD_AI_TOKEN,
     bdAiToken
+  }
+};
+
+// 设置深色模式
+export const setDarkModel = (useDarkModel) => {
+  return {
+    type: SET_DARK_MODEL,
+    useDarkModel
   }
 };
