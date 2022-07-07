@@ -39,7 +39,7 @@
 		"global": "^4.4.0",
 		"install": "^0.12.2",
 		"lodash": "^4.17.15",
-		"moment": "^2.24.0",
+		"moment": "^2.29.4",
 		"nerv-devtools": "^1.4.4",
 		"nervjs": "^1.4.4",
 		"redux": "^4.0.0",
